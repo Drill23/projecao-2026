@@ -5,6 +5,9 @@ on:
     paths: ["scripts/preparar_base.py", ".github/workflows/preparar-base.yml"]
 permissions:
   contents: write
+concurrency:
+  group: base
+  cancel-in-progress: true
 jobs:
   base:
     runs-on: ubuntu-latest
@@ -14,12 +17,17 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install numpy pandas
-      - run: python scripts/preparar_base.py
-      - name: Salvar base
+      - name: Montar base
+        run: |
+          mkdir -p logs
+          set -o pipefail
+          python -u scripts/preparar_base.py 2>&1 | tee logs/base.txt
+      - name: Salvar base e log
+        if: always()
         run: |
           git config user.name "projecao-bot"
           git config user.email "projecao-bot@users.noreply.github.com"
           git fetch origin main && git reset --soft origin/main
-          git add base
+          git add logs base 2>/dev/null || git add logs
           git commit -m "Base por seção (1º turno 2026 + 2022)" || exit 0
           git push origin HEAD:main
