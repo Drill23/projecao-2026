@@ -1,0 +1,24 @@
+name: Preparar base
+on:
+  workflow_dispatch:
+  push:
+    paths: ["scripts/preparar_base.py", ".github/workflows/preparar-base.yml"]
+permissions:
+  contents: write
+jobs:
+  base:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy pandas
+      - run: python scripts/preparar_base.py
+      - name: Salvar base
+        run: |
+          git config user.name "projecao-bot"
+          git config user.email "projecao-bot@users.noreply.github.com"
+          git add base
+          git commit -m "Base por seção (1º turno 2026 + 2022)" || exit 0
+          git pull --rebase origin main && git push origin HEAD:main
