@@ -1,0 +1,4 @@
+02:29:41 apurando apurado 98.93% bruto 0.4900346797209729 proj 48.99 [48.95, 49.01] tempos {'leitura_s': 148.2, 'modelo_s': 1.2}
+DIAG municípios com resultado: 5498 de 5757 | soma A,B: 53464655 55639164 | oficial A,B: None None | est soma/oficial: 157043937 None | te soma/oficial: 158745502 None | seções marcadas apuradas: 6969 de 517179 | eleitorado nessas seções: 2258320 | erros de leitura: {'n': 1148, 'ult': 'HTTP 429 jus.br/oficial/ele2026/6257/dados/br/br-c0001-e006257-u.json'}
+02:30:05 aguardando apurado 0.00% bruto None proj None [None, None] tempos {'leitura_s': 23.0, 'modelo_s': 0.0}
+DIAG municípios com resultado: 0 de 5757 | soma A,B: 0 0 | oficial A,B: None None | est soma/oficial: 0 None | te soma/oficial: 158745502 None | seções marcadas apuradas: 0 de 517179 | eleitorado nessas seções: 0 | erros de leitura: {'n': 116, 'ult': 'HTTP 429 jus.br/oficial/ele2026/6258/dados/br/br-c0001-e006258-u.json'}
