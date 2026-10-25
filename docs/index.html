@@ -198,11 +198,25 @@ footer{margin-top:40px;font-size:13px;color:var(--tinta2)}
 
 <script>
 const REPO = "Drill23/projecao-2026";
-const FONTES = [
-  () => fetch(`https://api.github.com/repos/${REPO}/contents/projecao.json?ref=dados`,
-              {headers:{Accept:"application/vnd.github.raw+json"}, cache:"no-cache"}),
-  () => fetch(`https://raw.githubusercontent.com/${REPO}/dados/projecao.json?t=${Date.now()}`, {cache:"no-store"}),
-];
+// Fonte principal: API do GitHub (dado novo na hora, mas limitada a 60 leituras por hora por
+// conexão). Quando o limite acaba, usa o arquivo "raw", que não tem limite mas pode vir com
+// até ~5 minutos de atraso.
+const URL_API = `https://api.github.com/repos/${REPO}/contents/projecao.json?ref=dados`;
+const URL_RAW = () => `https://raw.githubusercontent.com/${REPO}/dados/projecao.json?t=${Date.now()}`;
+let apiPausadaAte = 0;
+async function lerAPI(){
+  if (Date.now() < apiPausadaAte) return null;
+  const r = await fetch(URL_API, {headers:{Accept:"application/vnd.github.raw+json"}, cache:"no-cache"});
+  const resta = parseInt(r.headers.get("X-RateLimit-Remaining"), 10);
+  const reset = parseInt(r.headers.get("X-RateLimit-Reset"), 10);
+  if (r.status === 403 || r.status === 429 || (!isNaN(resta) && resta <= 3))
+    apiPausadaAte = reset ? reset * 1000 + 5000 : Date.now() + 15 * 60000;
+  return r.ok ? r.json() : null;
+}
+async function lerRaw(){
+  const r = await fetch(URL_RAW(), {cache:"no-store"});
+  return r.ok ? r.json() : null;
+}
 const $ = id => document.getElementById(id);
 const pct = (x, d=1) => x == null ? "–" : (100*x).toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d});
 const int = x => x == null ? "–" : Math.round(x).toLocaleString("pt-BR");
@@ -222,8 +236,8 @@ let dados = null, ordem = {k:"votos", desc:true}, falhas = 0;
 })();
 
 async function carregar(){
-  for (const f of FONTES){
-    try { const r = await f(); if (r.ok){ falhas = 0; return await r.json(); } } catch(e) {}
+  for (const f of [lerAPI, lerRaw]){
+    try { const d = await f(); if (d){ falhas = 0; return d; } } catch(e) {}
   }
   falhas++; return null;
 }
@@ -354,11 +368,19 @@ function grafico(d){
 
 async function ciclo(){
   const d = await carregar();
-  if (d) render(d);
-  else if (falhas >= 3) $("estado-txt").innerHTML = `<span class="erro">Não foi possível ler os dados agora. A página tenta de novo a cada 45 segundos.</span>`;
+  // nunca volta para um dado mais antigo (o arquivo raw pode estar atrasado)
+  if (d && (!dados || !dados.atualizado || d.atualizado >= dados.atualizado)) render(d);
+  else if (!d && falhas >= 3) $("estado-txt").innerHTML = `<span class="erro">Não foi possível ler os dados agora. A página tenta de novo a cada minuto.</span>`;
 }
-ciclo();
-setInterval(ciclo, 45000);
+let timer = null;
+function agendar(){
+  clearTimeout(timer);
+  // com a API: a cada 75 s (cabe no limite de 60 por hora); sem ela: a cada 60 s
+  const espera = Date.now() < apiPausadaAte ? 60000 : 75000;
+  timer = setTimeout(async () => { if (!document.hidden) await ciclo(); agendar(); }, espera);
+}
+document.addEventListener("visibilitychange", () => { if (!document.hidden){ ciclo(); agendar(); } });
+ciclo(); agendar();
 let tRes; addEventListener("resize", () => { clearTimeout(tRes); tRes = setTimeout(() => dados && grafico(dados), 150); });
 </script>
 </body>

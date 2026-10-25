@@ -23,7 +23,8 @@ atualizada a cada minuto durante a apuração. Projeção não oficial.
   2022, com as urnas chegando na ordem real de chegada (amostra dos arquivos auxiliares do
   1º turno de 2026). Erro da projeção abaixo de 0,2 ponto já com 1% apurado.
 - **Página** (`docs/index.html`, publicada no GitHub Pages): lê `projecao.json` do ramo
-  `dados` a cada 45 segundos.
+  `dados` a cada 75 segundos pela API do GitHub; se o limite de 60 leituras por hora acabar,
+  usa o arquivo raw (pode atrasar até ~5 min).
 
 ## Ligar à mão
 
