@@ -60,25 +60,46 @@ def main(n_boot=60, seeds=(0,), checkpoints=(0.5, 1, 2, 3, 5, 8, 12, 20, 35, 50,
     final = L2.sum() / (L2.sum() + B2.sum())
     print(f"resultado final (Lula, % válidos A+B): {100*final:.3f}")
 
-    cheg = b["cheg1"][m].astype(float)
+    # horários reais de chegada (amostra dos arquivos auxiliares do 1º turno de 2026)
+    am = np.load("base/chegada_amostra.npz")
+    pos = np.full(len(b["uf"]), -1.0)
+    pos[am["idx"]] = am["minutos"]
+    cheg = pos[m]
+    Emun = _bincount(mun, E, n_mun)
+    faixa = np.digitize(np.log10(np.maximum(Emun, 1)), [3.7, 4.2, 4.7, 5.2, 5.7])[mun]   # porte do município
     resultados = []
     for seed in seeds:
         rng = np.random.default_rng(seed)
         ch = cheg.copy()
-        falt = ch < 0
-        # sem horário: sorteia dentro da distribuição da UF
-        for u in np.unique(uf[falt]):
-            pool = ch[(uf == u) & ~falt]
-            sel = falt & (uf == u)
-            ch[sel] = rng.choice(pool, sel.sum()) if len(pool) else rng.uniform(0, 300, sel.sum())
-        # pequeno ruído para variar a ordem entre sementes
-        ch = ch + rng.normal(0, 3 if seed else 0.01, len(ch))
+        tem = ch >= 0
+        # 1) sorteia entre os horários amostrados do mesmo município (se houver 2 ou mais)
+        cnt = _bincount(mun, tem * 1.0, n_mun)
+        ordm = np.argsort(mun[tem], kind="stable")
+        tempos_m = ch[tem][ordm]
+        inicio = np.concatenate([[0], np.cumsum(cnt)[:-1]]).astype(np.int64)
+        falta = ~tem & (cnt[mun] >= 2)
+        r = rng.random(falta.sum())
+        j = inicio[mun[falta]] + (r * cnt[mun[falta]]).astype(np.int64)
+        ch[falta] = tempos_m[j] + rng.normal(0, 4, falta.sum())
+        # 2) senão, entre os da mesma UF e porte de município
+        falta = ch < 0
+        for u in np.unique(uf[falta]):
+            for f in np.unique(faixa[falta & (uf == u)]):
+                sel = falta & (uf == u) & (faixa == f)
+                pool = cheg[tem & (uf == u) & (faixa == f)]
+                if len(pool) == 0:
+                    pool = cheg[tem & (uf == u)]
+                ch[sel] = rng.choice(pool, sel.sum()) + rng.normal(0, 4, sel.sum())
+        # 3) nas seções com horário real, pequeno ruído diferente por semente
+        ch[tem] = ch[tem] + rng.normal(0, 1.5 if seed else 0.0, tem.sum())
         ordem = np.argsort(ch)
         cumE = np.cumsum(E[ordem]) / E.sum()
         X = covs18(b, m, mun, np.maximum(G.sum(1), 1)) if usar_cov else np.zeros((len(E), 0))
         mod = Modelo(G, C1, E, mun, uf, reg, X, rho=rho,
                      q_prior=[0.55, 0.6, 0.35], q_sd=[QSD, QSD, QSD],
                      n_mun=n_mun, n_uf=len(meta["ufs"]), n_reg=6, prior_turn=1.0, prior_valid=0.95)
+        mod.infla = float(__import__("os").environ.get("INFLA", "1"))
+        mod.piso = float(__import__("os").environ.get("PISO", "0"))
         te = _bincount(mun, E, n_mun)
         for cp in checkpoints:
             k = int(np.searchsorted(cumE, cp / 100))
@@ -96,7 +117,7 @@ def main(n_boot=60, seeds=(0,), checkpoints=(0.5, 1, 2, 3, 5, 8, 12, 20, 35, 50,
             dentro = o["pA_lo"] <= final <= o["pA_hi"]
             resultados.append({"seed": seed, "pct": cp, "proj": o["pA"], "lo": o["pA_lo"], "hi": o["pA_hi"],
                                "bruto": bruto, "erro_pp": 100 * (o["pA"] - final), "dentro": bool(dentro),
-                               "q": o["q"]})
+                               "q": o["q"], "sd": o["pA_sd"]})
             if verbose: print(f"seed {seed} {cp:5.1f}% apurado | bruto {100*bruto:6.2f} | proj {100*o['pA']:6.2f} "
                   f"[{100*o['pA_lo']:.2f}, {100*o['pA_hi']:.2f}] erro {100*(o['pA']-final):+.2f} pp "
                   f"{'ok' if dentro else 'FORA'} | q={np.round(o['q'],2)} sig={np.sqrt(o['sig2']):.3f} "

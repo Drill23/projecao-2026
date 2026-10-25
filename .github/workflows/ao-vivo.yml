@@ -1,0 +1,46 @@
+name: Apuração ao vivo
+# Liga sozinho no dia 25/10 pouco antes das 17h (Brasília) e roda até a apuração terminar.
+# O agendamento do GitHub costuma atrasar alguns minutos, por isso o primeiro disparo é às
+# 16:47 e há reservas. Cada execução dura até ~5h50; a execução seguinte (já na fila)
+# continua de onde parou se a apuração ainda não tiver acabado.
+# Também pode ser ligado à mão: aba Actions -> "Apuração ao vivo" -> Run workflow.
+on:
+  schedule:
+    - cron: "47 19 25 10 *"   # 16:47 Brasília
+    - cron: "3 20 25 10 *"    # 17:03 (reserva)
+    - cron: "19 20 25 10 *"   # 17:19 (reserva)
+    - cron: "41 1 26 10 *"    # 22:41 (continuação, se ainda houver apuração)
+  workflow_dispatch:
+    inputs:
+      ensaio:
+        description: "Ensaio com os arquivos do 1º turno (uma rodada só)"
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: ao-vivo
+  cancel-in-progress: false
+jobs:
+  apuracao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 358
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy scipy
+      - name: Loop da apuração
+        env:
+          ELEICAO: ${{ inputs.ensaio && '6257' || '6258' }}
+          PLEITO: ${{ inputs.ensaio && '3220' || '3221' }}
+        run: |
+          git config user.name "projecao-bot"
+          git config user.email "projecao-bot@users.noreply.github.com"
+          if [ "${{ inputs.ensaio }}" = "true" ]; then
+            python -u scripts/ao_vivo.py --uma-vez --boot 60
+            mkdir -p logs && cp saida/projecao.json logs/ensaio.json
+            git add logs/ensaio.json && git commit -qm "Ensaio" && git push -q origin HEAD:main || true
+          else
+            python -u scripts/ao_vivo.py --publicar --ate 2026-10-26T02:00 --max-min 350
+          fi

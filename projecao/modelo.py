@@ -58,6 +58,8 @@ class Modelo:
             if n_reg > 5:
                 sd_reg[5] = 0.35
         self.sd_reg = np.asarray(sd_reg, float)
+        self.infla = 1.0      # calibrados na reprise de 2022
+        self.piso = 0.0
         # UF e região de cada município
         self.uf_mun = np.zeros(n_mun, np.int64)
         self.uf_mun[self.mun] = self.uf
@@ -109,7 +111,7 @@ class Modelo:
         return p
 
     # ------------------------------------------------------------------ ajuste
-    def _ajustar(self, Gc, Xc, idx, y, w, x0, prior_reg=0.0):
+    def _ajustar(self, Gc, Xc, idx, y, w, x0, prior_reg=0.0, cov=False):
         K2 = self.K - 2
         mu = np.concatenate([self.q_prior, [prior_reg], np.zeros(self.n_reg), np.zeros(self.n_cov), [0.0]])
         sd = np.concatenate([self.q_sd, [0.6], self.sd_reg, np.full(self.n_cov, 1.5), [0.3]])
@@ -120,6 +122,9 @@ class Modelo:
             return np.concatenate([r, (th - mu) / sd])
         sol = least_squares(res, x0 if x0 is not None else mu.copy(), method="trf",
                             x_scale="jac", max_nfev=200)
+        if cov:
+            J = sol.jac
+            return sol.x, np.linalg.pinv(J.T @ J)
         return sol.x
 
     def projetar(self, cont, obs, n_boot=120, seed=0, prior_reg=0.0, full=False):
@@ -175,11 +180,13 @@ class Modelo:
         noise_full[idx] = noise
         sig2 = 0.01
         th = self._x0
-        for _ in range(3):
+        for it in range(3):
             w = 1.0 / (sig2 + noise)
             th = self._ajustar(Gc, Xc, idx, y, w, th, prior_reg)
             r = y - self._pred_mun(th, Gc, Xc, idx)
             sig2 = float(np.clip(np.sum(V[idx] * (r ** 2 - noise)) / np.sum(V[idx]), 2e-4, 0.25))
+        w = 1.0 / (sig2 + noise)
+        th, Sigma = self._ajustar(Gc, Xc, idx, y, w, th, prior_reg, cov=True)
         self._x0 = th
 
         # --- comparecimento e taxa de votos válidos (A+B)/comp, por UF com encolhimento
@@ -255,29 +262,37 @@ class Modelo:
         out["uf_obs_pA"] = (_bincount(self.uf_mun, A, self.n_uf) /
                             np.maximum(_bincount(self.uf_mun, A + Bv, self.n_uf), 1)).tolist()
 
-        # --- bootstrap
+        # --- incerteza: sorteios dos parâmetros (aproximação de Laplace) + efeitos não observados
         sims = []
         obs_mun = np.zeros(n, bool)
         obs_mun[idx] = True
+        try:
+            Lc = np.linalg.cholesky(Sigma + 1e-10 * np.eye(len(th)))
+        except np.linalg.LinAlgError:
+            ev, evec = np.linalg.eigh(Sigma)
+            Lc = evec * np.sqrt(np.clip(ev, 0, None))
+        # informação de comparecimento por UF (quanto já se viu)
+        info_uf = C1o / (C1o + k_uf)
         for b in range(n_boot):
-            pw = rng.poisson(1.0, len(idx)).astype(float)
-            ok = pw > 0
-            if ok.sum() < 5:
-                continue
-            wb = w[ok] * pw[ok]
-            thb = self._ajustar(Gc, Xc, idx[ok], y[ok], wb, th, prior_reg)
-            ub, vmb, _, swb = efeitos(thb, wb, y[ok], idx[ok])
-            # efeitos não observados: UFs sem dados e municípios sem dados
-            ex_uf = rng.normal(0, np.sqrt(tau2), self.n_uf) * (1.0 / (1.0 + swb * tau2))
+            thb = th + Lc @ rng.standard_normal(len(th))
+            ub, vmb, _, swb = efeitos(thb, w, y, idx)
+            # efeitos não observados: UFs com pouca informação e municípios sem dados
+            ex_uf = rng.normal(0, np.sqrt(tau2), self.n_uf) / np.sqrt(1.0 + swb * tau2)
             ex_mun = rng.normal(0, np.sqrt(sig2), n)
-            ex_mun = np.where(obs_mun, ex_mun * np.sqrt(max(1 - self.rho ** 2, 0)) * 0.5, ex_mun)
+            ex_mun = np.where(obs_mun, ex_mun * np.sqrt(max(1 - self.rho ** 2, 0.05)), ex_mun)
             Apb, Bpb = projeta(thb, ub, vmb, ex_mun, ex_uf)
-            # incerteza no comparecimento/válidos pendentes (pequena)
-            s = 1 + rng.normal(0, 0.004)
-            sims.append((A.sum() + Apb.sum() * s, Bv.sum() + Bpb.sum() * s))
+            # incerteza no comparecimento/válidos das UFs pouco apuradas
+            s_uf = 1 + rng.normal(0, 0.012, self.n_uf) * (1 - info_uf)
+            Apb, Bpb = Apb * s_uf[self.uf], Bpb * s_uf[self.uf]
+            sims.append((A.sum() + Apb.sum(), Bv.sum() + Bpb.sum()))
         if sims:
             S = np.array(sims)
             pa = S[:, 0] / S.sum(1)
+            # calibração (reprise de 2022): alarga a dispersão e põe um piso que cai com a apuração
+            frac_pend = 1 - out["pct_eleitorado"]
+            sd0 = pa.std()
+            sd = np.sqrt((self.infla * sd0) ** 2 + (self.piso * frac_pend) ** 2)
+            pa = out["pA"] + (pa - pa.mean()) * (sd / max(sd0, 1e-12))
             out["pA_sims"] = pa.tolist() if full else None
             out["pA_lo"], out["pA_hi"] = float(np.quantile(pa, 0.05)), float(np.quantile(pa, 0.95))
             out["pA_sd"] = float(pa.std())

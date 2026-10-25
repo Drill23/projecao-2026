@@ -1,1 +1,5 @@
 exploracao/
+__pycache__/
+reprise_2022.json
+saida/
+.pub/
