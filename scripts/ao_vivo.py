@@ -23,7 +23,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from projecao.dados import Base2026  # noqa: E402
 
 DIV = "https://resultados.tse.jus.br/oficial/ele2026"
-ELE, PLEITO = "6258", "3221"
+ELE = os.environ.get("ELEICAO", "6258")      # 6257 = 1º turno (ensaio)
+PLEITO = os.environ.get("PLEITO", "3221")    # 3220 = 1º turno (ensaio)
 E6, P6 = f"{int(ELE):06d}", f"{int(PLEITO):06d}"
 BRT = dt.timezone(dt.timedelta(hours=-3))
 OUT = "saida"
