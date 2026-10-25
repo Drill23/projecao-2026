@@ -152,16 +152,16 @@ class Modelo:
             C1c[sem_cs] = C1all[sem_cs] * frac[sem_cs]
             Ec[sem_cs] = est[sem_cs]
             fc[sem_cs] = 1.0
+        fc = np.clip(fc, 0, 3)
+        # parte das seções marcadas como apuradas que o resultado do município ainda não reflete
+        resto_c = np.where(sem_cs, 0.0, np.clip(1 - fc, 0, 1))
         Gc = Gc * fc[:, None]
         C1c = C1c * fc
-        Ependb = Etot - _bincount(self.mun, self.E * cont, n)
+        Econt = _bincount(self.mun, self.E * cont, n)
+        Ependb = Etot - Econt + Econt * resto_c
         Ependb = np.where(sem_cs, Etot * (1 - np.where(Etot > 0, est / np.maximum(Etot, 1), 0)), Ependb)
         fp = np.where(Ependb > 0, np.maximum(te - est, 0) / np.maximum(Ependb, 1), 0.0)
         fp = np.clip(fp, 0, 3)
-        if sem_cs.any():
-            # seções desse município: nenhuma está marcada como apurada; a fração pendente é
-            # aplicada sobre todas elas
-            pass
 
         V = A + Bv
         idx = np.where((V >= 1) & (Gc.sum(1) >= 1))[0]
@@ -201,13 +201,13 @@ class Modelo:
         turn_uf = (compo + k_uf * turn_nat) / (C1o + k_uf)
         val_uf = (Vo + k_uf * val_nat) / (compo + k_uf)
 
-        pend = ~cont
-        # seções do município sem arquivo de seções mas com resultado: pendente = fração restante
+        # peso pendente de cada seção: as não apuradas inteiras; das marcadas como apuradas, só a
+        # fração que o resultado do município ainda não incorporou
         sec_fp = fp[self.mun]
         sec_fp = np.where(sem_cs[self.mun], np.where(Etot[self.mun] > 0,
                           np.maximum(te - est, 0)[self.mun] / np.maximum(Etot[self.mun], 1), 0), sec_fp)
-        pend = pend | sem_cs[self.mun]
-        Vp = self.C1 * turn_uf[self.uf] * val_uf[self.uf] * sec_fp * pend   # votos válidos A+B previstos
+        peso_pend = np.where(cont & ~sem_cs[self.mun], resto_c[self.mun], 1.0)
+        Vp = self.C1 * turn_uf[self.uf] * val_uf[self.uf] * sec_fp * peso_pend   # votos válidos A+B previstos
 
         Xs = self.X_sec
 
