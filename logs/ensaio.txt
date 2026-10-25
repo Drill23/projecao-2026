@@ -1,18 +1,18 @@
-02:44:24 encerrado apurado 58.41% bruto 0.4588091798223932 proj 48.81 [48.73, 48.93] tempos {'leitura_s': 6.0, 'modelo_s': 0.9}
+02:48:34 encerrado apurado 58.41% bruto 0.4588091798223932 proj 48.81 [48.73, 48.93] tempos {'leitura_s': 5.7, 'modelo_s': 1.6}
 DIAG municípios com resultado: 400 de 5757 | soma A,B: 29131408 34362108 | oficial A,B: 53879538.0 56104503.0 | est soma/oficial: 92721004 158745502.0 | te soma/oficial: 158745502 158745502.0 | seções marcadas apuradas: 499207 de 517179 | eleitorado nessas seções: 158745079 | erros de leitura: {'n': 0, 'ult': '', '429': 0}
-02:44:55 encerrado apurado 70.52% bruto 0.4681121188960985 proj 48.9 [48.83, 48.95] tempos {'leitura_s': 6.7, 'modelo_s': 1.0}
+02:49:04 encerrado apurado 70.52% bruto 0.4681121188960985 proj 48.9 [48.83, 48.95] tempos {'leitura_s': 5.7, 'modelo_s': 1.6}
 DIAG municípios com resultado: 859 de 5757 | soma A,B: 36013925 40920475 | oficial A,B: 53879538.0 56104503.0 | est soma/oficial: 111946404 158745502.0 | te soma/oficial: 158745502 158745502.0 | seções marcadas apuradas: 499207 de 517179 | eleitorado nessas seções: 158745079 | erros de leitura: {'n': 0, 'ult': '', '429': 0}
-02:45:25 encerrado apurado 78.57% bruto 0.47564791616902014 proj 48.93 [48.9, 48.98] tempos {'leitura_s': 6.7, 'modelo_s': 1.1}
+02:49:34 encerrado apurado 78.57% bruto 0.47564791616902014 proj 48.93 [48.9, 48.98] tempos {'leitura_s': 6.1, 'modelo_s': 1.6}
 DIAG municípios com resultado: 1387 de 5757 | soma A,B: 40870178 45055097 | oficial A,B: 53879538.0 56104503.0 | est soma/oficial: 124733111 158745502.0 | te soma/oficial: 158745502 158745502.0 | seções marcadas apuradas: 499207 de 517179 | eleitorado nessas seções: 158745079 | erros de leitura: {'n': 0, 'ult': '', '429': 0}
-02:45:56 encerrado apurado 84.97% bruto 0.48217273712363473 proj 48.96 [48.92, 48.98] tempos {'leitura_s': 7.6, 'modelo_s': 1.0}
+02:50:05 encerrado apurado 84.97% bruto 0.48217273712363473 proj 48.96 [48.92, 48.98] tempos {'leitura_s': 6.9, 'modelo_s': 1.6}
 DIAG municípios com resultado: 1995 de 5757 | soma A,B: 44874644 48192924 | oficial A,B: 53879538.0 56104503.0 | est soma/oficial: 134882723 158745502.0 | te soma/oficial: 158745502 158745502.0 | seções marcadas apuradas: 499207 de 517179 | eleitorado nessas seções: 158745079 | erros de leitura: {'n': 0, 'ult': '', '429': 0}
-02:46:29 encerrado apurado 90.19% bruto 0.48630635554332685 proj 48.97 [48.95, 48.99] tempos {'leitura_s': 10.8, 'modelo_s': 1.0}
+02:50:37 encerrado apurado 90.19% bruto 0.48630635554332685 proj 48.97 [48.95, 48.99] tempos {'leitura_s': 8.2, 'modelo_s': 1.7}
 DIAG municípios com resultado: 2694 de 5757 | soma A,B: 48108237 50817546 | oficial A,B: 53879538.0 56104503.0 | est soma/oficial: 143167181 158745502.0 | te soma/oficial: 158745502 158745502.0 | seções marcadas apuradas: 499207 de 517179 | eleitorado nessas seções: 158745079 | erros de leitura: {'n': 0, 'ult': '', '429': 0}
-02:46:57 encerrado apurado 94.35% bruto 0.4889469509175387 proj 48.99 [48.98, 49.0] tempos {'leitura_s': 9.3, 'modelo_s': 1.0}
+02:51:09 encerrado apurado 94.35% bruto 0.4889469509175387 proj 48.99 [48.98, 49.0] tempos {'leitura_s': 10.3, 'modelo_s': 1.7}
 DIAG municípios com resultado: 3498 de 5757 | soma A,B: 50663292 52953863 | oficial A,B: 53879538.0 56104503.0 | est soma/oficial: 149776462 158745502.0 | te soma/oficial: 158745502 158745502.0 | seções marcadas apuradas: 499207 de 517179 | eleitorado nessas seções: 158745079 | erros de leitura: {'n': 0, 'ult': '', '429': 0}
-02:47:30 encerrado apurado 97.50% bruto 0.4904533996342874 proj 48.99 [48.99, 49.0] tempos {'leitura_s': 12.0, 'modelo_s': 1.1}
+02:51:41 encerrado apurado 97.50% bruto 0.4904533996342874 proj 48.99 [48.99, 49.0] tempos {'leitura_s': 12.9, 'modelo_s': 1.7}
 DIAG municípios com resultado: 4398 de 5757 | soma A,B: 52570719 54617281 | oficial A,B: 53879538.0 56104503.0 | est soma/oficial: 154784076 158745502.0 | te soma/oficial: 158745502 158745502.0 | seções marcadas apuradas: 499207 de 517179 | eleitorado nessas seções: 158745079 | erros de leitura: {'n': 0, 'ult': '', '429': 0}
-02:48:00 encerrado apurado 99.53% bruto 0.4902744437764134 proj 48.99 [48.99, 48.99] tempos {'leitura_s': 12.2, 'modelo_s': 1.1}
+02:52:11 encerrado apurado 99.53% bruto 0.4902744437764134 proj 48.99 [48.99, 48.99] tempos {'leitura_s': 12.9, 'modelo_s': 1.8}
 DIAG municípios com resultado: 5298 de 5757 | soma A,B: 53664287 55793360 | oficial A,B: 53879538.0 56104503.0 | est soma/oficial: 157999450 158745502.0 | te soma/oficial: 158745502 158745502.0 | seções marcadas apuradas: 499207 de 517179 | eleitorado nessas seções: 158745079 | erros de leitura: {'n': 0, 'ult': '', '429': 0}
-02:48:02 aguardando apurado 0.00% bruto None proj None [None, None] tempos {'leitura_s': 0.2, 'modelo_s': 0.0}
+02:52:13 aguardando apurado 0.00% bruto None proj None [None, None] tempos {'leitura_s': 0.3, 'modelo_s': 0.0}
 DIAG municípios com resultado: 0 de 5757 | soma A,B: 0 0 | oficial A,B: 0.0 0.0 | est soma/oficial: 0 0.0 | te soma/oficial: 158745502 158745502.0 | seções marcadas apuradas: 0 de 517179 | eleitorado nessas seções: 0 | erros de leitura: {'n': 0, 'ult': '', '429': 0}
