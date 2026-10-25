@@ -1,0 +1,4 @@
+02:18:37 apurando apurado 66.21% bruto 0.5289530197165213 proj 48.95 [44.62, 54.32] tempos {'leitura_s': 416.0, 'modelo_s': 1.2}
+DIAG municípios com resultado: 3846 de 5757 | soma A,B: 39179611 34890504 | oficial A,B: None None | est soma/oficial: 105104088 None | te soma/oficial: 158745502 None | seções marcadas apuradas: 0 de 517179 | eleitorado nessas seções: 0
+02:18:56 aguardando apurado 0.00% bruto None proj None [None, None] tempos {'leitura_s': 18.3, 'modelo_s': 0.0}
+DIAG municípios com resultado: 0 de 5757 | soma A,B: 0 0 | oficial A,B: None None | est soma/oficial: 0 None | te soma/oficial: 158745502 None | seções marcadas apuradas: 0 de 517179 | eleitorado nessas seções: 0
