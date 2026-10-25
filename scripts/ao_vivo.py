@@ -235,6 +235,12 @@ class Estado:
             except Exception:  # noqa: BLE001
                 traceback.print_exc()
         t_modelo = time.time() - t0 - t_leitura
+        if getattr(self, "retomando", False):
+            atrasados = int(((self.st_ab > 0) & (self.st_res < 0)).sum())
+            if atrasados > 0:
+                print(f"retomando: {atrasados} municípios ainda por ler; não publica este ciclo", flush=True)
+                return None
+            self.retomando = False
         return self.saida(pct, proj, t_leitura, t_modelo)
 
     def saida(self, pct, proj, t_leitura, t_modelo):
@@ -325,6 +331,7 @@ def main():
         ant = get_json(url)
         if ant and ant.get("serie") and ant.get("atualizado", "")[:10] == agora().strftime("%Y-%m-%d"):
             est.serie = ant["serie"]
+            est.retomando = True     # reinício no meio da apuração: só publica depois de pôr tudo em dia
     except Exception:  # noqa: BLE001
         pass
     encerrado_desde = None
@@ -332,6 +339,11 @@ def main():
         t0 = time.time()
         try:
             out = est.ciclo(n_boot=a.boot)
+            if out is None:
+                if agora() >= fim:
+                    break
+                time.sleep(5)
+                continue
             p = out["projecao"]
             print(f"{agora():%H:%M:%S} {out['status']} apurado {100*out['apurado']['pct_eleitorado']:.2f}% "
                   f"bruto {out['apurado']['pA']} proj {None if not p else round(100*p['pA'],2)} "
@@ -355,7 +367,6 @@ def main():
                     break
         except Exception:  # noqa: BLE001
             traceback.print_exc()
-        n_ciclos = len(est.serie) if a.ciclos else 0
         est.n_ciclo = getattr(est, "n_ciclo", 0) + 1
         if a.uma_vez or agora() >= fim or (a.ciclos and est.n_ciclo >= a.ciclos):
             break
