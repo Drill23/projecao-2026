@@ -1,0 +1,169 @@
+[
+ {
+  "url": "https://resultados.tse.jus.br/oficial/comum/config/ele-c.json",
+  "status": 200,
+  "bytes": 26574,
+  "s": 0.09,
+  "headers": {
+   "Last-Modified": "Sun, 18 Oct 2026 15:38:28 GMT",
+   "ETag": "\"412f3d30a4a1edf91bd647ae5257612d\"",
+   "Cache-Control": "max-age=1",
+   "Date": "Sun, 25 Oct 2026 04:07:06 GMT",
+   "Content-Length": "26574",
+   "Content-Type": "application/json"
+  }
+ },
+ {
+  "eleicoes_detectadas": [
+   "619",
+   "620"
+  ]
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/619/config/mun-e000619-cm.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.4
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/619/dados-simplificados/br/br-c0001-e000619-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.46
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/619/dados-simplificados/sp/sp-c0001-e000619-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.58
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/619/dados-simplificados/sp/sp71072-c0001-e000619-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.4
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/619/dados/sp/sp71072-c0001-e000619-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.38
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/619/dados/sp/sp-c0001-e000619-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.5
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/619/dados/br/br-c0001-e000619-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.5
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/619/dados/ac/ac-e000619-ab.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.74
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/619/dados/br/br-e000619-ab.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.55
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/620/config/mun-e000620-cm.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.41
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/620/dados-simplificados/br/br-c0001-e000620-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.32
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/620/dados-simplificados/sp/sp-c0001-e000620-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.45
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/620/dados-simplificados/sp/sp71072-c0001-e000620-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.43
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/620/dados/sp/sp71072-c0001-e000620-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.55
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/620/dados/sp/sp-c0001-e000620-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.42
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/620/dados/br/br-c0001-e000620-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.61
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/620/dados/ac/ac-e000620-ab.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.59
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/620/dados/br/br-e000620-ab.json",
+  "erro": "<HTTPError 404: 'Not Found'>",
+  "s": 0.51
+ },
+ {
+  "pleitos_detectados": []
+ },
+ {
+  "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2026_AC.zip",
+  "HEAD": 200,
+  "len": "7589844",
+  "lm": "Tue, 06 Oct 2026 19:22:47 GMT"
+ },
+ {
+  "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2026_BR.zip",
+  "HEAD": 200,
+  "len": "161616519",
+  "lm": "Tue, 06 Oct 2026 19:22:49 GMT"
+ },
+ {
+  "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/detalhe_votacao_secao/detalhe_votacao_secao_2026.zip",
+  "HEAD": 200,
+  "len": "176923175",
+  "lm": "Wed, 07 Oct 2026 20:54:59 GMT"
+ },
+ {
+  "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/eleitorado_locais_votacao/eleitorado_local_votacao_2026.zip",
+  "HEAD": 200,
+  "len": "167636252",
+  "lm": "Sat, 24 Oct 2026 18:40:11 GMT"
+ },
+ {
+  "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2022_AC.zip",
+  "HEAD": 200,
+  "len": "6680201",
+  "lm": "Mon, 22 Jun 2026 14:45:09 GMT"
+ },
+ {
+  "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2022_BR.zip",
+  "HEAD": 200,
+  "len": "271292455",
+  "lm": "Thu, 24 Nov 2022 14:26:58 GMT"
+ },
+ {
+  "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/detalhe_votacao_secao/detalhe_votacao_secao_2022.zip",
+  "HEAD": 200,
+  "len": "243822213",
+  "lm": "Fri, 31 Jul 2026 19:47:56 GMT"
+ },
+ {
+  "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/eleitorado_locais_votacao/eleitorado_local_votacao_2022.zip",
+  "HEAD": 200,
+  "len": "24028146",
+  "lm": "Thu, 10 Sep 2026 18:22:35 GMT"
+ },
+ {
+  "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_candidato_munzona/votacao_candidato_munzona_2026.zip",
+  "HEAD": 200,
+  "len": "456143974",
+  "lm": "Sat, 24 Oct 2026 09:11:39 GMT"
+ }
+]
