@@ -28,6 +28,7 @@
   --confirma:#3cc46c; --faixa:rgba(232,234,238,.2);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--fundo);color:var(--tinta);font-family:var(--sans);
   font-size:16px;line-height:1.45;font-variant-numeric:tabular-nums}
@@ -240,7 +241,7 @@ function render(d){
   if (d.status === "aguardando") txt = "A apuração começa às 17h. A projeção aparece com 1% do eleitorado apurado.";
   else if (d.status === "encerrado") txt = `Apuração encerrada. Atualizado às ${hora(d.atualizado)}.`;
   else txt = `${pct(pctAp,2)}% do eleitorado apurado. Atualizado às ${hora(d.atualizado)}.`;
-  if (idade > 5 && d.status !== "encerrado") txt += ` Sem atualização há ${Math.round(idade)} min.`;
+  if (idade > 5 && d.status === "apurando") txt += ` Sem atualização há ${Math.round(idade)} min.`;
   $("estado-txt").textContent = txt;
 
   if (pj){
