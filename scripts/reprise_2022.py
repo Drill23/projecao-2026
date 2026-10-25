@@ -13,6 +13,7 @@ import numpy as np
 sys.path.insert(0, ".")
 from projecao.modelo import Modelo, _bincount  # noqa: E402
 
+QSD = float(__import__("os").environ.get("QSD", "0.5"))
 REG_IDX = {"N": 0, "NE": 1, "CO": 2, "SE": 3, "S": 4, "EX": 5}
 
 
@@ -22,7 +23,24 @@ def carregar():
     return {k: z[k] for k in z.files}, meta
 
 
-def main(n_boot=60, seeds=(0,), checkpoints=(0.5, 1, 2, 3, 5, 8, 12, 20, 35, 50, 70, 90)):
+def covs18(b, m, mun, peso):
+    from scipy.special import logit
+    from projecao.dados import _media_imputada
+    ok = b["tem18"][m] & (b["x18_L2"][m] + b["x18_B2"][m] > 20) & (b["x18_L1"][m] + b["x18_B1"][m] > 20)
+    L1, B1 = b["x18_L1"][m].astype(float), b["x18_B1"][m].astype(float)
+    L2, B2 = b["x18_L2"][m].astype(float), b["x18_B2"][m].astype(float)
+    d = np.log((L2 + .5) / (B2 + .5)) - np.log((L1 + .5) / (B1 + .5))
+    lean = logit(np.clip((L2 + .5) / (L2 + B2 + 1), 0.01, 0.99))
+    uf = b["uf"][m].astype(np.int64)
+    d = _media_imputada(np.where(ok, d, 0), ok, peso, [mun, uf])
+    lean = _media_imputada(np.where(ok, lean, 0), ok, peso, [mun, uf])
+    d -= np.average(d, weights=peso)
+    lean -= np.average(lean, weights=peso)
+    return np.stack([d, lean], 1)
+
+
+def main(n_boot=60, seeds=(0,), checkpoints=(0.5, 1, 2, 3, 5, 8, 12, 20, 35, 50, 70, 90),
+         usar_cov=False, rho=0.85, saida="reprise_2022.json", verbose=True):
     b, meta = carregar()
     m = b["tem22"] & (b["APT22"] > 0)
     print("seções na reprise:", int(m.sum()))
@@ -57,8 +75,9 @@ def main(n_boot=60, seeds=(0,), checkpoints=(0.5, 1, 2, 3, 5, 8, 12, 20, 35, 50,
         ch = ch + rng.normal(0, 3 if seed else 0.01, len(ch))
         ordem = np.argsort(ch)
         cumE = np.cumsum(E[ordem]) / E.sum()
-        mod = Modelo(G, C1, E, mun, uf, reg, np.zeros((len(E), 0)),
-                     q_prior=[0.6, 0.55, 0.45], q_sd=[1.0, 1.0, 1.0],
+        X = covs18(b, m, mun, np.maximum(G.sum(1), 1)) if usar_cov else np.zeros((len(E), 0))
+        mod = Modelo(G, C1, E, mun, uf, reg, X, rho=rho,
+                     q_prior=[0.55, 0.6, 0.35], q_sd=[QSD, QSD, QSD],
                      n_mun=n_mun, n_uf=len(meta["ufs"]), n_reg=6, prior_turn=1.0, prior_valid=0.95)
         te = _bincount(mun, E, n_mun)
         for cp in checkpoints:
@@ -78,12 +97,31 @@ def main(n_boot=60, seeds=(0,), checkpoints=(0.5, 1, 2, 3, 5, 8, 12, 20, 35, 50,
             resultados.append({"seed": seed, "pct": cp, "proj": o["pA"], "lo": o["pA_lo"], "hi": o["pA_hi"],
                                "bruto": bruto, "erro_pp": 100 * (o["pA"] - final), "dentro": bool(dentro),
                                "q": o["q"]})
-            print(f"seed {seed} {cp:5.1f}% apurado | bruto {100*bruto:6.2f} | proj {100*o['pA']:6.2f} "
+            if verbose: print(f"seed {seed} {cp:5.1f}% apurado | bruto {100*bruto:6.2f} | proj {100*o['pA']:6.2f} "
                   f"[{100*o['pA_lo']:.2f}, {100*o['pA_hi']:.2f}] erro {100*(o['pA']-final):+.2f} pp "
                   f"{'ok' if dentro else 'FORA'} | q={np.round(o['q'],2)} sig={np.sqrt(o['sig2']):.3f} "
                   f"tau={np.sqrt(o['tau2']):.3f} ({time.time()-t0:.1f}s)", flush=True)
-    json.dump({"final": final, "res": resultados}, open("reprise_2022.json", "w"), indent=1)
+    json.dump({"final": final, "res": resultados}, open(saida, "w"), indent=1)
+    import collections
+    agg = collections.defaultdict(list)
+    for r in resultados:
+        agg[r["pct"]].append(r)
+    print(f"--- cov={usar_cov} rho={rho}")
+    for cp, rs in sorted(agg.items()):
+        e = np.array([r["erro_pp"] for r in rs])
+        w = np.array([100 * (r["hi"] - r["lo"]) / 2 for r in rs])
+        print(f"{cp:5.1f}%  erro médio {e.mean():+.2f}  |erro| {np.abs(e).mean():.2f}  max {np.abs(e).max():.2f}"
+              f"  meia-faixa {w.mean():.2f}  cobertura {np.mean([r['dentro'] for r in rs]):.2f}")
+    return resultados
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--cov", action="store_true")
+    ap.add_argument("--rho", type=float, default=0.85)
+    ap.add_argument("--seeds", type=int, default=1)
+    ap.add_argument("--boot", type=int, default=60)
+    ap.add_argument("-q", action="store_true")
+    a = ap.parse_args()
+    main(n_boot=a.boot, seeds=tuple(range(a.seeds)), usar_cov=a.cov, rho=a.rho, verbose=not a.q)

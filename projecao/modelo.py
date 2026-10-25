@@ -36,7 +36,7 @@ def _bincount(idx, w, n):
 
 class Modelo:
     def __init__(self, G, C1, E, mun, uf, reg, X_sec, q_prior, q_sd, n_mun, n_uf, n_reg,
-                 nomes_cov=(), rho=0.85, prior_turn=1.0, prior_valid=0.95):
+                 nomes_cov=(), rho=0.85, prior_turn=1.0, prior_valid=0.95, sd_reg=None):
         self.G = np.asarray(G, float)              # (n, K)
         self.K = self.G.shape[1]
         self.C1 = np.asarray(C1, float)
@@ -52,6 +52,12 @@ class Modelo:
         self.rho = rho
         self.prior_turn = prior_turn
         self.prior_valid = prior_valid
+        # desvio de cada região em relação ao Brasil (o exterior, índice 5, é bem diferente)
+        if sd_reg is None:
+            sd_reg = np.full(n_reg, 0.08)
+            if n_reg > 5:
+                sd_reg[5] = 0.35
+        self.sd_reg = np.asarray(sd_reg, float)
         # UF e região de cada município
         self.uf_mun = np.zeros(n_mun, np.int64)
         self.uf_mun[self.mun] = self.uf
@@ -86,10 +92,12 @@ class Modelo:
         return np.log(A) - np.log(B)
 
     def _unpack(self, th):
+        """th = [logit q (K-2), efeito Brasil, desvios das regiões, covariáveis, porte]."""
         K2 = self.K - 2
         q = expit(th[:K2])
-        breg = th[K2:K2 + self.n_reg]
-        bcov = th[K2 + self.n_reg:K2 + self.n_reg + self.n_cov]
+        bnat = th[K2]
+        breg = bnat + th[K2 + 1:K2 + 1 + self.n_reg]
+        bcov = th[K2 + 1 + self.n_reg:K2 + 1 + self.n_reg + self.n_cov]
         bsize = th[-1]
         return q, breg, bcov, bsize
 
@@ -103,8 +111,8 @@ class Modelo:
     # ------------------------------------------------------------------ ajuste
     def _ajustar(self, Gc, Xc, idx, y, w, x0, prior_reg=0.0):
         K2 = self.K - 2
-        mu = np.concatenate([self.q_prior, np.full(self.n_reg, prior_reg), np.zeros(self.n_cov), [0.0]])
-        sd = np.concatenate([self.q_sd, np.full(self.n_reg, 0.6), np.full(self.n_cov, 1.5), [0.3]])
+        mu = np.concatenate([self.q_prior, [prior_reg], np.zeros(self.n_reg), np.zeros(self.n_cov), [0.0]])
+        sd = np.concatenate([self.q_sd, [0.6], self.sd_reg, np.full(self.n_cov, 1.5), [0.3]])
         sw = np.sqrt(w)
 
         def res(th):
@@ -236,6 +244,8 @@ class Modelo:
                     "pA": float(totA / (totA + totB)), "sig2": sig2, "tau2": tau2,
                     "q": q.tolist(), "breg": breg.tolist(), "bcov": bcov.tolist(), "bsize": float(bsize),
                     "turn_nat": float(turn_nat), "val_nat": float(val_nat)})
+        if full:
+            out["Ap_sec"], out["Bp_sec"], out["u"], out["vm"] = Ap, Bp, u, vm
         # por UF (projeção)
         ufA = _bincount(self.uf_mun, A, self.n_uf) + _bincount(self.uf, Ap, self.n_uf)
         ufB = _bincount(self.uf_mun, Bv, self.n_uf) + _bincount(self.uf, Bp, self.n_uf)

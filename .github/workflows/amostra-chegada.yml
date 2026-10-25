@@ -1,0 +1,30 @@
+name: Amostra de chegada
+on:
+  workflow_dispatch:
+  push:
+    paths: ["scripts/amostra_chegada.py", ".github/workflows/amostra-chegada.yml"]
+permissions:
+  contents: write
+jobs:
+  amostra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy
+      - name: Amostrar
+        run: |
+          mkdir -p logs
+          set -o pipefail
+          python -u scripts/amostra_chegada.py 2>&1 | tee logs/amostra.txt
+      - name: Salvar
+        if: always()
+        run: |
+          git config user.name "projecao-bot"
+          git config user.email "projecao-bot@users.noreply.github.com"
+          git fetch origin main && git reset --soft origin/main
+          git add logs base/chegada_amostra.npz 2>/dev/null || git add logs
+          git commit -m "Amostra de horários de chegada (1º turno 2026)" || exit 0
+          git push origin HEAD:main
