@@ -1,0 +1,319 @@
+[
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/config/mun-e006257-cm.json",
+  "status": 200,
+  "bytes": 534025,
+  "s": 0.43,
+  "headers": {
+   "Last-Modified": "Sat, 03 Oct 2026 20:46:00 GMT",
+   "Cache-Control": "max-age=53"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados-simplificados/br/br-c0001-e006257-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/br/br-e006257-ab.json",
+  "status": 200,
+  "bytes": 29410,
+  "s": 0.07,
+  "headers": {
+   "Last-Modified": "Wed, 07 Oct 2026 23:35:38 GMT",
+   "Cache-Control": "max-age=29",
+   "Content-Length": "29410"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/br/br-e006257-u.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/br/br-c0001-e006257-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/br/br-c0001-e006257-f.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados-simplificados/ac/ac-c0001-e006257-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/ac/ac-e006257-ab.json",
+  "status": 200,
+  "bytes": 19426,
+  "s": 0.21,
+  "headers": {
+   "Last-Modified": "Mon, 05 Oct 2026 15:51:48 GMT",
+   "Cache-Control": "max-age=57",
+   "Content-Length": "19426"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/ac/ac-e006257-u.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/ac/ac-c0001-e006257-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/ac/ac-c0001-e006257-f.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados-simplificados/sp/sp-c0001-e006257-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/sp/sp-e006257-ab.json",
+  "status": 200,
+  "bytes": 537414,
+  "s": 0.19,
+  "headers": {
+   "Last-Modified": "Wed, 21 Oct 2026 23:27:34 GMT",
+   "Cache-Control": "max-age=37"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/sp/sp-e006257-u.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/sp/sp-c0001-e006257-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/sp/sp-c0001-e006257-f.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados-simplificados/ac/ac01392-c0001-e006257-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/ac/ac01392-c0001-e006257-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/ac/ac01392-c0001-e006257-f.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados-simplificados/sp/sp71072-c0001-e006257-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/sp/sp71072-c0001-e006257-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6257/dados/sp/sp71072-c0001-e006257-f.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/config/mun-e006258-cm.json",
+  "status": 200,
+  "bytes": 534026,
+  "s": 0.31,
+  "headers": {
+   "Last-Modified": "Thu, 15 Oct 2026 12:38:54 GMT",
+   "Cache-Control": "max-age=45"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados-simplificados/br/br-c0001-e006258-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/br/br-e006258-ab.json",
+  "status": 200,
+  "bytes": 26760,
+  "s": 0.09,
+  "headers": {
+   "Last-Modified": "Sat, 24 Oct 2026 22:17:43 GMT",
+   "Cache-Control": "max-age=50",
+   "Content-Length": "26760"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/br/br-e006258-u.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/br/br-c0001-e006258-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/br/br-c0001-e006258-f.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados-simplificados/ac/ac-c0001-e006258-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/ac/ac-e006258-ab.json",
+  "status": 200,
+  "bytes": 17701,
+  "s": 0.04,
+  "headers": {
+   "Last-Modified": "Sat, 24 Oct 2026 22:17:48 GMT",
+   "Cache-Control": "max-age=27",
+   "Content-Length": "17701"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/ac/ac-e006258-u.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/ac/ac-c0001-e006258-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/ac/ac-c0001-e006258-f.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados-simplificados/sp/sp-c0001-e006258-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/sp/sp-e006258-ab.json",
+  "status": 200,
+  "bytes": 489620,
+  "s": 0.04,
+  "headers": {
+   "Last-Modified": "Sat, 24 Oct 2026 22:17:57 GMT",
+   "Cache-Control": "max-age=42"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/sp/sp-e006258-u.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/sp/sp-c0001-e006258-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/sp/sp-c0001-e006258-f.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados-simplificados/ac/ac01392-c0001-e006258-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/ac/ac01392-c0001-e006258-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/ac/ac01392-c0001-e006258-f.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados-simplificados/sp/sp71072-c0001-e006258-r.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/sp/sp71072-c0001-e006258-v.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/sp/sp71072-c0001-e006258-f.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3220/config/ac/ac-p003220-cs.json",
+  "status": 200,
+  "bytes": 146065,
+  "s": 0.12,
+  "headers": {
+   "Last-Modified": "Mon, 05 Oct 2026 06:02:45 GMT",
+   "Cache-Control": "max-age=47"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3220/config/sp/sp-p003220-cs.json",
+  "status": 200,
+  "bytes": 6293803,
+  "s": 0.17,
+  "headers": {
+   "Last-Modified": "Mon, 05 Oct 2026 06:02:48 GMT",
+   "Cache-Control": "max-age=7"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3220/config/mu-p003220-cm.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "cs_keys": [
+   "dg",
+   "hg",
+   "idg",
+   "f",
+   "cdp",
+   "abr"
+  ]
+ },
+ {
+  "cs_inicio": "{\"dg\": \"05/10/2026\", \"hg\": \"02:59:38\", \"idg\": \"2785973\", \"f\": \"o\", \"cdp\": \"3220\", \"abr\": [{\"cd\": \"ac\", \"ds\": \"ACRE\", \"mu\": [{\"cd\": \"01066\", \"nm\": \"PORTO WALTER\", \"zon\": [{\"cd\": \"0004\", \"sec\": [{\"ns\": \"0077\", \"da\": \"04/10/2026\", \"ha\": \"21:08:17\"}, {\"ns\": \"0078\", \"da\": \"04/10/2026\", \"ha\": \"21:08:17\"}, {\"ns\": \"0079\", \"da\": \"04/10/2026\", \"ha\": \"21:08:17\"}, {\"ns\": \"0080\", \"da\": \"04/10/2026\", \"ha\": \"21:08:17\"}, {\"ns\": \"0115\", \"da\": \"04/10/2026\", \"ha\": \"21:08:17\"}, {\"ns\": \"0132\", \"da\": \"04/10/2026\", \"ha\": \"21:08:17\"}, {\"ns\": \"0144\", \"da\": \"04/10/2026\", \"ha\": \"21:08:17\"}, {\"ns\": \"0145\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0146\", \"da\": \"04/10/2026\", \"ha\": \"21:08:17\"}, {\"ns\": \"0164\", \"da\": \"04/10/2026\", \"ha\": \"21:08:18\"}, {\"ns\": \"0166\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0245\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0311\", \"da\": \"04/10/2026\", \"ha\": \"21:08:17\"}, {\"ns\": \"0313\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0314\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0316\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0320\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0321\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0325\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0338\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0361\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0372\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"0373\", \"da\": \"04/10/2026\", \"ha\": \"21:08:17\"}, {\"ns\": \"0429\", \"da\": \"04/10/2026\", \"ha\": \"21:08:15\"}, {\"ns\": \"043"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3220/dados/ac/01066/0004/0077/p003220-ac-m01066-z0004-s0077-aux.json",
+  "status": 200,
+  "bytes": 524,
+  "s": 0.3,
+  "headers": {
+   "Last-Modified": "Mon, 05 Oct 2026 16:08:10 GMT",
+   "Cache-Control": "max-age=60",
+   "Content-Length": "524"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3221/config/ac/ac-p003221-cs.json",
+  "status": 200,
+  "bytes": 55265,
+  "s": 0.08,
+  "headers": {
+   "Last-Modified": "Fri, 09 Oct 2026 22:57:43 GMT",
+   "Cache-Control": "max-age=57"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3221/config/sp/sp-p003221-cs.json",
+  "status": 200,
+  "bytes": 2147563,
+  "s": 0.11,
+  "headers": {
+   "Last-Modified": "Thu, 15 Oct 2026 17:22:47 GMT",
+   "Cache-Control": "max-age=55"
+  }
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3221/config/mu-p003221-cm.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ },
+ {
+  "cs_keys": [
+   "dg",
+   "hg",
+   "idg",
+   "f",
+   "cdp",
+   "abr"
+  ]
+ },
+ {
+  "cs_inicio": "{\"dg\": \"09/10/2026\", \"hg\": \"19:54:43\", \"idg\": \"3386658\", \"f\": \"o\", \"cdp\": \"3221\", \"abr\": [{\"cd\": \"ac\", \"ds\": \"ACRE\", \"mu\": [{\"cd\": \"01066\", \"nm\": \"PORTO WALTER\", \"zon\": [{\"cd\": \"0004\", \"sec\": [{\"ns\": \"0077\"}, {\"ns\": \"0078\"}, {\"ns\": \"0079\"}, {\"ns\": \"0080\"}, {\"ns\": \"0115\"}, {\"ns\": \"0132\"}, {\"ns\": \"0144\"}, {\"ns\": \"0145\"}, {\"ns\": \"0146\"}, {\"ns\": \"0164\"}, {\"ns\": \"0166\"}, {\"ns\": \"0245\"}, {\"ns\": \"0311\"}, {\"ns\": \"0313\"}, {\"ns\": \"0314\"}, {\"ns\": \"0316\"}, {\"ns\": \"0320\"}, {\"ns\": \"0321\"}, {\"ns\": \"0325\"}, {\"ns\": \"0338\"}, {\"ns\": \"0361\"}, {\"ns\": \"0372\"}, {\"ns\": \"0373\"}, {\"ns\": \"0429\"}, {\"ns\": \"0430\"}, {\"ns\": \"0442\"}, {\"ns\": \"0447\"}, {\"ns\": \"0453\"}, {\"ns\": \"0465\"}, {\"ns\": \"0467\"}, {\"ns\": \"0476\"}, {\"ns\": \"0477\"}, {\"ns\": \"0480\"}, {\"ns\": \"0498\"}]}]}, {\"cd\": \"01074\", \"nm\": \"CRUZEIRO DO SUL\", \"zon\": [{\"cd\": \"0004\", \"sec\": [{\"ns\": \"0001\"}, {\"ns\": \"0005\"}, {\"ns\": \"0007\"}, {\"ns\": \"0008\"}, {\"ns\": \"0009\"}, {\"ns\": \"0010\"}, {\"ns\": \"0011\"}, {\"ns\": \"0013\"}, {\"ns\": \"0014\"}, {\"ns\": \"0015\"}, {\"ns\": \"0016\"}, {\"ns\": \"0017\"}, {\"ns\": \"0019\"}, {\"ns\": \"0023\"}, {\"ns\": \"0025\"}, {\"ns\": \"0027\"}, {\"ns\": \"0038\"}, {\"ns\": \"0039\"}, {\"ns\": \"0040\"}, {\"ns\": \"0041\"}, {\"ns\": \"0042\"}, {\"ns\": \"0043\"}, {\"ns\": \"0044\"}, {\"ns\": \"0045\"}, {\"ns\": \"0046\"}, {\"ns\": \"0047\"}, {\"ns\": \"0048\"}, {\"ns\": \"0049\"}, {\"ns\": \"0051\"}, {\"ns\": \"0055\"}, {\"ns\": \"0056\"}, {\"ns\": \"0057\"}, {\"ns\": \"0058\"}, {\"ns\": \"0059\"}, {\"ns\": \"0060\"}, {\"ns\": \"0061\"}, {\"ns\": \"0062\"}, {\"ns\": \"0063\"}, {\"ns\": \"0064\"}, {\"ns\": \"0065\"}, {\"ns\": \"0066\"}, {\"ns\": \"0067\"}, {\"ns\": \"0068\"},"
+ },
+ {
+  "url": "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3221/dados/ac/01066/0004/0077/p003221-ac-m01066-z0004-s0077-aux.json",
+  "erro": "<HTTPError 404: 'Not Found'>"
+ }
+]
