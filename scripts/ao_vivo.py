@@ -42,7 +42,7 @@ import requests
 from requests.adapters import HTTPAdapter
 
 _local = threading.local()
-ERROS = {"n": 0, "ult": ""}
+ERROS = {"n": 0, "ult": "", "429": 0}
 
 
 def _sessao():
@@ -66,6 +66,9 @@ def get_json(url, tentativas=4):
                 return r.json()
             ERROS["n"] += 1
             ERROS["ult"] = f"HTTP {r.status_code} {url[-60:]}"
+            if r.status_code == 429:
+                ERROS["429"] += 1
+                time.sleep(2 + 3 * t)
         except Exception as e:  # noqa: BLE001
             ERROS["n"] += 1
             ERROS["ult"] = f"{type(e).__name__} {url[-60:]}"
@@ -91,6 +94,10 @@ class Estado:
         self.te = np.zeros(n)
         self.st_res = np.full(n, -1.0)       # seções totalizadas segundo o arquivo de resultado
         self.st_ab = np.zeros(n)              # segundo o andamento
+        self.est_ab = np.zeros(n)             # eleitorado apurado segundo o andamento
+        self.ufs_pend = set()                 # UFs cujo arquivo de seções falhou (tenta de novo)
+        self.pct_ab = 0.0
+        self.orcamento = 400                  # máx. de arquivos de município por ciclo (o TSE limita)
         self.cont = np.zeros(base.n, bool)
         self.uf_hg = {}
         self.serie = []
@@ -106,7 +113,7 @@ class Estado:
 
         def f(uf):
             return uf, get_json(f"{DIV}/{ELE}/dados/{uf}/{uf}-e{E6}-ab.json")
-        with cf.ThreadPoolExecutor(16) as ex:
+        with cf.ThreadPoolExecutor(6) as ex:
             res = list(ex.map(f, self.base.ufs))
         for uf, d in res:
             if not d:
@@ -120,9 +127,11 @@ class Estado:
                     continue
                 st = num(a["s"]["st"])
                 self.te[i] = num(a["e"]["te"]) or self.te[i]
-                if st != self.st_ab[i] or (st > 0 and self.st_res[i] != st):
-                    muns_mud.append((uf, a["cdabr"], i))
+                self.est_ab[i] = num(a["e"].get("est"))
+                if st != self.st_ab[i]:
                     ufs_mud.add(uf)
+                if st > 0 and self.st_res[i] != st:
+                    muns_mud.append((uf, a["cdabr"], i))
                 self.st_ab[i] = st
         return ufs_mud, muns_mud
 
@@ -130,7 +139,7 @@ class Estado:
         def f(item):
             uf, cd, i = item
             return i, get_json(f"{DIV}/{ELE}/dados/{uf}/{uf}{cd}-c0001-e{E6}-u.json")
-        with cf.ThreadPoolExecutor(24) as ex:
+        with cf.ThreadPoolExecutor(8) as ex:
             for i, d in ex.map(f, muns):
                 if not d:
                     continue
@@ -152,10 +161,12 @@ class Estado:
     def ler_secoes(self, ufs):
         def f(uf):
             return uf, get_json(f"{DIV}/arquivo-urna/{PLEITO}/config/{uf}/{uf}-p{P6}-cs.json")
-        with cf.ThreadPoolExecutor(8) as ex:
+        with cf.ThreadPoolExecutor(4) as ex:
             for uf, d in ex.map(f, sorted(ufs)):
                 if not d:
+                    self.ufs_pend.add(uf)
                     continue
+                self.ufs_pend.discard(uf)
                 for ab in d.get("abr", []):
                     for mu in ab.get("mu", []):
                         mk = uf + mu["cd"]
@@ -192,15 +203,29 @@ class Estado:
     # -------------------------------------------------------------- ciclo
     def ciclo(self, n_boot=150):
         t0 = time.time()
+        e429 = ERROS["429"]
         ufs, muns = self.ler_andamento()
         if muns:
+            # prioridade: quem mais avançou desde a última leitura; municípios concluídos ganham bônus
+            def prio(item):
+                i = item[2]
+                ganho = self.est_ab[i] - self.est[i]
+                return ganho * (1.5 if self.est_ab[i] >= self.te[i] > 0 else 1.0)
+            muns = sorted(muns, key=prio, reverse=True)[:int(self.orcamento)]
             self.ler_resultados(muns)
+        ufs = set(ufs) | self.ufs_pend
         if ufs:
             self.ler_secoes(ufs)
         self.ler_brasil()
+        # ajusta o ritmo: se o TSE devolveu 429, reduz; senão, aumenta devagar
+        if ERROS["429"] > e429:
+            self.orcamento = max(80, self.orcamento * 0.5)
+        else:
+            self.orcamento = min(900, self.orcamento * 1.15)
         t_leitura = time.time() - t0
         obs = {"A": self.A, "B": self.B, "comp": self.comp, "est": self.est, "te": self.te}
         pct = self.est.sum() / max(self.te.sum(), 1)
+        self.pct_ab = self.est_ab.sum() / max(self.te.sum(), 1)
         proj = None
         if pct >= MIN_PCT:
             try:
@@ -216,7 +241,7 @@ class Estado:
         Aap, Bap = float(self.A.sum()), float(self.B.sum())
         bruto = Aap / (Aap + Bap) if Aap + Bap > 0 else None
         ofic = self.oficial
-        pct_of = (ofic.get("pest") or 0) / 100 if ofic else pct
+        pct_of = (ofic.get("pest") or 0) / 100 if ofic else self.pct_ab
         status = "aguardando" if Aap + Bap == 0 else ("encerrado" if pct_of >= 0.9999 else "apurando")
         ponto = {"t": agora().strftime("%H:%M:%S"), "pct": round(pct, 6),
                  "bruto": None if bruto is None else round(bruto, 6)}
@@ -288,6 +313,7 @@ def main():
     ap.add_argument("--uma-vez", action="store_true")
     ap.add_argument("--boot", type=int, default=150)
     ap.add_argument("--diag", action="store_true")
+    ap.add_argument("--ciclos", type=int, default=0, help="para após N ciclos (ensaio)")
     a = ap.parse_args()
     fim = agora() + dt.timedelta(minutes=a.max_min)
     if a.ate:
@@ -330,7 +356,9 @@ def main():
                     break
         except Exception:  # noqa: BLE001
             traceback.print_exc()
-        if a.uma_vez or agora() >= fim:
+        n_ciclos = len(est.serie) if a.ciclos else 0
+        est.n_ciclo = getattr(est, "n_ciclo", 0) + 1
+        if a.uma_vez or agora() >= fim or (a.ciclos and est.n_ciclo >= a.ciclos):
             break
         time.sleep(max(5, a.intervalo - (time.time() - t0)))
 

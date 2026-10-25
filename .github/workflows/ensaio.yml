@@ -22,7 +22,7 @@ jobs:
         env: { ELEICAO: "6257", PLEITO: "3220" }
         run: |
           mkdir -p logs
-          python -u scripts/ao_vivo.py --uma-vez --diag --boot 50 2>&1 | tee logs/ensaio.txt
+          python -u scripts/ao_vivo.py --ciclos 8 --intervalo 30 --diag --boot 50 2>&1 | tee logs/ensaio.txt
           cp saida/projecao.json logs/ensaio-1turno.json
       - name: Estado atual do 2º turno (publica)
         run: |

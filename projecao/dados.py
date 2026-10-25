@@ -75,6 +75,9 @@ class Base2026:
     def modelo(self, rho=0.85):
         q = [PRIOR_Q[g][0] for g in GRUPOS[2:]]
         s = [PRIOR_Q[g][1] for g in GRUPOS[2:]]
-        return Modelo(self.G, self.C1, self.E, self.mun, self.uf, self.reg, self.X, q, s,
-                      n_mun=self.n_mun, n_uf=len(self.ufs), n_reg=6, nomes_cov=self.nomes_cov,
-                      rho=rho, prior_turn=1.0, prior_valid=0.95)
+        m = Modelo(self.G, self.C1, self.E, self.mun, self.uf, self.reg, self.X, q, s,
+                   n_mun=self.n_mun, n_uf=len(self.ufs), n_reg=6, nomes_cov=self.nomes_cov,
+                   rho=rho, prior_turn=1.0, prior_valid=0.95)
+        # calibração da faixa (reprise de 2022 com ordem real de chegada), com folga para 2026
+        m.infla, m.piso = 1.5, 0.001
+        return m
