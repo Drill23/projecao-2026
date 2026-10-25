@@ -163,6 +163,8 @@ class Modelo:
         y = np.log((A[idx] + EPS) / (Bv[idx] + EPS))
         p_obs = np.clip((A[idx] + EPS) / (V[idx] + 2 * EPS), 0.02, 0.98)
         noise = 1.0 / (V[idx] * p_obs * (1 - p_obs))
+        noise_full = np.zeros(n)
+        noise_full[idx] = noise
         sig2 = 0.01
         th = self._x0
         for _ in range(3):
@@ -207,7 +209,7 @@ class Modelo:
             u = swr / (sw_ + 1.0 / tau2)
             rm = r_ - u[ufi]
             vm = np.zeros(n)
-            vm[idx_] = rm * sig2 / (sig2 + 1.0 / np.maximum(V[idx_] * p_obs * (1 - p_obs), 1e-9))
+            vm[idx_] = rm * sig2 / (sig2 + noise_full[idx_])
             return u, vm, tau2, sw_
 
         def projeta(th_, u, vm, extra_mun=None, extra_uf=None):

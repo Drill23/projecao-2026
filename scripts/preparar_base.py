@@ -226,17 +226,37 @@ def main():
         ap22_1 = dv[dv.NR_TURNO == "1"].groupby("k")[["QT_COMPARECIMENTO"]].first()
     del v22
 
+    # ---------- 2018 (covariável para validar a reprise de 2022)
+    try:
+        z18 = baixar(f"{CDN}/votacao_secao/votacao_secao_2018_BR.zip", "vs18.zip")
+        v18 = votos_secao(z18, 2018)
+        v18["g"] = np.select([v18.NR_VOTAVEL == 13, v18.NR_VOTAVEL == 17,
+                              v18.NR_VOTAVEL.isin([95, 96, 97])], ["L", "B", "BN"], default="O")
+        v18["gt"] = v18.g + v18.NR_TURNO.astype(str)
+        p18 = v18.pivot_table(index="k", columns="gt", values="QT_VOTOS", aggfunc="sum", fill_value=0)
+        C18 = ["L1", "B1", "O1", "L2", "B2"]
+        for c in C18:
+            if c not in p18.columns:
+                p18[c] = 0
+        p18 = p18[C18]
+        p18.columns = ["x18_" + c for c in C18]
+        del v18
+    except Exception as e:  # noqa: BLE001
+        print("sem 2018:", e)
+        p18 = pd.DataFrame(columns=["x18_L1", "x18_B1", "x18_O1", "x18_L2", "x18_B2"])
+
     # ---------- monta a tabela final na ordem das seções do 2º turno
     # (seções de 2026 que agregaram outras no 1º turno: chave igual; seções novas ficam sem base)
     todas = pd.Index(sec.k).union(p26.index)
     t = pd.DataFrame(index=todas)
-    t = t.join(p26).join(ap).join(p22).join(ap22.rename(columns={"QT_APTOS": "APT22",
+    t = t.join(p26).join(ap).join(p22).join(p18).join(ap22.rename(columns={"QT_APTOS": "APT22",
                                                                  "QT_COMPARECIMENTO": "COMP22b"}))
     t = t.join(ap22_1.rename(columns={"QT_COMPARECIMENTO": "COMP22a"}))
     t["cheg1"] = pd.Series(chegada, dtype=float).reindex(t.index).fillna(-1).to_numpy()
     t["no_t2"] = t.index.isin(sec.k)
     t["tem26"] = t.index.isin(p26.index)
     t["tem22"] = t.index.isin(p22.index)
+    t["tem18"] = t.index.isin(p18.index)
     t = t.fillna(0)
     print("seções no 2º turno:", int(t.no_t2.sum()), " com base 2026:", int((t.no_t2 & t.tem26).sum()),
           " com 2022:", int((t.no_t2 & t.tem22).sum()), " só no 1º turno:", int((~t.no_t2).sum()), flush=True)
@@ -262,10 +282,12 @@ def main():
         "no_t2": t.no_t2.to_numpy(bool),
         "tem26": t.tem26.to_numpy(bool),
         "tem22": t.tem22.to_numpy(bool),
+        "tem18": t.tem18.to_numpy(bool),
         "cheg1": t.cheg1.to_numpy(np.float32),
     }
     for c in list(grupos) + ["QT_APTOS", "QT_COMPARECIMENTO"] + ["x22_" + c for c in
-                            ["L1", "B1", "T1", "C1", "O1", "BN1", "L2", "B2", "O2", "BN2"]] + ["APT22", "COMP22a", "COMP22b"]:
+                            ["L1", "B1", "T1", "C1", "O1", "BN1", "L2", "B2", "O2", "BN2"]] + ["APT22", "COMP22a", "COMP22b"] + \
+            ["x18_L1", "x18_B1", "x18_O1", "x18_L2", "x18_B2"]:
         arr[c] = t[c].to_numpy(np.int32)
     np.savez_compressed(os.path.join(OUT, "base.npz"), **arr)
     meta = {
