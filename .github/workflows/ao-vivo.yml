@@ -22,6 +22,7 @@ on:
         default: false
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: ao-vivo
   cancel-in-progress: true
@@ -46,5 +47,13 @@ jobs:
             mkdir -p logs && cp saida/projecao.json logs/ensaio.json
             git add logs/ensaio.json && git commit -qm "Ensaio" && git push -q origin HEAD:main || true
           else
-            python -u scripts/ao_vivo.py --publicar --ate 2026-10-26T04:30 --max-min 350
+            python -u scripts/ao_vivo.py --publicar --ate 2026-10-26T04:30 --max-min 345
+          fi
+      - name: Renovar (liga uma execução nova se a apuração continua)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f saida/renovar ]; then
+            gh workflow run ao-vivo.yml --ref main -R "${{ github.repository }}"
           fi

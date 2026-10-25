@@ -416,6 +416,14 @@ def main():
             traceback.print_exc()
         est.n_ciclo = getattr(est, "n_ciclo", 0) + 1
         if a.uma_vez or agora() >= fim or (a.ciclos and est.n_ciclo >= a.ciclos):
+            # parou só pelo limite de tempo da execução, com apuração ainda em curso e antes do
+            # horário final: pede ao workflow que ligue uma execução nova (que retoma daqui)
+            limite_final = dt.datetime.fromisoformat(a.ate).replace(tzinfo=BRT) if a.ate else None
+            if (a.publicar and not a.uma_vez and encerrado_desde is None
+                    and limite_final and agora() < limite_final - dt.timedelta(minutes=5)):
+                os.makedirs(OUT, exist_ok=True)
+                open(os.path.join(OUT, "renovar"), "w").write(agora().isoformat())
+                print("limite de tempo da execução: pedindo renovação", flush=True)
             break
         time.sleep(max(5, a.intervalo - (time.time() - t0)))
 

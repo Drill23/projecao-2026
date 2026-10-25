@@ -1,0 +1,13 @@
+name: Teste renovar
+on:
+  push:
+    paths: [".github/workflows/teste-renovar.yml"]
+permissions:
+  actions: write
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run explorar.yml --ref main -R "${{ github.repository }}"
