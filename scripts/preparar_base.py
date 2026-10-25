@@ -204,6 +204,7 @@ def main():
         if c not in p22.columns:
             p22[c] = 0
     p22 = p22[C22]
+    p22.columns = ["x22_" + c for c in C22]
     if "QT_APTOS" in v22.columns and v22["QT_APTOS"].notna().any():
         ap22 = v22[v22.NR_TURNO == 2].groupby("k")[["QT_APTOS", "QT_COMPARECIMENTO"]].first().astype(np.int64)
         ap22_1 = v22[v22.NR_TURNO == 1].groupby("k")[["QT_COMPARECIMENTO"]].first().astype(np.int64)
@@ -263,8 +264,8 @@ def main():
         "tem22": t.tem22.to_numpy(bool),
         "cheg1": t.cheg1.to_numpy(np.float32),
     }
-    for c in list(grupos) + ["QT_APTOS", "QT_COMPARECIMENTO", "L1", "B1", "T1", "C1", "O1", "BN1",
-                             "L2", "B2", "O2", "BN2", "APT22", "COMP22a", "COMP22b"]:
+    for c in list(grupos) + ["QT_APTOS", "QT_COMPARECIMENTO"] + ["x22_" + c for c in
+                            ["L1", "B1", "T1", "C1", "O1", "BN1", "L2", "B2", "O2", "BN2"]] + ["APT22", "COMP22a", "COMP22b"]:
         arr[c] = t[c].to_numpy(np.int32)
     np.savez_compressed(os.path.join(OUT, "base.npz"), **arr)
     meta = {
