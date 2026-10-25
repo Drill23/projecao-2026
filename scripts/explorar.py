@@ -1,122 +1,77 @@
-"""Explora os arquivos da divulgação do TSE a partir do runner do GitHub.
-
-Salva amostras em exploracao/ para inspecionar o formato real dos arquivos de 2026.
-"""
+"""Explora os arquivos da divulgação do TSE a partir do runner do GitHub (rodada 2)."""
 import json
 import os
 import sys
 import time
 import urllib.request
 
-BASE = "https://resultados.tse.jus.br/oficial"
-CDN = "https://cdn.tse.jus.br/estatistica/sead/odsele"
+BASE = "https://resultados.tse.jus.br/oficial/ele2026"
 OUT = "exploracao"
 os.makedirs(OUT, exist_ok=True)
 LOG = []
 
 
-def get(url, limit=None, save=None):
+def get(url, save=None, keep=200_000):
     t0 = time.time()
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 projecao-2026"})
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 projecao-2026",
+                                                   "Accept-Encoding": "identity"})
         with urllib.request.urlopen(req, timeout=60) as r:
-            data = r.read() if limit is None else r.read(limit)
+            data = r.read()
             hdr = {k: v for k, v in r.headers.items() if k.lower() in (
-                "content-type", "content-length", "last-modified", "etag",
-                "access-control-allow-origin", "cache-control", "date")}
+                "content-length", "last-modified", "access-control-allow-origin", "cache-control")}
             LOG.append({"url": url, "status": r.status, "bytes": len(data),
                         "s": round(time.time() - t0, 2), "headers": hdr})
             if save:
                 with open(os.path.join(OUT, save), "wb") as f:
-                    f.write(data)
+                    f.write(data[:keep])
             return data
     except Exception as e:  # noqa: BLE001
-        LOG.append({"url": url, "erro": repr(e)[:300], "s": round(time.time() - t0, 2)})
+        LOG.append({"url": url, "erro": repr(e)[:200]})
         return None
 
 
-def head(url):
-    try:
-        req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            LOG.append({"url": url, "HEAD": r.status,
-                        "len": r.headers.get("content-length"),
-                        "lm": r.headers.get("last-modified")})
-    except Exception as e:  # noqa: BLE001
-        LOG.append({"url": url, "HEAD_erro": repr(e)[:200]})
-
-
 def main():
-    raw = get(f"{BASE}/comum/config/ele-c.json", save="ele-c.json")
-    ciclos = []
-    if raw:
-        cfg = json.loads(raw)
-        ciclos = cfg.get("c", cfg) if isinstance(cfg, dict) else cfg
-    # tenta achar eleições de 2026 de forma genérica
-    texto = raw.decode("utf-8", "replace") if raw else ""
-    eles = set()
-    for tok in ("544", "545", "546", "547", "548", "549", "550", "551", "552", "553",
-                "619", "620", "621", "622", "623", "624", "625", "626"):
-        if f'"{tok}"' in texto or f":{tok}" in texto:
-            eles.add(tok)
-    # extrai todos os códigos de eleição listados no ciclo 2026
-    try:
-        cfg = json.loads(raw)
-        for c in cfg.get("c", []):
-            if "2026" in json.dumps(c)[:200]:
-                for p in c.get("p", []):
-                    for e in p.get("e", []):
-                        eles.add(str(e.get("cd")))
-    except Exception:  # noqa: BLE001
-        pass
-    LOG.append({"eleicoes_detectadas": sorted(eles)})
+    for ele in ("6257", "6258"):
+        e = f"{int(ele):06d}"
+        get(f"{BASE}/{ele}/config/mun-e{e}-cm.json", f"mun-e{e}-cm.json")
+        for uf in ("br", "ac", "sp"):
+            get(f"{BASE}/{ele}/dados-simplificados/{uf}/{uf}-c0001-e{e}-r.json", f"simpl-{uf}-e{e}.json")
+            get(f"{BASE}/{ele}/dados/{uf}/{uf}-e{e}-ab.json", f"ab-{uf}-e{e}.json")
+            get(f"{BASE}/{ele}/dados/{uf}/{uf}-e{e}-u.json", f"u-{uf}-e{e}.json")
+            get(f"{BASE}/{ele}/dados/{uf}/{uf}-c0001-e{e}-v.json", f"v-{uf}-e{e}.json")
+            get(f"{BASE}/{ele}/dados/{uf}/{uf}-c0001-e{e}-f.json", f"f-{uf}-e{e}.json")
+        # município de Rio Branco (AC) = 01392 ; São Paulo = 71072
+        for mun in ("ac01392", "sp71072"):
+            get(f"{BASE}/{ele}/dados-simplificados/{mun[:2]}/{mun}-c0001-e{e}-r.json", f"simpl-{mun}-e{e}.json")
+            get(f"{BASE}/{ele}/dados/{mun[:2]}/{mun}-c0001-e{e}-v.json", f"v-{mun}-e{e}.json")
+            get(f"{BASE}/{ele}/dados/{mun[:2]}/{mun}-c0001-e{e}-f.json", f"f-{mun}-e{e}.json")
+    for pl in ("3220", "3221"):
+        p = f"{int(pl):06d}"
+        raw = get(f"{BASE}/arquivo-urna/{pl}/config/ac/ac-p{p}-cs.json", f"cs-ac-p{p}.json", keep=400_000)
+        get(f"{BASE}/arquivo-urna/{pl}/config/sp/sp-p{p}-cs.json", f"cs-sp-p{p}.json", keep=300_000)
+        get(f"{BASE}/arquivo-urna/{pl}/config/mu-p{p}-cm.json", f"mu-p{p}-cm.json")
+        if raw:
+            try:
+                d = json.loads(raw)
+                LOG.append({"cs_keys": list(d.keys())})
+                # tenta achar a primeira seção para buscar o aux
+                txt = json.dumps(d)
+                LOG.append({"cs_inicio": txt[:1500]})
+                ab = d["abr"][0]
+                mu = ab["mu"][0]
+                zo = mu["zon"][0]
+                se = zo["sec"][0]
+                m, z, s = mu["cd"], zo["cd"], se["ns"]
+                get(f"{BASE}/arquivo-urna/{pl}/dados/ac/{m}/{z}/{s}/p{p}-ac-m{m}-z{z}-s{s}-aux.json",
+                    f"aux-ac-{m}-{z}-{s}-p{p}.json")
+            except Exception as ex:  # noqa: BLE001
+                LOG.append({"cs_parse_erro": repr(ex)[:300]})
 
-    for ele in sorted(eles):
-        e6 = f"{int(ele):06d}"
-        get(f"{BASE}/ele2026/{ele}/config/mun-e{e6}-cm.json", save=f"mun-e{e6}-cm.json")
-        get(f"{BASE}/ele2026/{ele}/dados-simplificados/br/br-c0001-e{e6}-r.json",
-            save=f"br-c0001-e{e6}-r.json")
-        get(f"{BASE}/ele2026/{ele}/dados-simplificados/sp/sp-c0001-e{e6}-r.json",
-            save=f"sp-c0001-e{e6}-r.json")
-        get(f"{BASE}/ele2026/{ele}/dados-simplificados/sp/sp71072-c0001-e{e6}-r.json",
-            save=f"sp71072-c0001-e{e6}-r.json")
-        get(f"{BASE}/ele2026/{ele}/dados/sp/sp71072-c0001-e{e6}-v.json",
-            save=f"dados-sp71072-c0001-e{e6}-v.json")
-        get(f"{BASE}/ele2026/{ele}/dados/sp/sp-c0001-e{e6}-v.json",
-            save=f"dados-sp-c0001-e{e6}-v.json")
-        get(f"{BASE}/ele2026/{ele}/dados/br/br-c0001-e{e6}-v.json",
-            save=f"dados-br-c0001-e{e6}-v.json")
-        get(f"{BASE}/ele2026/{ele}/dados/ac/ac-e{e6}-ab.json", save=f"ac-e{e6}-ab.json")
-        get(f"{BASE}/ele2026/{ele}/dados/br/br-e{e6}-ab.json", save=f"br-e{e6}-ab.json")
-
-    # arquivo-urna (pleitos): tenta descobrir pelo config
-    pleitos = set()
-    try:
-        cfg = json.loads(raw)
-        for c in cfg.get("c", []):
-            for p in c.get("p", []):
-                pleitos.add(str(p.get("cd")))
-    except Exception:  # noqa: BLE001
-        pass
-    LOG.append({"pleitos_detectados": sorted(pleitos)})
-    for pl in sorted(pleitos):
-        p6 = f"{int(pl):06d}"
-        get(f"{BASE}/ele2026/arquivo-urna/{pl}/config/ac/ac-p{p6}-cs.json",
-            save=f"ac-p{p6}-cs.json")
-        get(f"{BASE}/ele2026/arquivo-urna/{pl}/config/mu-e{p6}-cm.json",
-            save=f"au-mu-p{p6}-cm.json")
-
-    for ano in (2026, 2022):
-        for uf in ("AC", "BR"):
-            head(f"{CDN}/votacao_secao/votacao_secao_{ano}_{uf}.zip")
-        head(f"{CDN}/detalhe_votacao_secao/detalhe_votacao_secao_{ano}.zip")
-        head(f"{CDN}/eleitorado_locais_votacao/eleitorado_local_votacao_{ano}.zip")
-    head(f"{CDN}/votacao_candidato_munzona/votacao_candidato_munzona_2026.zip")
-
-    with open(os.path.join(OUT, "log.json"), "w") as f:
+    with open(os.path.join(OUT, "log2.json"), "w") as f:
         json.dump(LOG, f, indent=1, ensure_ascii=False)
     for item in LOG:
-        print(json.dumps(item, ensure_ascii=False))
+        print(json.dumps(item, ensure_ascii=False)[:500])
 
 
 if __name__ == "__main__":
