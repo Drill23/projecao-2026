@@ -193,14 +193,17 @@ def main():
     # ---------- 2022 (1º e 2º turnos) por seção
     z22 = baixar(f"{CDN}/votacao_secao/votacao_secao_2022_BR.zip", "vs22.zip")
     v22 = votos_secao(z22, 2022)
-    v22["g"] = np.where(v22.NR_VOTAVEL == 13, "L", np.where(v22.NR_VOTAVEL == 22, "B",
-                        np.where(v22.NR_VOTAVEL.isin([95, 96, 97]), "BN", "O")))
+    v22["g"] = np.select(
+        [v22.NR_VOTAVEL == 13, v22.NR_VOTAVEL == 22, v22.NR_VOTAVEL == 15, v22.NR_VOTAVEL == 12,
+         v22.NR_VOTAVEL.isin([95, 96, 97])],
+        ["L", "B", "T", "C", "BN"], default="O")
     v22["gt"] = v22.g + v22.NR_TURNO.astype(str)
     p22 = v22.pivot_table(index="k", columns="gt", values="QT_VOTOS", aggfunc="sum", fill_value=0)
-    for c in ("L1", "B1", "O1", "BN1", "L2", "B2", "O2", "BN2"):
+    C22 = ["L1", "B1", "T1", "C1", "O1", "BN1", "L2", "B2", "O2", "BN2"]
+    for c in C22:
         if c not in p22.columns:
             p22[c] = 0
-    p22 = p22[["L1", "B1", "O1", "BN1", "L2", "B2", "O2", "BN2"]]
+    p22 = p22[C22]
     if "QT_APTOS" in v22.columns and v22["QT_APTOS"].notna().any():
         ap22 = v22[v22.NR_TURNO == 2].groupby("k")[["QT_APTOS", "QT_COMPARECIMENTO"]].first().astype(np.int64)
         ap22_1 = v22[v22.NR_TURNO == 1].groupby("k")[["QT_COMPARECIMENTO"]].first().astype(np.int64)
@@ -260,8 +263,8 @@ def main():
         "tem22": t.tem22.to_numpy(bool),
         "cheg1": t.cheg1.to_numpy(np.float32),
     }
-    for c in list(grupos) + ["QT_APTOS", "QT_COMPARECIMENTO", "L1", "B1", "O1", "BN1", "L2", "B2",
-                             "O2", "BN2", "APT22", "COMP22a", "COMP22b"]:
+    for c in list(grupos) + ["QT_APTOS", "QT_COMPARECIMENTO", "L1", "B1", "T1", "C1", "O1", "BN1",
+                             "L2", "B2", "O2", "BN2", "APT22", "COMP22a", "COMP22b"]:
         arr[c] = t[c].to_numpy(np.int32)
     np.savez_compressed(os.path.join(OUT, "base.npz"), **arr)
     meta = {
