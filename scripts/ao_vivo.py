@@ -97,7 +97,12 @@ class Estado:
         self.est_ab = np.zeros(n)             # eleitorado apurado segundo o andamento
         self.ufs_pend = set()                 # UFs cujo arquivo de seções falhou (tenta de novo)
         self.pct_ab = 0.0
-        self.orcamento = 400                  # máx. de arquivos de município por ciclo (o TSE limita)
+        self.orcamento = 600                  # máx. de arquivos de município por ciclo (o TSE limita)
+        self.ult_leitura = np.zeros(n)        # quando cada município foi lido pela última vez
+        self.est_uf_res = {}                  # eleitorado apurado por UF segundo o resultado da UF
+        self.uf_de_mun = np.array([k[:2] for k in base.mun_keys])
+        self.cd_de_mun = np.array([k[2:] for k in base.mun_keys])
+        self.n_lidos = 0
         self.cont = np.zeros(base.n, bool)
         self.uf_hg = {}
         self.serie = []
@@ -136,10 +141,16 @@ class Estado:
         return ufs_mud, muns_mud
 
     def ler_resultados(self, muns):
+        mudou = set()
+        agora_ = time.time()
+        for _, _, i in muns:
+            self.ult_leitura[i] = agora_
+        self.n_lidos = len(muns)
+
         def f(item):
             uf, cd, i = item
             return i, get_json(f"{DIV}/{ELE}/dados/{uf}/{uf}{cd}-c0001-e{E6}-u.json")
-        with cf.ThreadPoolExecutor(8) as ex:
+        with cf.ThreadPoolExecutor(12) as ex:
             for i, d in ex.map(f, muns):
                 if not d:
                     continue
@@ -152,11 +163,24 @@ class Estado:
                                     A = num(c.get("vap"))
                                 elif str(c.get("n")) == "22":
                                     B = num(c.get("vap"))
+                novo_est = num(d["e"].get("est"))
+                if novo_est != self.est[i] or A != self.A[i]:
+                    mudou.add(self.uf_de_mun[i])
                 self.A[i], self.B[i] = A, B
                 self.comp[i] = num(d["e"].get("c"))
-                self.est[i] = num(d["e"].get("est"))
+                self.est[i] = novo_est
                 self.te[i] = num(d["e"].get("te")) or self.te[i]
                 self.st_res[i] = num(d["s"].get("st"))
+        return mudou
+
+    def ler_ufs(self):
+        """Resultado agregado de cada UF: mostra em que UFs há votos que ainda não lemos."""
+        def f(uf):
+            return uf, get_json(f"{DIV}/{ELE}/dados/{uf}/{uf}-c0001-e{E6}-u.json")
+        with cf.ThreadPoolExecutor(6) as ex:
+            for uf, d in ex.map(f, self.base.ufs):
+                if d:
+                    self.est_uf_res[uf] = num(d["e"].get("est"))
 
     def ler_secoes(self, ufs):
         def f(uf):
@@ -205,14 +229,29 @@ class Estado:
         t0 = time.time()
         e429 = ERROS["429"]
         ufs, muns = self.ler_andamento()
+        self.ler_ufs()
+        agora_ = time.time()
+        # 1) municípios que o andamento diz que mudaram (maior avanço primeiro)
+        muns = sorted(muns, key=lambda it: self.est_ab[it[2]] - self.est[it[2]], reverse=True)
+        ja = {it[2] for it in muns}
+        # 2) varredura das UFs cujo resultado agregado tem mais eleitorado apurado do que a soma
+        #    dos municípios que já lemos (o andamento por município às vezes atrasa)
+        gap_ufs = []
+        for uf in self.base.ufs:
+            sel = self.uf_de_mun == uf
+            if self.est_uf_res.get(uf, 0) > self.est[sel].sum() + 0.5:
+                gap_ufs.append(uf)
+        if gap_ufs:
+            sel = np.isin(self.uf_de_mun, gap_ufs) & (self.ult_leitura < agora_ - 50)
+            cand = [i for i in np.where(sel)[0] if i not in ja]
+            cand.sort(key=lambda i: (self.ult_leitura[i], -self.te[i]))
+            muns += [(self.uf_de_mun[i], self.cd_de_mun[i], i) for i in cand]
+        muns = muns[:int(self.orcamento)]
+        self.gap_ufs = gap_ufs
         if muns:
-            # prioridade: quem mais avançou desde a última leitura; municípios concluídos ganham bônus
-            def prio(item):
-                i = item[2]
-                ganho = self.est_ab[i] - self.est[i]
-                return ganho * (1.5 if self.est_ab[i] >= self.te[i] > 0 else 1.0)
-            muns = sorted(muns, key=prio, reverse=True)[:int(self.orcamento)]
-            self.ler_resultados(muns)
+            ufs = set(ufs) | self.ler_resultados(muns)
+        else:
+            self.n_lidos = 0
         ufs = set(ufs) | self.ufs_pend
         if ufs:
             self.ler_secoes(ufs)
@@ -221,7 +260,7 @@ class Estado:
         if ERROS["429"] > e429:
             self.orcamento = max(80, self.orcamento * 0.5)
         else:
-            self.orcamento = min(900, self.orcamento * 1.15)
+            self.orcamento = min(1500, self.orcamento * 1.15)
         t_leitura = time.time() - t0
         obs = {"A": self.A, "B": self.B, "comp": self.comp, "est": self.est, "te": self.te}
         pct = self.est.sum() / max(self.te.sum(), 1)
@@ -357,7 +396,8 @@ def main():
                       "| te soma/oficial:", int(est.te.sum()), of.get("te"),
                       "| seções marcadas apuradas:", int(est.cont.sum()), "de", base.n,
                       "| eleitorado nessas seções:", int(base.E[est.cont].sum()),
-                      "| erros de leitura:", ERROS, flush=True)
+                      "| erros de leitura:", ERROS, "| lidos:", est.n_lidos, "| orçamento:", int(est.orcamento),
+                      "| UFs com votos ainda não lidos:", getattr(est, "gap_ufs", []), flush=True)
             if a.publicar:
                 publicar(os.getcwd())
             if out["status"] == "encerrado":
