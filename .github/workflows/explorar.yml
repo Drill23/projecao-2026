@@ -13,6 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
+      - run: pip install numpy scipy requests
       - run: python scripts/explorar.py
       - name: Salvar amostras
         run: |
