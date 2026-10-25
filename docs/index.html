@@ -256,6 +256,14 @@ function render(d){
   else if (d.status === "encerrado") txt = `Apuração encerrada. Atualizado às ${hora(d.atualizado)}.`;
   else txt = `${pct(pctAp,2)}% do eleitorado apurado. Atualizado às ${hora(d.atualizado)}.`;
   if (idade > 5 && d.status === "apurando") txt += ` Sem atualização há ${Math.round(idade)} min.`;
+  // TSE parado: a série só ganha pontos quando chegam números novos
+  const ult = (d.serie || []).slice(-1)[0];
+  if (d.status === "apurando" && ult && ult.t) {
+    const [hh, mm] = ult.t.split(":").map(Number);
+    const agoraBR = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Sao_Paulo"}));
+    const parado = (agoraBR.getHours() * 60 + agoraBR.getMinutes()) - (hh * 60 + mm);
+    if (parado >= 10) txt += ` O TSE não divulga números novos desde ${ult.t.slice(0, 5)}.`;
+  }
   $("estado-txt").textContent = txt;
 
   if (pj){
@@ -281,7 +289,9 @@ function render(d){
       : `Ainda pouco apurado para projetar. <span>A projeção aparece com 1% do eleitorado.</span>`;
     $("chance").hidden = true;
   }
-  const A = ap.A || 0, B = ap.B || 0;
+  // números do TSE: o total nacional oficial (os arquivos por município podem vir atrasados)
+  const A = (of.A || 0) + (of.B || 0) > 0 ? of.A : (ap.A || 0);
+  const B = (of.A || 0) + (of.B || 0) > 0 ? of.B : (ap.B || 0);
   $("apPct").textContent = pct(pctAp,2)+"%";
   $("apA").textContent = A+B ? pct(A/(A+B),2)+"%" : "–";
   $("apB").textContent = A+B ? pct(B/(A+B),2)+"%" : "–";
