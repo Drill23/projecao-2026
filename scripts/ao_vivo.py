@@ -266,6 +266,7 @@ def main():
     ap.add_argument("--publicar", action="store_true")
     ap.add_argument("--uma-vez", action="store_true")
     ap.add_argument("--boot", type=int, default=150)
+    ap.add_argument("--diag", action="store_true")
     a = ap.parse_args()
     fim = agora() + dt.timedelta(minutes=a.max_min)
     if a.ate:
@@ -290,6 +291,14 @@ def main():
                   f"bruto {out['apurado']['pA']} proj {None if not p else round(100*p['pA'],2)} "
                   f"[{None if not p else round(100*p['lo'],2)}, {None if not p else round(100*p['hi'],2)}] "
                   f"tempos {out['tempos']}", flush=True)
+            if a.diag:
+                of = est.oficial
+                print("DIAG municípios com resultado:", int((est.st_res > 0).sum()), "de", base.n_mun,
+                      "| soma A,B:", int(est.A.sum()), int(est.B.sum()), "| oficial A,B:", of.get("A"), of.get("B"),
+                      "| est soma/oficial:", int(est.est.sum()), of.get("est"),
+                      "| te soma/oficial:", int(est.te.sum()), of.get("te"),
+                      "| seções marcadas apuradas:", int(est.cont.sum()), "de", base.n,
+                      "| eleitorado nessas seções:", int(base.E[est.cont].sum()), flush=True)
             if a.publicar:
                 publicar(os.getcwd())
             if out["status"] == "encerrado":

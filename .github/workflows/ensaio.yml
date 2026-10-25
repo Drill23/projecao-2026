@@ -1,0 +1,39 @@
+name: Ensaio
+# Testa o robô com os arquivos reais do 1º turno (apuração completa) e publica o estado
+# "aguardando" do 2º turno no ramo de dados.
+on:
+  push:
+    paths: ["scripts/ao_vivo.py", "projecao/**", ".github/workflows/ensaio.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: ao-vivo
+  cancel-in-progress: false
+jobs:
+  ensaio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy scipy
+      - name: Ensaio com o 1º turno
+        env: { ELEICAO: "6257", PLEITO: "3220" }
+        run: |
+          mkdir -p logs
+          python -u scripts/ao_vivo.py --uma-vez --diag --boot 50 2>&1 | tee logs/ensaio.txt
+          cp saida/projecao.json logs/ensaio-1turno.json
+      - name: Estado atual do 2º turno (publica)
+        run: |
+          git config user.name "projecao-bot"
+          git config user.email "projecao-bot@users.noreply.github.com"
+          rm -rf saida
+          python -u scripts/ao_vivo.py --uma-vez --diag --publicar 2>&1 | tee -a logs/ensaio.txt
+      - name: Salvar log
+        if: always()
+        run: |
+          git fetch origin main && git reset -q origin/main
+          git add logs
+          git commit -m "Log do ensaio" || exit 0
+          git push origin HEAD:main
