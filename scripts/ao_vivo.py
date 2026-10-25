@@ -268,9 +268,8 @@ class Estado:
             "oficial": ofic,
             "projecao": None if not proj else {
                 "pA": proj["pA"], "lo": proj["pA_lo"], "hi": proj["pA_hi"], "prob_A": proj["prob_A"],
-                "A": proj["A"], "B": proj["B"], "q": dict(zip(["Cury", "Renan Santos", "Caiado",
-                                                              "nanicos de esquerda", "nanicos de direita"],
-                                                             [round(x, 3) for x in proj["q"]])),
+                "A": proj["A"], "B": proj["B"], "q": dict(zip(["Cury", "Renan Santos", "Caiado"],
+                                                             [round(x, 3) for x in proj["q"][:3]])),
                 "comparecimento_rel": proj["turn_nat"], "validos_rel": proj["val_nat"],
                 "n_mun": proj["n_mun_obs"]},
             "ufs": ufs,

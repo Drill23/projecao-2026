@@ -13,7 +13,10 @@ REG_IDX = {"N": 0, "NE": 1, "CO": 2, "SE": 3, "S": 4, "EX": 5}
 GRUPOS = ["L", "F", "O1", "O2", "O3", "NE", "ND"]
 # priores para a fração dos votos de cada grupo que vai para Lula (A) no 2º turno.
 # Cury, Caiado, Zema e Barão declararam apoio a Flávio; UP, PSTU, PCB e PCO a Lula.
-PRIOR_Q = {"O1": (0.30, 1.0), "O2": (0.25, 1.0), "O3": (0.30, 1.0), "NE": (0.80, 1.0), "ND": (0.25, 1.0)}
+PRIOR_Q = {"O1": (0.30, 0.5), "O2": (0.25, 0.5), "O3": (0.30, 0.5), "NE": (0.80, 0.5), "ND": (0.25, 0.5)}
+# covariáveis de 2022 por seção: testadas na reprise (com 2018 no papel de 2022) e não melhoraram a
+# projeção; ficam desligadas.
+USAR_COVARIAVEIS = False
 
 
 def _media_imputada(x, ok, peso, grupos_list):
@@ -69,8 +72,12 @@ class Base2026:
         lean22 = _media_imputada(np.where(ok, lean22, 0), ok, peso, [self.mun, self.uf])
         lean22 = lean22 - np.average(lean22, weights=peso)
         d22 = d22 - np.average(d22, weights=peso)
-        self.X = np.stack([d22, lean22], 1)
-        self.nomes_cov = ["swing 1º→2º turno em 2022", "inclinação 2022"]
+        if USAR_COVARIAVEIS:
+            self.X = np.stack([d22, lean22], 1)
+            self.nomes_cov = ["swing 1º→2º turno em 2022", "inclinação 2022"]
+        else:
+            self.X = np.zeros((self.n, 0))
+            self.nomes_cov = []
 
     def modelo(self, rho=0.85):
         q = [PRIOR_Q[g][0] for g in GRUPOS[2:]]
