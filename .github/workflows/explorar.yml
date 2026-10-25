@@ -2,7 +2,7 @@ name: Explorar TSE
 on:
   workflow_dispatch:
   push:
-    paths: ["scripts/explorar.py", ".github/workflows/explorar.yml"]
+    paths: ["scripts/explorar.py"]
 permissions:
   contents: write
 jobs:

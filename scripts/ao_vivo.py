@@ -180,7 +180,14 @@ class Estado:
         with cf.ThreadPoolExecutor(6) as ex:
             for uf, d in ex.map(f, self.base.ufs):
                 if d:
-                    self.est_uf_res[uf] = num(d["e"].get("est"))
+                    self.est_uf_res[uf] = max(self.est_uf_res.get(uf, 0), num(d["e"].get("est")))
+        # andamento nacional por UF (outro arquivo, às vezes à frente dos demais)
+        d = get_json(f"{DIV}/{ELE}/dados/br/br-e{E6}-ab.json")
+        if d:
+            for a in d.get("abr", []):
+                if a.get("tpabr") == "uf" and a.get("cdabr") in self.base.ufs:
+                    uf = a["cdabr"]
+                    self.est_uf_res[uf] = max(self.est_uf_res.get(uf, 0), num(a["e"].get("est")))
 
     def ler_secoes(self, ufs):
         def f(uf):

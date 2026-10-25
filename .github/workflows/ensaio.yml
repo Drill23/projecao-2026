@@ -2,8 +2,7 @@ name: Ensaio
 # Testa o robô com os arquivos reais do 1º turno (apuração completa) e lê o estado atual do
 # 2º turno. Não publica nada no ramo de dados (para não atrapalhar o robô ao vivo).
 on:
-  push:
-    paths: ["scripts/ao_vivo.py", "projecao/**", ".github/workflows/ensaio.yml"]
+  workflow_dispatch:
 permissions:
   contents: write
 concurrency:

@@ -10,6 +10,10 @@ on:
     - cron: "3 20 25 10 *"    # 17:03 (reserva)
     - cron: "19 20 25 10 *"   # 17:19 (reserva)
     - cron: "41 1 26 10 *"    # 22:41 (continuação, se ainda houver apuração)
+  # uma correção no robô reinicia a execução em andamento (ela retoma de onde parou)
+  push:
+    branches: [main]
+    paths: ["scripts/ao_vivo.py", "projecao/**", ".github/workflows/ao-vivo.yml"]
   workflow_dispatch:
     inputs:
       ensaio:
@@ -20,7 +24,7 @@ permissions:
   contents: write
 concurrency:
   group: ao-vivo
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   apuracao:
     runs-on: ubuntu-latest
