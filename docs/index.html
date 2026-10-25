@@ -249,8 +249,10 @@ function render(d){
     $("barraA").style.width = (100*pj.pA)+"%";
     $("banda").style.left = (100*pj.lo)+"%";
     $("banda").style.width = (100*(pj.hi-pj.lo))+"%";
-    const lider = pj.pA >= .5 ? "Lula" : "Flávio";
-    $("veredito").innerHTML = `Projeção: ${lider} à frente no resultado final. <span>Faixa de 90%: Lula entre ${pct(pj.lo)}% e ${pct(pj.hi)}%.</span>`;
+    const frase = pj.prob_A >= .9 ? "Pela projeção, Lula termina à frente."
+      : pj.prob_A <= .1 ? "Pela projeção, Flávio termina à frente."
+      : `Disputa ainda indefinida, com ${pj.pA >= .5 ? "Lula" : "Flávio"} ligeiramente à frente na projeção.`;
+    $("veredito").innerHTML = `${frase} <span>Faixa de 90%: Lula entre ${pct(pj.lo)}% e ${pct(pj.hi)}%.</span>`;
     $("chance").hidden = false;
     const c = pj.prob_A;
     const fmt = p => p > .995 ? "> 99%" : p < .005 ? "< 1%" : Math.round(100*p)+"%";
@@ -307,7 +309,9 @@ function cor(v){ return getComputedStyle(document.documentElement).getPropertyVa
 function grafico(d){
   const s = (d.serie||[]).filter(p => p.bruto != null);
   const svg = $("graf");
-  const W = 800, H = 380, m = {l:48, r:16, t:14, b:34};
+  const W = Math.max(300, Math.round(svg.getBoundingClientRect().width) || 800);
+  const H = W < 560 ? Math.round(W * 0.78) : 380, m = {l:44, r:12, t:14, b:30};
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
   const iw = W-m.l-m.r, ih = H-m.t-m.b;
   let ys = [0.5];
   s.forEach(p => { ys.push(p.bruto); if (p.lo != null){ ys.push(p.lo, p.hi); } });
@@ -354,6 +358,7 @@ async function ciclo(){
 }
 ciclo();
 setInterval(ciclo, 45000);
+let tRes; addEventListener("resize", () => { clearTimeout(tRes); tRes = setTimeout(() => dados && grafico(dados), 150); });
 </script>
 </body>
 </html>

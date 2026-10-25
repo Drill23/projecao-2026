@@ -15,7 +15,6 @@ import subprocess
 import sys
 import time
 import traceback
-import urllib.request
 
 import numpy as np
 
@@ -37,19 +36,40 @@ def agora():
     return dt.datetime.now(BRT)
 
 
-def get_json(url, tentativas=3):
+import threading
+
+import requests
+from requests.adapters import HTTPAdapter
+
+_local = threading.local()
+ERROS = {"n": 0, "ult": ""}
+
+
+def _sessao():
+    s = getattr(_local, "s", None)
+    if s is None:
+        s = requests.Session()
+        s.headers.update({"User-Agent": "Mozilla/5.0 (projecao-2026; github.com/Drill23/projecao-2026)",
+                          "Accept-Encoding": "gzip, deflate"})
+        s.mount("https://", HTTPAdapter(pool_connections=4, pool_maxsize=8, max_retries=0))
+        _local.s = s
+    return s
+
+
+def get_json(url, tentativas=4):
     for t in range(tentativas):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 projecao-2026",
-                                                       "Cache-Control": "no-cache"})
-            with urllib.request.urlopen(req, timeout=40) as r:
-                return json.loads(r.read())
-        except urllib.error.HTTPError as e:
-            if e.code == 404:
+            r = _sessao().get(url, timeout=(5, 30))
+            if r.status_code == 404:
                 return None
-            time.sleep(1 + t)
-        except Exception:  # noqa: BLE001
-            time.sleep(1 + t)
+            if r.status_code == 200:
+                return r.json()
+            ERROS["n"] += 1
+            ERROS["ult"] = f"HTTP {r.status_code} {url[-60:]}"
+        except Exception as e:  # noqa: BLE001
+            ERROS["n"] += 1
+            ERROS["ult"] = f"{type(e).__name__} {url[-60:]}"
+        time.sleep(0.5 * (2 ** t))
     return None
 
 
@@ -110,7 +130,7 @@ class Estado:
         def f(item):
             uf, cd, i = item
             return i, get_json(f"{DIV}/{ELE}/dados/{uf}/{uf}{cd}-c0001-e{E6}-u.json")
-        with cf.ThreadPoolExecutor(32) as ex:
+        with cf.ThreadPoolExecutor(24) as ex:
             for i, d in ex.map(f, muns):
                 if not d:
                     continue
@@ -299,7 +319,8 @@ def main():
                       "| est soma/oficial:", int(est.est.sum()), of.get("est"),
                       "| te soma/oficial:", int(est.te.sum()), of.get("te"),
                       "| seções marcadas apuradas:", int(est.cont.sum()), "de", base.n,
-                      "| eleitorado nessas seções:", int(base.E[est.cont].sum()), flush=True)
+                      "| eleitorado nessas seções:", int(base.E[est.cont].sum()),
+                      "| erros de leitura:", ERROS, flush=True)
             if a.publicar:
                 publicar(os.getcwd())
             if out["status"] == "encerrado":
