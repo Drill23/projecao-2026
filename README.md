@@ -4,7 +4,7 @@ Robô e página que acompanham a apuração de um 2º turno (presidente ou gover
 cada minuto, a **projeção do resultado final**, a faixa de 90% e a chance de vitória.
 
 - Página: **https://drill23.github.io/projecao-2026/**
-- Versão do modelo: **v2** (calibrada em 59 segundos turnos de 2010 a 2026)
+- Versão do modelo: **v2**, testada em 55 segundos turnos de presidente e governador (2010–2026)
 - Estado: **desligado**. Nada roda sozinho; o robô só liga quando alguém manda.
 
 ## Como usar numa próxima eleição
