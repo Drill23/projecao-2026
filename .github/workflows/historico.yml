@@ -1,0 +1,66 @@
+name: Preparar histórico
+on:
+  workflow_dispatch:
+  push:
+    paths: [".github/workflows/historico.yml"]
+permissions:
+  contents: write
+jobs:
+  ano:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        ano: [2010, 2014, 2018, 2022, 2026]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy pandas
+      - run: python -u scripts/historico.py ${{ matrix.ano }} 2>&1 | tee historico-${{ matrix.ano }}.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hist-${{ matrix.ano }}
+          path: |
+            historico/
+            historico-${{ matrix.ano }}.log
+  extras:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy pandas requests scipy
+      - run: python -u scripts/geo.py 2>&1 | tee geo.log
+      - name: Horários reais de chegada do 2º turno de 2026
+        env: { PLEITO: "3221", DIA: "25", SAIDA: "historico/chegada_2t_2026.npz", FRAC: "0.12" }
+        run: python -u scripts/amostra_chegada.py 2>&1 | tail -5 | tee chegada2t.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hist-extras
+          path: |
+            historico/
+            geo.log
+            chegada2t.log
+  juntar:
+    needs: [ano, extras]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { path: art }
+      - name: Salvar no repositório
+        run: |
+          mkdir -p historico logs
+          for d in art/*; do cp -r $d/historico/* historico/ 2>/dev/null || true; cp $d/*.log logs/ 2>/dev/null || true; done
+          ls -la historico | head -80
+          git config user.name "projecao-bot"
+          git config user.email "projecao-bot@users.noreply.github.com"
+          git add historico logs
+          git commit -m "Bases históricas de 2º turno (presidente e governador)" || exit 0
+          git pull --rebase origin main && git push origin HEAD:main

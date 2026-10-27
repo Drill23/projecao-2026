@@ -14,7 +14,8 @@ import urllib.request
 
 import numpy as np
 
-DIV = "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3220/dados"
+PLEITO = os.environ.get("PLEITO", "3220")
+DIV = f"https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/{PLEITO}/dados"
 FRAC = float(os.environ.get("FRAC", "0.12"))
 
 
@@ -47,7 +48,7 @@ def main():
         mk = muns[int(z["mun"][i])]["k"]
         uf, cd = mk[:2], mk[2:]
         zo, se = f"{int(z['zona'][i]):04d}", f"{int(z['secao'][i]):04d}"
-        d = get_json(f"{DIV}/{uf}/{cd}/{zo}/{se}/p003220-{uf}-m{cd}-z{zo}-s{se}-aux.json")
+        d = get_json(f"{DIV}/{uf}/{cd}/{zo}/{se}/p{int(PLEITO):06d}-{uf}-m{cd}-z{zo}-s{se}-aux.json")
         if not d:
             return i, None
         melhor = None
@@ -56,7 +57,7 @@ def main():
                 continue
             dd, mm, aa = h["dr"].split("/")
             hh, mi, ss = h["hr"].split(":")
-            minutos = (int(dd) - 4) * 1440 + int(hh) * 60 + int(mi) + int(ss) / 60 - 17 * 60
+            minutos = (int(dd) - int(os.environ.get("DIA", "4"))) * 1440 + int(hh) * 60 + int(mi) + int(ss) / 60 - 17 * 60
             melhor = minutos if melhor is None else min(melhor, minutos)
         return i, melhor
 
@@ -70,7 +71,7 @@ def main():
                 print(n, len(res), f"{time.time()-t0:.0f}s", flush=True)
     ii = np.array(sorted(res), dtype=np.int64)
     mm = np.array([res[i] for i in ii], dtype=np.float32)
-    np.savez_compressed("base/chegada_amostra.npz", idx=ii, minutos=mm)
+    np.savez_compressed(os.environ.get("SAIDA", "base/chegada_amostra.npz"), idx=ii, minutos=mm)
     print("ok", len(ii), "percentis (min após 17h):", np.percentile(mm, [1, 10, 50, 90, 99]).round(1),
           f"{time.time()-t0:.0f}s")
 
