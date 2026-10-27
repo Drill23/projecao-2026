@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_MS",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "MS",
+ "A": {
+  "n": 45,
+  "nome": "REINALDO AZAMBUJA SILVA"
+ },
+ "B": {
+  "n": 12,
+  "nome": "ODILON DE OLIVEIRA"
+ },
+ "outros": [
+  {
+   "n": 15,
+   "nome": "OSWALDO MOCHI JUNIOR"
+  },
+  {
+   "n": 13,
+   "nome": "HUMBERTO CARLOS RAMOS AMADUCCI"
+  },
+  {
+   "n": 43,
+   "nome": "MARCELO DE MOURA BLUMA"
+  }
+ ],
+ "final_pA": 0.523531921603547,
+ "votos_A": 677310,
+ "votos_B": 616422,
+ "secoes": 6529,
+ "total_1t": {
+  "A1": 576993,
+  "B1": 408969,
+  "O1": 150115,
+  "O2": 132638,
+  "O3": 16544,
+  "OR": 8095,
+  "BN1": 185288,
+  "APT1": 1876929,
+  "COMP1": 1478642
+ },
+ "total_2t": {
+  "A2": 677310,
+  "B2": 616422,
+  "BN2": 155642,
+  "APT2": 1877020,
+  "COMP2": 1449374
+ }
+}

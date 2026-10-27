@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_SP",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "SP",
+ "A": {
+  "n": 45,
+  "nome": "JOÃO AGRIPINO DA COSTA DORIA JUNIOR"
+ },
+ "B": {
+  "n": 40,
+  "nome": "MARCIO LUIZ FRANÇA GOMES"
+ },
+ "outros": [
+  {
+   "n": 15,
+   "nome": "PAULO ANTONIO SKAF"
+  },
+  {
+   "n": 13,
+   "nome": "LUIZ MARINHO"
+  },
+  {
+   "n": 27,
+   "nome": "ADRIANO DA COSTA E SILVA"
+  }
+ ],
+ "final_pA": 0.5174586105148573,
+ "votos_A": 10990350,
+ "votos_B": 10248740,
+ "secoes": 96328,
+ "total_1t": {
+  "A1": 6431555,
+  "B1": 4358998,
+  "O1": 4269865,
+  "O2": 2563922,
+  "O3": 747462,
+  "OR": 2205205,
+  "BN1": 5344313,
+  "APT1": 33032372,
+  "COMP1": 25921320
+ },
+ "total_2t": {
+  "A2": 10990350,
+  "B2": 10248740,
+  "BN2": 4598372,
+  "APT2": 33032785,
+  "COMP2": 25837462
+ }
+}

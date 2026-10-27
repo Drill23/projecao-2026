@@ -1,0 +1,50 @@
+{
+ "id": "pres_2010",
+ "ano": 2010,
+ "cargo": "presidente",
+ "uf": "BR",
+ "A": {
+  "n": 13,
+  "nome": "DILMA VANA ROUSSEFF"
+ },
+ "B": {
+  "n": 45,
+  "nome": "JOSÉ SERRA"
+ },
+ "outros": [
+  {
+   "n": 43,
+   "nome": "MARIA OSMARINA MARINA DA SILVA VAZ DE LIMA"
+  },
+  {
+   "n": 50,
+   "nome": "PLÍNIO SOARES DE ARRUDA SAMPAIO"
+  },
+  {
+   "n": 27,
+   "nome": "JOSE MARIA EYMAEL"
+  }
+ ],
+ "final_pA": 0.5605301970965009,
+ "votos_A": 55752529,
+ "votos_B": 43711388,
+ "secoes": 399962,
+ "total_1t": {
+  "A1": 47651143,
+  "B1": 33132134,
+  "O1": 19636322,
+  "O2": 886813,
+  "O3": 89349,
+  "OR": 193911,
+  "BN1": 9603565,
+  "APT1": 135803364,
+  "COMP1": 111193237
+ },
+ "total_2t": {
+  "A2": 55752529,
+  "B2": 43711388,
+  "BN2": 7142297,
+  "APT2": 135803364,
+  "COMP2": 106606214
+ }
+}

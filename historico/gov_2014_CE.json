@@ -1,0 +1,46 @@
+{
+ "id": "gov_2014_CE",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "CE",
+ "A": {
+  "n": 13,
+  "nome": "CAMILO SOBREIRA DE SANTANA"
+ },
+ "B": {
+  "n": 15,
+  "nome": "EUNÍCIO LOPES DE OLIVEIRA"
+ },
+ "outros": [
+  {
+   "n": 40,
+   "nome": "ELIANE NOVAES ELEUTERIO TEIXEIRA"
+  },
+  {
+   "n": 50,
+   "nome": "AILTON CLAECIO LOPES DANTAS"
+  }
+ ],
+ "final_pA": 0.533512166100863,
+ "votos_A": 2417668,
+ "votos_B": 2113940,
+ "secoes": 19920,
+ "total_1t": {
+  "A1": 2039232,
+  "B1": 1979499,
+  "O1": 144507,
+  "O2": 102394,
+  "O3": 0,
+  "OR": 0,
+  "BN1": 741930,
+  "APT1": 6268869,
+  "COMP1": 5007562
+ },
+ "total_2t": {
+  "A2": 2417668,
+  "B2": 2113940,
+  "BN2": 373871,
+  "APT2": 6268997,
+  "COMP2": 4905479
+ }
+}

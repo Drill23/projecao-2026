@@ -1,0 +1,50 @@
+{
+ "id": "gov_2010_RO",
+ "ano": 2010,
+ "cargo": "governador",
+ "uf": "RO",
+ "A": {
+  "n": 15,
+  "nome": "CONFUCIO AIRES DE MOURA"
+ },
+ "B": {
+  "n": 23,
+  "nome": "JOÃO APARECIDO CAHULLA"
+ },
+ "outros": [
+  {
+   "n": 45,
+   "nome": "#NULO#"
+  },
+  {
+   "n": 13,
+   "nome": "EDUARDO VALVERDE ARAÚJO ALVES"
+  },
+  {
+   "n": 50,
+   "nome": "MARCOS AUGUSTO GOMES SUSSUARANA"
+  }
+ ],
+ "final_pA": 0.5867825497896252,
+ "votos_A": 422707,
+ "votos_B": 297674,
+ "secoes": 3373,
+ "total_1t": {
+  "A1": 291765,
+  "B1": 246350,
+  "O1": 124625,
+  "O2": 120462,
+  "O3": 4641,
+  "OR": 0,
+  "BN1": 58508,
+  "APT1": 1078348,
+  "COMP1": 846351
+ },
+ "total_2t": {
+  "A2": 422707,
+  "B2": 297674,
+  "BN2": 81571,
+  "APT2": 1078402,
+  "COMP2": 801952
+ }
+}

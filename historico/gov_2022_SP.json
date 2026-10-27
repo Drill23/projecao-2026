@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_SP",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "SP",
+ "A": {
+  "n": 10,
+  "nome": "TARCISIO GOMES DE FREITAS"
+ },
+ "B": {
+  "n": 13,
+  "nome": "FERNANDO HADDAD"
+ },
+ "outros": [
+  {
+   "n": 45,
+   "nome": "RODRIGO GARCIA"
+  },
+  {
+   "n": 30,
+   "nome": "VINICIUS LAZZER POIT"
+  },
+  {
+   "n": 12,
+   "nome": "ELVIS LEONARDO CEZAR"
+  }
+ ],
+ "final_pA": 0.5527115728592857,
+ "votos_A": 13480643,
+ "votos_B": 10909371,
+ "secoes": 101073,
+ "total_1t": {
+  "A1": 9881995,
+  "B1": 8337139,
+  "O1": 4296293,
+  "O2": 388974,
+  "O3": 281712,
+  "OR": 166436,
+  "BN1": 3795298,
+  "APT1": 34639761,
+  "COMP1": 27147847
+ },
+ "total_2t": {
+  "A2": 13480643,
+  "B2": 10909371,
+  "BN2": 2951802,
+  "APT2": 34642067,
+  "COMP2": 27341816
+ }
+}

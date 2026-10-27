@@ -1,0 +1,50 @@
+{
+ "id": "gov_2010_AP",
+ "ano": 2010,
+ "cargo": "governador",
+ "uf": "AP",
+ "A": {
+  "n": 40,
+  "nome": "CARLOS CAMILO GOES CAPIBERIBE"
+ },
+ "B": {
+  "n": 14,
+  "nome": "LUIZ CANTUÁRIA BARRETO"
+ },
+ "outros": [
+  {
+   "n": 45,
+   "nome": "JORGE EMANOEL AMANAJAS CARDOSO"
+  },
+  {
+   "n": 11,
+   "nome": "PEDRO PAULO DIAS DE CARVALHO"
+  },
+  {
+   "n": 16,
+   "nome": "GENIVAL CRUZ DE ARAÚJO"
+  }
+ ],
+ "final_pA": 0.537728162698162,
+ "votos_A": 170277,
+ "votos_B": 146383,
+ "secoes": 1199,
+ "total_1t": {
+  "A1": 95328,
+  "B1": 96165,
+  "O1": 93695,
+  "O2": 44870,
+  "O3": 2298,
+  "OR": 0,
+  "BN1": 25436,
+  "APT1": 420331,
+  "COMP1": 357792
+ },
+ "total_2t": {
+  "A2": 170277,
+  "B2": 146383,
+  "BN2": 21893,
+  "APT2": 420349,
+  "COMP2": 338553
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_RS",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "RS",
+ "A": {
+  "n": 45,
+  "nome": "EDUARDO FIGUEIREDO CAVALHEIRO LEITE"
+ },
+ "B": {
+  "n": 15,
+  "nome": "JOSÉ IVO SARTORI"
+ },
+ "outros": [
+  {
+   "n": 13,
+   "nome": "MIGUEL SOLDATELLI ROSSETTO"
+  },
+  {
+   "n": 12,
+   "nome": "JAIRO JORGE DA SILVA"
+  },
+  {
+   "n": 30,
+   "nome": "MATEUS AFFONSO BANDEIRA"
+  }
+ ],
+ "final_pA": 0.5362291688021669,
+ "votos_A": 3128317,
+ "votos_B": 2705601,
+ "secoes": 27274,
+ "total_1t": {
+  "A1": 2143603,
+  "B1": 1857335,
+  "O1": 1060209,
+  "O2": 661717,
+  "O3": 200877,
+  "OR": 47393,
+  "BN1": 864732,
+  "APT1": 8350718,
+  "COMP1": 6835866
+ },
+ "total_2t": {
+  "A2": 3128317,
+  "B2": 2705601,
+  "BN2": 940951,
+  "APT2": 8350956,
+  "COMP2": 6774869
+ }
+}

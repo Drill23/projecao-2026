@@ -1,0 +1,50 @@
+{
+ "id": "gov_2014_PB",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "PB",
+ "A": {
+  "n": 40,
+  "nome": "RICARDO VIEIRA COUTINHO"
+ },
+ "B": {
+  "n": 45,
+  "nome": "CASSIO RODRIGUES DA CUNHA LIMA"
+ },
+ "outros": [
+  {
+   "n": 15,
+   "nome": "VITAL DO RÊGO FILHO"
+  },
+  {
+   "n": 90,
+   "nome": "FABIO RODRIGUES DE OLIVEIR"
+  },
+  {
+   "n": 50,
+   "nome": "TARCIO HOLANDA TEIXEIRA"
+  }
+ ],
+ "final_pA": 0.5260618712181985,
+ "votos_A": 1125956,
+ "votos_B": 1014393,
+ "secoes": 9523,
+ "total_1t": {
+  "A1": 937009,
+  "B1": 965397,
+  "O1": 106162,
+  "O2": 14910,
+  "O3": 8849,
+  "OR": 2570,
+  "BN1": 299625,
+  "APT1": 2834782,
+  "COMP1": 2334522
+ },
+ "total_2t": {
+  "A2": 1125956,
+  "B2": 1014393,
+  "BN2": 184323,
+  "APT2": 2834880,
+  "COMP2": 2324672
+ }
+}

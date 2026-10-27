@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_RO",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "RO",
+ "A": {
+  "n": 44,
+  "nome": "MARCOS JOSÉ ROCHA DOS SANTOS"
+ },
+ "B": {
+  "n": 22,
+  "nome": "MARCOS ROGERIO DA SILVA BRITO"
+ },
+ "outros": [
+  {
+   "n": 19,
+   "nome": "LEONARDO BARRETO DE MORAES"
+  },
+  {
+   "n": 77,
+   "nome": "DANIEL PEREIRA"
+  },
+  {
+   "n": 50,
+   "nome": "NASCIMENTO ANTONIO DA SILVA"
+  }
+ ],
+ "final_pA": 0.5246621064776661,
+ "votos_A": 458370,
+ "votos_B": 415278,
+ "secoes": 4198,
+ "total_1t": {
+  "A1": 330656,
+  "B1": 315035,
+  "O1": 119583,
+  "O2": 81421,
+  "O3": 3660,
+  "OR": 0,
+  "BN1": 75408,
+  "APT1": 1228788,
+  "COMP1": 925763
+ },
+ "total_2t": {
+  "A2": 458370,
+  "B2": 415278,
+  "BN2": 51915,
+  "APT2": 1229033,
+  "COMP2": 925563
+ }
+}

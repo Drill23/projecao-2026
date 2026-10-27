@@ -1,0 +1,50 @@
+{
+ "id": "gov_2014_GO",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "GO",
+ "A": {
+  "n": 45,
+  "nome": "MARCONI FERREIRA PERILLO JUNIOR"
+ },
+ "B": {
+  "n": 15,
+  "nome": "IRIS REZENDE MACHADO"
+ },
+ "outros": [
+  {
+   "n": 40,
+   "nome": "VANDERLAN VIEIRA CARDOSO"
+  },
+  {
+   "n": 13,
+   "nome": "ANTÔNIO ROBERTO OTONI GOMIDE"
+  },
+  {
+   "n": 50,
+   "nome": "WESLEI GARCIA DE PAULO"
+  }
+ ],
+ "final_pA": 0.5743602982251673,
+ "votos_A": 1750977,
+ "votos_B": 1297592,
+ "secoes": 13145,
+ "total_1t": {
+  "A1": 1451330,
+  "B1": 898645,
+  "O1": 474090,
+  "O2": 319233,
+  "O3": 10522,
+  "OR": 10891,
+  "BN1": 349727,
+  "APT1": 4329834,
+  "COMP1": 3514438
+ },
+ "total_2t": {
+  "A2": 1750977,
+  "B2": 1297592,
+  "BN2": 348936,
+  "APT2": 4329932,
+  "COMP2": 3397505
+ }
+}

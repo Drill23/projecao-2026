@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_ES",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "ES",
+ "A": {
+  "n": 40,
+  "nome": "JOSÉ RENATO CASAGRANDE"
+ },
+ "B": {
+  "n": 22,
+  "nome": "CARLOS HUMBERTO MANNATO"
+ },
+ "outros": [
+  {
+   "n": 55,
+   "nome": "GUERINO LUIZ ZANON"
+  },
+  {
+   "n": 18,
+   "nome": "AUDIFAX CHARLES PIMENTEL BARCELOS"
+  },
+  {
+   "n": 30,
+   "nome": "ARIDELMO JOSÉ CAMPANHARO TEIXEIRA"
+  }
+ ],
+ "final_pA": 0.5379521234698428,
+ "votos_A": 1171288,
+ "votos_B": 1006021,
+ "secoes": 9239,
+ "total_1t": {
+  "A1": 976652,
+  "B1": 800598,
+  "O1": 146177,
+  "O2": 135512,
+  "O3": 15786,
+  "OR": 5923,
+  "BN1": 230981,
+  "APT1": 2917714,
+  "COMP1": 2311629
+ },
+ "total_2t": {
+  "A2": 1171288,
+  "B2": 1006021,
+  "BN2": 141041,
+  "APT2": 2917863,
+  "COMP2": 2318350
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_MG",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "MG",
+ "A": {
+  "n": 30,
+  "nome": "ROMEU ZEMA NETO"
+ },
+ "B": {
+  "n": 45,
+  "nome": "ANTONIO AUGUSTO JUNHO ANASTASIA"
+ },
+ "outros": [
+  {
+   "n": 13,
+   "nome": "FERNANDO DAMATA PIMENTEL"
+  },
+  {
+   "n": 15,
+   "nome": "ADALCLEVER RIBEIRO LOPES"
+  },
+  {
+   "n": 50,
+   "nome": "MARIA DIRLENE TRINDADE MARQUES"
+  }
+ ],
+ "final_pA": 0.7180470967054083,
+ "votos_A": 6963806,
+ "votos_B": 2734452,
+ "secoes": 48166,
+ "total_1t": {
+  "A1": 4138967,
+  "B1": 2814704,
+  "O1": 2239979,
+  "O2": 268683,
+  "O3": 133986,
+  "OR": 95016,
+  "BN1": 2519919,
+  "APT1": 15695210,
+  "COMP1": 12211254
+ },
+ "total_2t": {
+  "A2": 6963806,
+  "B2": 2734452,
+  "BN2": 2366025,
+  "APT2": 15695460,
+  "COMP2": 12064283
+ }
+}

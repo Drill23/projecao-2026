@@ -1,0 +1,50 @@
+{
+ "id": "gov_2026_DF",
+ "ano": 2026,
+ "cargo": "governador",
+ "uf": "DF",
+ "A": {
+  "n": 11,
+  "nome": "CELINA LEAO HIZIM FERREIRA"
+ },
+ "B": {
+  "n": 13,
+  "nome": "LEANDRO ANTÔNIO GRASS PEIXOTO"
+ },
+ "outros": [
+  {
+   "n": 45,
+   "nome": "PAULA MORENO PARO BELMONTE"
+  },
+  {
+   "n": 30,
+   "nome": "FRANCISCO QUEIROZ CAPUTO NETO"
+  },
+  {
+   "n": 40,
+   "nome": "RICARDO GARCIA CAPPELLI"
+  }
+ ],
+ "final_pA": 0.571834566047529,
+ "votos_A": 987142,
+ "votos_B": 739130,
+ "secoes": 6969,
+ "total_1t": {
+  "A1": 825530,
+  "B1": 569930,
+  "O1": 140765,
+  "O2": 72148,
+  "O3": 36828,
+  "OR": 16492,
+  "BN1": 156228,
+  "APT1": 2243988,
+  "COMP1": 1817921
+ },
+ "total_2t": {
+  "A2": 987142,
+  "B2": 739130,
+  "BN2": 128051,
+  "APT2": 2244176,
+  "COMP2": 1854323
+ }
+}

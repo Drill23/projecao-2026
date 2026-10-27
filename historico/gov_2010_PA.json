@@ -1,0 +1,50 @@
+{
+ "id": "gov_2010_PA",
+ "ano": 2010,
+ "cargo": "governador",
+ "uf": "PA",
+ "A": {
+  "n": 45,
+  "nome": "SIMÃO ROBSON OLIVEIRA JATENE"
+ },
+ "B": {
+  "n": 13,
+  "nome": "ANA JULIA DE VASCONCELOS CAREPA"
+ },
+ "outros": [
+  {
+   "n": 15,
+   "nome": "DOMINGOS JUVENIL NUNES DE SOUSA"
+  },
+  {
+   "n": 50,
+   "nome": "FERNANDO ANTÔNIO MARTINS CARNEIRO"
+  },
+  {
+   "n": 16,
+   "nome": "JOSÉ CLEBER BARROS RABELO"
+  }
+ ],
+ "final_pA": 0.5573911277471177,
+ "votos_A": 1860799,
+ "votos_B": 1477609,
+ "secoes": 14579,
+ "total_1t": {
+  "A1": 1720631,
+  "B1": 1267981,
+  "O1": 380331,
+  "O2": 107102,
+  "O3": 41514,
+  "OR": 0,
+  "BN1": 237113,
+  "APT1": 4763435,
+  "COMP1": 3754672
+ },
+ "total_2t": {
+  "A2": 1860799,
+  "B2": 1477609,
+  "BN2": 149172,
+  "APT2": 4763571,
+  "COMP2": 3487580
+ }
+}

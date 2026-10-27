@@ -1,0 +1,46 @@
+{
+ "id": "gov_2014_AC",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "AC",
+ "A": {
+  "n": 13,
+  "nome": "SEBASTIÃO AFONSO VIANA MACEDO NEVES"
+ },
+ "B": {
+  "n": 45,
+  "nome": "MÁRCIO MIGUEL BITTAR"
+ },
+ "outros": [
+  {
+   "n": 25,
+   "nome": "SEBASTIÃO BOCALOM RODRIGUES"
+  },
+  {
+   "n": 50,
+   "nome": "ANTONIO DA CRUZ DA ROCHA ALVES"
+  }
+ ],
+ "final_pA": 0.5128547082603669,
+ "votos_A": 196509,
+ "votos_B": 186658,
+ "secoes": 1636,
+ "total_1t": {
+  "A1": 193253,
+  "B1": 116948,
+  "O1": 76218,
+  "O2": 2171,
+  "O3": 0,
+  "OR": 0,
+  "BN1": 30182,
+  "APT1": 506520,
+  "COMP1": 418772
+ },
+ "total_2t": {
+  "A2": 196509,
+  "B2": 186658,
+  "BN2": 10990,
+  "APT2": 506522,
+  "COMP2": 394157
+ }
+}

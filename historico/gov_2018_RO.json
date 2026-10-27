@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_RO",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "RO",
+ "A": {
+  "n": 17,
+  "nome": "MARCOS JOSE ROCHA DOS SANTOS"
+ },
+ "B": {
+  "n": 45,
+  "nome": "EXPEDITO GONÇALVES FERREIRA JUNIOR"
+ },
+ "outros": [
+  {
+   "n": 15,
+   "nome": "MAURO DE CARVALHO"
+  },
+  {
+   "n": 18,
+   "nome": "VINICIUS VALENTIN RADUAN MIGUEL"
+  },
+  {
+   "n": 50,
+   "nome": "NASCIMENTO ANTONIO DA SILVA"
+  }
+ ],
+ "final_pA": 0.663381797252321,
+ "votos_A": 530188,
+ "votos_B": 269032,
+ "secoes": 4181,
+ "total_1t": {
+  "A1": 183691,
+  "B1": 241885,
+  "O1": 173690,
+  "O2": 110585,
+  "O3": 36982,
+  "OR": 56393,
+  "BN1": 109688,
+  "APT1": 1175133,
+  "COMP1": 912914
+ },
+ "total_2t": {
+  "A2": 530188,
+  "B2": 269032,
+  "BN2": 82614,
+  "APT2": 1175173,
+  "COMP2": 881834
+ }
+}

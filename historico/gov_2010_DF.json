@@ -1,0 +1,50 @@
+{
+ "id": "gov_2010_DF",
+ "ano": 2010,
+ "cargo": "governador",
+ "uf": "DF",
+ "A": {
+  "n": 13,
+  "nome": "AGNELO SANTOS QUEIROZ FILHO"
+ },
+ "B": {
+  "n": 20,
+  "nome": "WESLIAN DO PERPETUO SOCORRO PELES RORIZ"
+ },
+ "outros": [
+  {
+   "n": 50,
+   "nome": "ANTONIO CARLOS DE ANDRADE"
+  },
+  {
+   "n": 43,
+   "nome": "EDUARDO DUTRA BRANDÃO CAVALCANTI"
+  },
+  {
+   "n": 16,
+   "nome": "RODRIGO DE SOUZA DANTAS MENDONCA PINTO"
+  }
+ ],
+ "final_pA": 0.6609779259346489,
+ "votos_A": 875612,
+ "votos_B": 449110,
+ "secoes": 5197,
+ "total_1t": {
+  "A1": 676394,
+  "B1": 440128,
+  "O1": 199095,
+  "O2": 78837,
+  "O3": 2849,
+  "OR": 3519,
+  "BN1": 149943,
+  "APT1": 1833942,
+  "COMP1": 1550765
+ },
+ "total_2t": {
+  "A2": 875612,
+  "B2": 449110,
+  "BN2": 155267,
+  "APT2": 1834135,
+  "COMP2": 1479989
+ }
+}

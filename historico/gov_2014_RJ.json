@@ -1,0 +1,50 @@
+{
+ "id": "gov_2014_RJ",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "RJ",
+ "A": {
+  "n": 15,
+  "nome": "LUIZ FERNANDO DE SOUZA"
+ },
+ "B": {
+  "n": 10,
+  "nome": "MARCELO BEZERRA  CRIVELLA"
+ },
+ "outros": [
+  {
+   "n": 22,
+   "nome": "ANTHONY WILLIAM GAROTINHO MATHEUS DE OLIVEIRA"
+  },
+  {
+   "n": 13,
+   "nome": "LUIZ LINDBERGH FARIAS FILHO"
+  },
+  {
+   "n": 50,
+   "nome": "TARCISIO MOTTA DE CARVALHO"
+  }
+ ],
+ "final_pA": 0.5578335299038236,
+ "votos_A": 4343298,
+ "votos_B": 3442713,
+ "secoes": 32675,
+ "total_1t": {
+  "A1": 3242513,
+  "B1": 1619165,
+  "O1": 1576511,
+  "O2": 798897,
+  "O3": 712734,
+  "OR": 42392,
+  "BN1": 1701650,
+  "APT1": 12134443,
+  "COMP1": 9693862
+ },
+ "total_2t": {
+  "A2": 4343298,
+  "B2": 3442713,
+  "BN2": 1635179,
+  "APT2": 12134961,
+  "COMP2": 9421190
+ }
+}

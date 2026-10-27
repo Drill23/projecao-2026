@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_AM",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "AM",
+ "A": {
+  "n": 44,
+  "nome": "WILSON MIRANDA LIMA"
+ },
+ "B": {
+  "n": 15,
+  "nome": "CARLOS EDUARDO DE SOUZA BRAGA"
+ },
+ "outros": [
+  {
+   "n": 23,
+   "nome": "AMAZONINO ARMANDO MENDES"
+  },
+  {
+   "n": 77,
+   "nome": "LUIS RICARDO SALDANHA NICOLAU"
+  },
+  {
+   "n": 12,
+   "nome": "CAROLINE DA SILVA BRAZ"
+  }
+ ],
+ "final_pA": 0.56653637102094,
+ "votos_A": 1039192,
+ "votos_B": 795098,
+ "secoes": 7453,
+ "total_1t": {
+  "A1": 819784,
+  "B1": 401817,
+  "O1": 355377,
+  "O2": 217588,
+  "O3": 87114,
+  "OR": 32720,
+  "BN1": 196475,
+  "APT1": 2643487,
+  "COMP1": 2110875
+ },
+ "total_2t": {
+  "A2": 1039192,
+  "B2": 795098,
+  "BN2": 230789,
+  "APT2": 2643781,
+  "COMP2": 2065079
+ }
+}

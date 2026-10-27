@@ -1,0 +1,50 @@
+{
+ "id": "gov_2010_PI",
+ "ano": 2010,
+ "cargo": "governador",
+ "uf": "PI",
+ "A": {
+  "n": 40,
+  "nome": "WILSON NUNES MARTINS"
+ },
+ "B": {
+  "n": 45,
+  "nome": "SILVIO MENDES DE OLIVEIRA FILHO"
+ },
+ "outros": [
+  {
+   "n": 14,
+   "nome": "JOÃO VICENTE DE MACÊDO CLAUDINO"
+  },
+  {
+   "n": 43,
+   "nome": "TERESA DOS SANTOS SOUSA BRITTO"
+  },
+  {
+   "n": 17,
+   "nome": "JOSÉ AVELÁ PERERA COSTA"
+  }
+ ],
+ "final_pA": 0.5892714831932397,
+ "votos_A": 921313,
+ "votos_B": 642165,
+ "secoes": 7424,
+ "total_1t": {
+  "A1": 725563,
+  "B1": 470660,
+  "O1": 337028,
+  "O2": 24820,
+  "O3": 3106,
+  "OR": 4858,
+  "BN1": 247289,
+  "APT1": 2261862,
+  "COMP1": 1813324
+ },
+ "total_2t": {
+  "A2": 921313,
+  "B2": 642165,
+  "BN2": 181208,
+  "APT2": 2261931,
+  "COMP2": 1744686
+ }
+}

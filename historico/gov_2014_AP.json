@@ -1,0 +1,50 @@
+{
+ "id": "gov_2014_AP",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "AP",
+ "A": {
+  "n": 12,
+  "nome": "ANTÔNIO WALDEZ GÓES DA SILVA"
+ },
+ "B": {
+  "n": 40,
+  "nome": "CARLOS CAMILO GÓES CAPIBERIBE"
+ },
+ "outros": [
+  {
+   "n": 55,
+   "nome": "LUIZ CANTUARIA BARRETO"
+  },
+  {
+   "n": 70,
+   "nome": "BRUNO MANOEL REZENDE"
+  },
+  {
+   "n": 23,
+   "nome": "JORGE EMANOEL AMANAJAS CARDOSO"
+  }
+ ],
+ "final_pA": 0.6058195600810855,
+ "votos_A": 220256,
+ "votos_B": 143311,
+ "secoes": 1461,
+ "total_1t": {
+  "A1": 161550,
+  "B1": 105445,
+  "O1": 53079,
+  "O2": 30135,
+  "O3": 27045,
+  "OR": 5761,
+  "BN1": 24831,
+  "APT1": 455368,
+  "COMP1": 407846
+ },
+ "total_2t": {
+  "A2": 220256,
+  "B2": 143311,
+  "BN2": 25513,
+  "APT2": 455368,
+  "COMP2": 389080
+ }
+}

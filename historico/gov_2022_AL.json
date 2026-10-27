@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_AL",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "AL",
+ "A": {
+  "n": 15,
+  "nome": "PAULO SURUAGY DO AMARAL DANTAS"
+ },
+ "B": {
+  "n": 44,
+  "nome": "RODRIGO SANTOS CUNHA"
+ },
+ "outros": [
+  {
+   "n": 14,
+   "nome": "FERNANDO AFFONSO COLLOR DE MELLO"
+  },
+  {
+   "n": 55,
+   "nome": "RUI SOARES PALMEIRA"
+  },
+  {
+   "n": 50,
+   "nome": "CICERO FERREIRA DE ALBUQUERQUE"
+  }
+ ],
+ "final_pA": 0.5233004361892838,
+ "votos_A": 834278,
+ "votos_B": 759984,
+ "secoes": 6626,
+ "total_1t": {
+  "A1": 708984,
+  "B1": 407220,
+  "O1": 223585,
+  "O2": 157746,
+  "O3": 17749,
+  "OR": 4847,
+  "BN1": 282660,
+  "APT1": 2322905,
+  "COMP1": 1802791
+ },
+ "total_2t": {
+  "A2": 834278,
+  "B2": 759984,
+  "BN2": 188145,
+  "APT2": 2322904,
+  "COMP2": 1782407
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "id": "gov_2010_AL",
+ "ano": 2010,
+ "cargo": "governador",
+ "uf": "AL",
+ "A": {
+  "n": 45,
+  "nome": "TEOTONIO BRANDAO VILELA FILHO"
+ },
+ "B": {
+  "n": 12,
+  "nome": "RONALDO AUGUSTO LESSA SANTOS"
+ },
+ "outros": [
+  {
+   "n": 14,
+   "nome": "FERNANDO AFFONSO COLLOR DE MELLO"
+  },
+  {
+   "n": 50,
+   "nome": "MARIO AGRA JUNIOR"
+  },
+  {
+   "n": 21,
+   "nome": "TONY CLOVES PEREIRA"
+  }
+ ],
+ "final_pA": 0.5273859440006333,
+ "votos_A": 712789,
+ "votos_B": 638762,
+ "secoes": 5641,
+ "total_1t": {
+  "A1": 534962,
+  "B1": 394155,
+  "O1": 389337,
+  "O2": 18520,
+  "O3": 8758,
+  "OR": 5752,
+  "BN1": 232360,
+  "APT1": 2033483,
+  "COMP1": 1583844
+ },
+ "total_2t": {
+  "A2": 712789,
+  "B2": 638762,
+  "BN2": 145095,
+  "APT2": 2033518,
+  "COMP2": 1496646
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_DF",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "DF",
+ "A": {
+  "n": 15,
+  "nome": "IBANEIS ROCHA BARROS JUNIOR"
+ },
+ "B": {
+  "n": 40,
+  "nome": "RODRIGO SOBRAL ROLLEMBERG"
+ },
+ "outros": [
+  {
+   "n": 55,
+   "nome": "ROGÉRIO SCHUMANN ROSSO"
+  },
+  {
+   "n": 44,
+   "nome": "PAULO CHAGAS"
+  },
+  {
+   "n": 90,
+   "nome": "ELIANA MARIA PASSOS PEDROSA"
+  }
+ ],
+ "final_pA": 0.6978860073244381,
+ "votos_A": 1042574,
+ "votos_B": 451329,
+ "secoes": 6719,
+ "total_1t": {
+  "A1": 634008,
+  "B1": 210510,
+  "O1": 169785,
+  "O2": 110973,
+  "O3": 105579,
+  "OR": 280342,
+  "BN1": 180195,
+  "APT1": 2081218,
+  "COMP1": 1691392
+ },
+ "total_2t": {
+  "A2": 1042574,
+  "B2": 451329,
+  "BN2": 193327,
+  "APT2": 2081505,
+  "COMP2": 1687230
+ }
+}

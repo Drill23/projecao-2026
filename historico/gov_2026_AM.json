@@ -1,0 +1,50 @@
+{
+ "id": "gov_2026_AM",
+ "ano": 2026,
+ "cargo": "governador",
+ "uf": "AM",
+ "A": {
+  "n": 55,
+  "nome": "OMAR JOSE ABDELAZIZ"
+ },
+ "B": {
+  "n": 22,
+  "nome": "MARIA DO CARMO SEFFAIR LINS DE ALBUQUERQUE"
+ },
+ "outros": [
+  {
+   "n": 44,
+   "nome": "ROBERTO MAIA CIDADE FILHO"
+  },
+  {
+   "n": 70,
+   "nome": "DAVID ANTÔNIO ABISAI PEREIRA DE ALMEIDA"
+  },
+  {
+   "n": 33,
+   "nome": "BENEVENUTO DACIOLO FONSECA DOS SANTOS"
+  }
+ ],
+ "final_pA": 0.6141701573974487,
+ "votos_A": 1273975,
+ "votos_B": 800328,
+ "secoes": 8157,
+ "total_1t": {
+  "A1": 841846,
+  "B1": 507335,
+  "O1": 453896,
+  "O2": 218490,
+  "O3": 36176,
+  "OR": 14242,
+  "BN1": 160286,
+  "APT1": 2796053,
+  "COMP1": 2232271
+ },
+ "total_2t": {
+  "A2": 1273975,
+  "B2": 800328,
+  "BN2": 115557,
+  "APT2": 2796187,
+  "COMP2": 2189860
+ }
+}

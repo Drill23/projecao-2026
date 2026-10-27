@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_SE",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "SE",
+ "A": {
+  "n": 55,
+  "nome": "FÁBIO CRUZ MITIDIERI"
+ },
+ "B": {
+  "n": 13,
+  "nome": "ROGERIO CARVALHO SANTOS"
+ },
+ "outros": [
+  {
+   "n": 22,
+   "nome": "VALMIR DOS SANTOS COSTA"
+  },
+  {
+   "n": 45,
+   "nome": "ALESSANDRO VIEIRA"
+  },
+  {
+   "n": 50,
+   "nome": "NIULLY NAYARA SANTANA CAMPOS"
+  }
+ ],
+ "final_pA": 0.5169503252841627,
+ "votos_A": 623851,
+ "votos_B": 582940,
+ "secoes": 5498,
+ "total_1t": {
+  "A1": 294936,
+  "B1": 338796,
+  "O1": 457922,
+  "O2": 82495,
+  "O3": 37366,
+  "OR": 4345,
+  "BN1": 146744,
+  "APT1": 1669042,
+  "COMP1": 1362604
+ },
+ "total_2t": {
+  "A2": 623851,
+  "B2": 582940,
+  "BN2": 146747,
+  "APT2": 1669054,
+  "COMP2": 1353538
+ }
+}

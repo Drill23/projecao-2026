@@ -1,0 +1,50 @@
+{
+ "id": "gov_2026_TO",
+ "ano": 2026,
+ "cargo": "governador",
+ "uf": "TO",
+ "A": {
+  "n": 45,
+  "nome": "VICENTE ALVES DE OLIVEIRA JÚNIOR"
+ },
+ "B": {
+  "n": 44,
+  "nome": "MARIA AUXILIADORA SEABRA REZENDE"
+ },
+ "outros": [
+  {
+   "n": 55,
+   "nome": "LAUREZ DA ROCHA MOREIRA"
+  },
+  {
+   "n": 30,
+   "nome": "ATAIDES DE OLIVEIRA"
+  },
+  {
+   "n": 50,
+   "nome": "WITER FONSECA NAVES"
+  }
+ ],
+ "final_pA": 0.6452128715883094,
+ "votos_A": 562083,
+ "votos_B": 309076,
+ "secoes": 4384,
+ "total_1t": {
+  "A1": 372848,
+  "B1": 386260,
+  "O1": 69967,
+  "O2": 13173,
+  "O3": 5109,
+  "OR": 2299,
+  "BN1": 114154,
+  "APT1": 1180433,
+  "COMP1": 963810
+ },
+ "total_2t": {
+  "A2": 562083,
+  "B2": 309076,
+  "BN2": 82226,
+  "APT2": 1180466,
+  "COMP2": 953385
+ }
+}

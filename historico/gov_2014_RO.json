@@ -1,0 +1,50 @@
+{
+ "id": "gov_2014_RO",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "RO",
+ "A": {
+  "n": 15,
+  "nome": "CONFUCIO AIRES MOURA"
+ },
+ "B": {
+  "n": 45,
+  "nome": "EXPEDITO GONÇALVES FERREIRA JUNIOR"
+ },
+ "outros": [
+  {
+   "n": 22,
+   "nome": "DIRLAINE JAQUELINE CASSOL"
+  },
+  {
+   "n": 13,
+   "nome": "MARITON BENEDITO DE HOLANDA"
+  },
+  {
+   "n": 50,
+   "nome": "NASCIMENTO ANTONIO DA SILVA"
+  }
+ ],
+ "final_pA": 0.5342595419847328,
+ "votos_A": 419928,
+ "votos_B": 366072,
+ "secoes": 3629,
+ "total_1t": {
+  "A1": 288220,
+  "B1": 284663,
+  "O1": 121406,
+  "O2": 101612,
+  "O3": 7757,
+  "OR": 0,
+  "BN1": 82271,
+  "APT1": 1126502,
+  "COMP1": 885929
+ },
+ "total_2t": {
+  "A2": 419928,
+  "B2": 366072,
+  "BN2": 66217,
+  "APT2": 1126542,
+  "COMP2": 852217
+ }
+}

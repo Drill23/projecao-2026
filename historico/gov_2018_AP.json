@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_AP",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "AP",
+ "A": {
+  "n": 12,
+  "nome": "ANTONIO WALDEZ GÓES DA SILVA"
+ },
+ "B": {
+  "n": 40,
+  "nome": "JOAO ALBERTO RODRIGUES CAPIBERIBE"
+ },
+ "outros": [
+  {
+   "n": 25,
+   "nome": "DAVID SAMUEL ALCOLUMBRE TOBELEM"
+  },
+  {
+   "n": 17,
+   "nome": "ANTONIO CIRILO FERNANDES BORGES"
+  },
+  {
+   "n": 16,
+   "nome": "GIANFRANCO GUSMÃO DE AZEVEDO"
+  }
+ ],
+ "final_pA": 0.5234806064196614,
+ "votos_A": 191741,
+ "votos_B": 174540,
+ "secoes": 1632,
+ "total_1t": {
+  "A1": 133214,
+  "B1": 119500,
+  "O1": 94278,
+  "O2": 45197,
+  "O3": 4818,
+  "OR": 0,
+  "BN1": 29375,
+  "APT1": 511824,
+  "COMP1": 426382
+ },
+ "total_2t": {
+  "A2": 191741,
+  "B2": 174540,
+  "BN2": 28422,
+  "APT2": 511826,
+  "COMP2": 394703
+ }
+}

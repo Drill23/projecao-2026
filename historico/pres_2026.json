@@ -1,0 +1,50 @@
+{
+ "id": "pres_2026",
+ "ano": 2026,
+ "cargo": "presidente",
+ "uf": "BR",
+ "A": {
+  "n": 13,
+  "nome": "LUIZ INÁCIO LULA DA SILVA"
+ },
+ "B": {
+  "n": 22,
+  "nome": "FLAVIO NANTES BOLSONARO"
+ },
+ "outros": [
+  {
+   "n": 70,
+   "nome": "AUGUSTO JORGE CURY"
+  },
+  {
+   "n": 14,
+   "nome": "RENAN ANTONIO FERREIRA DOS SANTOS"
+  },
+  {
+   "n": 55,
+   "nome": "RONALDO RAMOS CAIADO"
+  }
+ ],
+ "final_pA": 0.517851828842626,
+ "votos_A": 64256232,
+ "votos_B": 59826041,
+ "secoes": 499205,
+ "total_1t": {
+  "A1": 53879536,
+  "B1": 56104503,
+  "O1": 3448569,
+  "O2": 2675887,
+  "O3": 2605148,
+  "OR": 592389,
+  "BN1": 5969801,
+  "APT1": 158744977,
+  "COMP1": 125275833
+ },
+ "total_2t": {
+  "A2": 64256232,
+  "B2": 59826041,
+  "BN2": 4153801,
+  "APT2": 158744977,
+  "COMP2": 128236074
+ }
+}

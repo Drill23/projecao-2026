@@ -1,0 +1,50 @@
+{
+ "id": "gov_2014_RN",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "RN",
+ "A": {
+  "n": 55,
+  "nome": "ROBINSON MESQUITA DE FARIA"
+ },
+ "B": {
+  "n": 15,
+  "nome": "HENRIQUE EDUARDO LYRA ALVES"
+ },
+ "outros": [
+  {
+   "n": 50,
+   "nome": "ROBÉRIO PAULINO RODRIGUES"
+  },
+  {
+   "n": 16,
+   "nome": "VERONICA SIMONE DUTRA VERAS"
+  },
+  {
+   "n": 17,
+   "nome": "ARAKEN BARBOSA DE FARIAS FILHO"
+  }
+ ],
+ "final_pA": 0.5441876247232593,
+ "votos_A": 877268,
+ "votos_B": 734801,
+ "secoes": 6961,
+ "total_1t": {
+  "A1": 623614,
+  "B1": 702196,
+  "O1": 129616,
+  "O2": 14549,
+  "O3": 13396,
+  "OR": 0,
+  "BN1": 451734,
+  "APT1": 2326583,
+  "COMP1": 1935105
+ },
+ "total_2t": {
+  "A2": 877268,
+  "B2": 734801,
+  "BN2": 303663,
+  "APT2": 2326659,
+  "COMP2": 1915732
+ }
+}

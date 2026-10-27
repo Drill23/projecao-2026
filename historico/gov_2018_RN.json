@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_RN",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "RN",
+ "A": {
+  "n": 13,
+  "nome": "MARIA DE FATIMA BEZERRA"
+ },
+ "B": {
+  "n": 12,
+  "nome": "CARLOS EDUARDO NUNES ALVES"
+ },
+ "outros": [
+  {
+   "n": 55,
+   "nome": "ROBINSON MESQUITA DE FARIA"
+  },
+  {
+   "n": 77,
+   "nome": "BRENNO OLIVEIRA QUEIROGA DE MORAIS"
+  },
+  {
+   "n": 50,
+   "nome": "CARLOS ALBERTO FREIRE MEDEIROS"
+  }
+ ],
+ "final_pA": 0.5759806750772124,
+ "votos_A": 1022910,
+ "votos_B": 753035,
+ "secoes": 7389,
+ "total_1t": {
+  "A1": 748150,
+  "B1": 525933,
+  "O1": 192037,
+  "O2": 106345,
+  "O3": 31306,
+  "OR": 16773,
+  "BN1": 345906,
+  "APT1": 2372548,
+  "COMP1": 1966450
+ },
+ "total_2t": {
+  "A2": 1022910,
+  "B2": 753035,
+  "BN2": 166251,
+  "APT2": 2372579,
+  "COMP2": 1942196
+ }
+}

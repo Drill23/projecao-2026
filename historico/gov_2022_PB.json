@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_PB",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "PB",
+ "A": {
+  "n": 40,
+  "nome": "JOÃO AZEVEDO LINS FILHO"
+ },
+ "B": {
+  "n": 45,
+  "nome": "PEDRO OLIVEIRA CUNHA LIMA"
+ },
+ "outros": [
+  {
+   "n": 22,
+   "nome": "NILVAN FERREIRA DO NASCIMENTO"
+  },
+  {
+   "n": 15,
+   "nome": "VENEZIANO VITAL DO REGO SEGUNDO NETO"
+  },
+  {
+   "n": 50,
+   "nome": "ADJANY SIMPLICIO DE CASTRO"
+  }
+ ],
+ "final_pA": 0.5251284237560634,
+ "votos_A": 1221904,
+ "votos_B": 1104963,
+ "secoes": 9602,
+ "total_1t": {
+  "A1": 863174,
+  "B1": 520155,
+  "O1": 406604,
+  "O2": 373511,
+  "O3": 9567,
+  "OR": 3713,
+  "BN1": 375152,
+  "APT1": 3086030,
+  "COMP1": 2551876
+ },
+ "total_2t": {
+  "A2": 1221904,
+  "B2": 1104963,
+  "BN2": 242239,
+  "APT2": 3086131,
+  "COMP2": 2569106
+ }
+}

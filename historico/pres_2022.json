@@ -1,0 +1,50 @@
+{
+ "id": "pres_2022",
+ "ano": 2022,
+ "cargo": "presidente",
+ "uf": "BR",
+ "A": {
+  "n": 13,
+  "nome": "LUIZ INÁCIO LULA DA SILVA"
+ },
+ "B": {
+  "n": 22,
+  "nome": "JAIR MESSIAS BOLSONARO"
+ },
+ "outros": [
+  {
+   "n": 15,
+   "nome": "SIMONE NASSAR TEBET"
+  },
+  {
+   "n": 12,
+   "nome": "CIRO FERREIRA GOMES"
+  },
+  {
+   "n": 44,
+   "nome": "SORAYA VIEIRA THRONICKE"
+  }
+ ],
+ "final_pA": 0.5090240511717216,
+ "votos_A": 60345999,
+ "votos_B": 58206354,
+ "secoes": 472028,
+ "total_1t": {
+  "A1": 57259504,
+  "B1": 51072345,
+  "O1": 4915423,
+  "O2": 3599287,
+  "O3": 600955,
+  "OR": 782205,
+  "BN1": 5452653,
+  "APT1": 156453354,
+  "COMP1": 123682372
+ },
+ "total_2t": {
+  "A2": 60345999,
+  "B2": 58206354,
+  "BN2": 5700443,
+  "APT2": 156453354,
+  "COMP2": 124252796
+ }
+}

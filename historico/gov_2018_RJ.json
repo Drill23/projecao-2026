@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_RJ",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "RJ",
+ "A": {
+  "n": 20,
+  "nome": "WILSON JOSÉ WITZEL"
+ },
+ "B": {
+  "n": 25,
+  "nome": "EDUARDO DA COSTA PAES"
+ },
+ "outros": [
+  {
+   "n": 50,
+   "nome": "TARCISIO MOTTA DE CARVALHO"
+  },
+  {
+   "n": 19,
+   "nome": "ROMÁRIO DE SOUZA FARIA"
+  },
+  {
+   "n": 12,
+   "nome": "PEDRO HENRIQUE FERNANDES DA SILVA"
+  }
+ ],
+ "final_pA": 0.5986557836961595,
+ "votos_A": 4675355,
+ "votos_B": 3134400,
+ "secoes": 33901,
+ "total_1t": {
+  "A1": 3154771,
+  "B1": 1494831,
+  "O1": 819248,
+  "O2": 664511,
+  "O3": 466954,
+  "OR": 1128910,
+  "BN1": 1745216,
+  "APT1": 12401199,
+  "COMP1": 9474441
+ },
+ "total_2t": {
+  "A2": 4675355,
+  "B2": 3134400,
+  "BN2": 1606953,
+  "APT2": 12401560,
+  "COMP2": 9416708
+ }
+}

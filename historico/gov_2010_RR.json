@@ -1,0 +1,46 @@
+{
+ "id": "gov_2010_RR",
+ "ano": 2010,
+ "cargo": "governador",
+ "uf": "RR",
+ "A": {
+  "n": 45,
+  "nome": "JOSE DE ANCHIETA JUNIOR"
+ },
+ "B": {
+  "n": 11,
+  "nome": "NEUDO RIBEIRO CAMPOS"
+ },
+ "outros": [
+  {
+   "n": 31,
+   "nome": "PETRONIO PEREIRA DE ARAUJO"
+  },
+  {
+   "n": 50,
+   "nome": "ROBERT DAGON DA SILVA"
+  }
+ ],
+ "final_pA": 0.504125757014256,
+ "votos_A": 107466,
+ "votos_B": 105707,
+ "secoes": 893,
+ "total_1t": {
+  "A1": 99124,
+  "B1": 104804,
+  "O1": 14063,
+  "O2": 2116,
+  "O3": 0,
+  "OR": 0,
+  "BN1": 13509,
+  "APT1": 271596,
+  "COMP1": 233616
+ },
+ "total_2t": {
+  "A2": 107466,
+  "B2": 105707,
+  "BN2": 8506,
+  "APT2": 271603,
+  "COMP2": 221679
+ }
+}

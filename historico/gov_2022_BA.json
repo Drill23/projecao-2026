@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_BA",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "BA",
+ "A": {
+  "n": 13,
+  "nome": "JERÔNIMO RODRIGUES SOUZA"
+ },
+ "B": {
+  "n": 44,
+  "nome": "ANTONIO CARLOS PEIXOTO DE MAGALHÃES NETO"
+ },
+ "outros": [
+  {
+   "n": 22,
+   "nome": "JOÃO INÁCIO RIBEIRO ROMA NETO"
+  },
+  {
+   "n": 50,
+   "nome": "KLEBER ROSA DE SOUZA"
+  },
+  {
+   "n": 21,
+   "nome": "GIOVANI DAMICO"
+  }
+ ],
+ "final_pA": 0.5278905287277612,
+ "votos_A": 4480464,
+ "votos_B": 4007023,
+ "secoes": 34424,
+ "total_1t": {
+  "A1": 4019830,
+  "B1": 3316711,
+  "O1": 738311,
+  "O2": 48239,
+  "O3": 5951,
+  "OR": 826,
+  "BN1": 736591,
+  "APT1": 11273819,
+  "COMP1": 8866459
+ },
+ "total_2t": {
+  "A2": 4480464,
+  "B2": 4007023,
+  "BN2": 476757,
+  "APT2": 11274423,
+  "COMP2": 8964244
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_AM",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "AM",
+ "A": {
+  "n": 20,
+  "nome": "WILSON MIRANDA LIMA"
+ },
+ "B": {
+  "n": 12,
+  "nome": "AMAZONINO ARMANDO MENDES"
+ },
+ "outros": [
+  {
+   "n": 40,
+   "nome": "DAVID ANTONIO ABISAI PEREIRA DE ALMEIDA"
+  },
+  {
+   "n": 55,
+   "nome": "OMAR JOSÉ ABDEL AZIZ"
+  },
+  {
+   "n": 65,
+   "nome": "LUCIA REGINA ANTONY"
+  }
+ ],
+ "final_pA": 0.5850247373495503,
+ "votos_A": 1033954,
+ "votos_B": 733414,
+ "secoes": 7017,
+ "total_1t": {
+  "A1": 596585,
+  "B1": 579016,
+  "O1": 417203,
+  "O2": 142804,
+  "O3": 26403,
+  "OR": 6757,
+  "BN1": 188650,
+  "APT1": 2427111,
+  "COMP1": 1957418
+ },
+ "total_2t": {
+  "A2": 1033954,
+  "B2": 733414,
+  "BN2": 140562,
+  "APT2": 2427159,
+  "COMP2": 1907930
+ }
+}

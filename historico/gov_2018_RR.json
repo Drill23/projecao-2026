@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_RR",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "RR",
+ "A": {
+  "n": 17,
+  "nome": "ANTONIO OLIVERIO GARCIA DE ALMEIDA"
+ },
+ "B": {
+  "n": 45,
+  "nome": "JOSE DE ANCHIETA JUNIOR"
+ },
+ "outros": [
+  {
+   "n": 11,
+   "nome": "MARIA SUELY SILVA CAMPOS"
+  },
+  {
+   "n": 50,
+   "nome": "FÁBIO GONÇALVES DE ALMEIDA"
+  },
+  {
+   "n": 14,
+   "nome": "TELMÁRIO MOTA DE OLIVEIRA"
+  }
+ ],
+ "final_pA": 0.5334301701281916,
+ "votos_A": 136612,
+ "votos_B": 119489,
+ "secoes": 1172,
+ "total_1t": {
+  "A1": 113468,
+  "B1": 104114,
+  "O1": 29888,
+  "O2": 11480,
+  "O3": 9495,
+  "OR": 0,
+  "BN1": 18309,
+  "APT1": 333153,
+  "COMP1": 286754
+ },
+ "total_2t": {
+  "A2": 136612,
+  "B2": 119489,
+  "BN2": 14214,
+  "APT2": 333166,
+  "COMP2": 270315
+ }
+}

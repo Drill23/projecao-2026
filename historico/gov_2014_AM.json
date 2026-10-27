@@ -1,0 +1,50 @@
+{
+ "id": "gov_2014_AM",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "AM",
+ "A": {
+  "n": 90,
+  "nome": "JOSÉ MELO DE OLIVEIRA"
+ },
+ "B": {
+  "n": 15,
+  "nome": "CARLOS EDUARDO DE SOUZA BRAGA"
+ },
+ "outros": [
+  {
+   "n": 40,
+   "nome": "MARCELO RAMOS RODRIGUES"
+  },
+  {
+   "n": 33,
+   "nome": "MARCO ANTÔNIO SOUZA RIBEIRO DA COSTA"
+  },
+  {
+   "n": 50,
+   "nome": "ABEL RODRIGUES ALVES"
+  }
+ ],
+ "final_pA": 0.5553883700605889,
+ "votos_A": 869992,
+ "votos_B": 696465,
+ "secoes": 6528,
+ "total_1t": {
+  "A1": 707151,
+  "B1": 709058,
+  "O1": 179758,
+  "O2": 29499,
+  "O3": 8448,
+  "OR": 9093,
+  "BN1": 148810,
+  "APT1": 2225630,
+  "COMP1": 1791817
+ },
+ "total_2t": {
+  "A2": 869992,
+  "B2": 696465,
+  "BN2": 155829,
+  "APT2": 2225691,
+  "COMP2": 1722286
+ }
+}

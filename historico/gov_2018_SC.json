@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_SC",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "SC",
+ "A": {
+  "n": 17,
+  "nome": "CARLOS MOISÉS DA SILVA"
+ },
+ "B": {
+  "n": 55,
+  "nome": "GELSON LUIZ MERÍSIO"
+ },
+ "outros": [
+  {
+   "n": 15,
+   "nome": "MAURO MARIANI"
+  },
+  {
+   "n": 13,
+   "nome": "DÉCIO NERY DE LIMA"
+  },
+  {
+   "n": 50,
+   "nome": "LEONEL DAVID JESUS CAMASÃO"
+  }
+ ],
+ "final_pA": 0.7109114563799043,
+ "votos_A": 2644179,
+ "votos_B": 1075242,
+ "secoes": 15562,
+ "total_1t": {
+  "A1": 1071406,
+  "B1": 1121869,
+  "O1": 836844,
+  "O2": 460889,
+  "O3": 72133,
+  "OR": 42126,
+  "BN1": 636400,
+  "APT1": 5068421,
+  "COMP1": 4241667
+ },
+ "total_2t": {
+  "A2": 2644179,
+  "B2": 1075242,
+  "BN2": 494098,
+  "APT2": 5068559,
+  "COMP2": 4213519
+ }
+}

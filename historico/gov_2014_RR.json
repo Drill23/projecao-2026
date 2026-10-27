@@ -1,0 +1,46 @@
+{
+ "id": "gov_2014_RR",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "RR",
+ "A": {
+  "n": 11,
+  "nome": "MARIA SUELY SILVA CAMPOS"
+ },
+ "B": {
+  "n": 40,
+  "nome": "FRANCISCO DE ASSIS RODRIGUES"
+ },
+ "outros": [
+  {
+   "n": 13,
+   "nome": "ANGELA MARIA GOMES PORTELA"
+  },
+  {
+   "n": 50,
+   "nome": "HAMILTON CASTRO CAVALCANTE"
+  }
+ ],
+ "final_pA": 0.548540443539516,
+ "votos_A": 127161,
+ "votos_B": 104656,
+ "secoes": 1059,
+ "total_1t": {
+  "A1": 100973,
+  "B1": 91578,
+  "O1": 43897,
+  "O2": 6975,
+  "O3": 0,
+  "OR": 0,
+  "BN1": 18771,
+  "APT1": 299411,
+  "COMP1": 262194
+ },
+ "total_2t": {
+  "A2": 127161,
+  "B2": 104656,
+  "BN2": 18411,
+  "APT2": 299419,
+  "COMP2": 250228
+ }
+}

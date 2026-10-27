@@ -1,0 +1,50 @@
+{
+ "id": "pres_2014",
+ "ano": 2014,
+ "cargo": "presidente",
+ "uf": "BR",
+ "A": {
+  "n": 13,
+  "nome": "DILMA VANA ROUSSEFF"
+ },
+ "B": {
+  "n": 45,
+  "nome": "AÉCIO NEVES DA CUNHA"
+ },
+ "outros": [
+  {
+   "n": 40,
+   "nome": "MARIA OSMARINA MARINA DA SILVA VAZ DE LIMA"
+  },
+  {
+   "n": 50,
+   "nome": "LUCIANA KREBS GENRO"
+  },
+  {
+   "n": 20,
+   "nome": "EVERALDO DIAS PEREIRA"
+  }
+ ],
+ "final_pA": 0.5163913610236536,
+ "votos_A": 54501118,
+ "votos_B": 51041155,
+ "secoes": 428852,
+ "total_1t": {
+  "A1": 43267665,
+  "B1": 34897211,
+  "O1": 22176619,
+  "O2": 1612186,
+  "O3": 780513,
+  "OR": 1289605,
+  "BN1": 11099080,
+  "APT1": 142821298,
+  "COMP1": 115122879
+ },
+ "total_2t": {
+  "A2": 54501118,
+  "B2": 51041155,
+  "BN2": 7141606,
+  "APT2": 142821298,
+  "COMP2": 112683879
+ }
+}

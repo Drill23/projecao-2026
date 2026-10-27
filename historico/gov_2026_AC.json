@@ -1,0 +1,50 @@
+{
+ "id": "gov_2026_AC",
+ "ano": 2026,
+ "cargo": "governador",
+ "uf": "AC",
+ "A": {
+  "n": 11,
+  "nome": "MAILZA ASSIS CAMELI"
+ },
+ "B": {
+  "n": 10,
+  "nome": "ALAN RICK MIRANDA"
+ },
+ "outros": [
+  {
+   "n": 45,
+   "nome": "SEBASTIAO BOCALOM RODRIGUES"
+  },
+  {
+   "n": 40,
+   "nome": "THOR OLIVEIRA DANTAS"
+  },
+  {
+   "n": 21,
+   "nome": "EUDO RAFFAEL LIMA DA SILVA"
+  }
+ ],
+ "final_pA": 0.6621484761125265,
+ "votos_A": 272635,
+ "votos_B": 139108,
+ "secoes": 2270,
+ "total_1t": {
+  "A1": 218760,
+  "B1": 141859,
+  "O1": 44946,
+  "O2": 32963,
+  "O3": 715,
+  "OR": 404,
+  "BN1": 48324,
+  "APT1": 613316,
+  "COMP1": 487971
+ },
+ "total_2t": {
+  "A2": 272635,
+  "B2": 139108,
+  "BN2": 41591,
+  "APT2": 613336,
+  "COMP2": 453334
+ }
+}

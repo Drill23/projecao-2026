@@ -1,0 +1,46 @@
+baixado dv2014.zip 74 MB 75s
+detalhe 1436499
+UFs com 2º turno para governador: ['AC', 'AM', 'AP', 'CE', 'DF', 'GO', 'MS', 'PA', 'PB', 'RJ', 'RN', 'RO', 'RR', 'RS']
+baixado vs2014BR.zip 30 MB 1s
+pres_2014 seções 428852 A DILMA VANA ROUSSEFF 51.64%
+baixado vs2014AC.zip 3 MB 4s
+gov_2014_AC seções 1636 A SEBASTIÃO AFONSO VIANA MACEDO NEVES 51.29%
+baixado vs2014AM.zip 12 MB 13s
+gov_2014_AM seções 6528 A JOSÉ MELO DE OLIVEIRA 55.54%
+baixado vs2014AP.zip 4 MB 4s
+gov_2014_AP seções 1461 A ANTÔNIO WALDEZ GÓES DA SILVA 60.58%
+baixado vs2014CE.zip 24 MB 26s
+gov_2014_CE seções 19920 A CAMILO SOBREIRA DE SANTANA 53.35%
+baixado vs2014DF.zip 18 MB 21s
+gov_2014_DF seções 6452 A RODRIGO SOBRAL ROLLEMBERG 55.56%
+baixado vs2014GO.zip 16 MB 17s
+gov_2014_GO seções 13145 A MARCONI FERREIRA PERILLO JUNIOR 57.44%
+baixado vs2014MS.zip 7 MB 9s
+gov_2014_MS seções 5564 A REINALDO AZAMBUJA SILVA 55.34%
+baixado vs2014PA.zip 21 MB 22s
+gov_2014_PA seções 15999 A SIMÃO ROBISON OLIVEIRA JATENE 51.92%
+baixado vs2014PB.zip 9 MB 10s
+gov_2014_PB seções 9523 A RICARDO VIEIRA COUTINHO 52.61%
+baixado vs2014RJ.zip 80 MB 2s
+gov_2014_RJ seções 32675 A LUIZ FERNANDO DE SOUZA 55.78%
+baixado vs2014RN.zip 6 MB 7s
+gov_2014_RN seções 6961 A ROBINSON MESQUITA DE FARIA 54.42%
+baixado vs2014RO.zip 5 MB 5s
+gov_2014_RO seções 3629 A CONFUCIO AIRES MOURA 53.43%
+baixado vs2014RR.zip 2 MB 3s
+gov_2014_RR seções 1059 A MARIA SUELY SILVA CAMPOS 54.85%
+baixado vs2014RS.zip 33 MB 36s
+Traceback (most recent call last):
+  File "/home/runner/work/projecao-2026/projecao-2026/scripts/historico.py", line 174, in <module>
+    main(sys.argv[1])
+  File "/home/runner/work/projecao-2026/projecao-2026/scripts/historico.py", line 164, in main
+    v = ler(zv, COLS_V, lambda c: c[c.CD_CARGO == "3"])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/projecao-2026/projecao-2026/scripts/historico.py", line 54, in ler
+    with zipfile.ZipFile(zip_path) as z:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/zipfile/__init__.py", line 1396, in __init__
+    self._RealGetContents()
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/zipfile/__init__.py", line 1463, in _RealGetContents
+    raise BadZipFile("File is not a zip file")
+zipfile.BadZipFile: File is not a zip file

@@ -1,0 +1,50 @@
+{
+ "id": "gov_2010_GO",
+ "ano": 2010,
+ "cargo": "governador",
+ "uf": "GO",
+ "A": {
+  "n": 45,
+  "nome": "MARCONI FERREIRA PERILLO JÚNIOR"
+ },
+ "B": {
+  "n": 15,
+  "nome": "IRIS REZENDE MACHADO"
+ },
+ "outros": [
+  {
+   "n": 22,
+   "nome": "VANDERLAN VIEIRA CARDOSO"
+  },
+  {
+   "n": 21,
+   "nome": "MARTA JANE DA SILVA"
+  },
+  {
+   "n": 50,
+   "nome": "WASHINGTON FRAGA GUIMARAES"
+  }
+ ],
+ "final_pA": 0.5298812565759807,
+ "votos_A": 1551132,
+ "votos_B": 1376188,
+ "secoes": 12042,
+ "total_1t": {
+  "A1": 1400227,
+  "B1": 1099552,
+  "O1": 502462,
+  "O2": 14928,
+  "O3": 5398,
+  "OR": 0,
+  "BN1": 307069,
+  "APT1": 4058912,
+  "COMP1": 3329636
+ },
+ "total_2t": {
+  "A2": 1551132,
+  "B2": 1376188,
+  "BN2": 230784,
+  "APT2": 4059028,
+  "COMP2": 3158104
+ }
+}

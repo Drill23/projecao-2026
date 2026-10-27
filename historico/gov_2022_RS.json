@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_RS",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "RS",
+ "A": {
+  "n": 45,
+  "nome": "EDUARDO FIGUEIREDO CAVALHEIRO LEITE"
+ },
+ "B": {
+  "n": 22,
+  "nome": "ONYX DORNELLES LORENZONI"
+ },
+ "outros": [
+  {
+   "n": 13,
+   "nome": "JOÃO EDEGAR PRETTO"
+  },
+  {
+   "n": 11,
+   "nome": "LUIS CARLOS HEINZE"
+  },
+  {
+   "n": 20,
+   "nome": "ROBERTO ARGENTA"
+  }
+ ],
+ "final_pA": 0.5712124348093359,
+ "votos_A": 3687126,
+ "votos_B": 2767786,
+ "secoes": 27201,
+ "total_1t": {
+  "A1": 1702815,
+  "B1": 2382026,
+  "O1": 1700374,
+  "O2": 271540,
+  "O3": 126899,
+  "OR": 168223,
+  "BN1": 531464,
+  "APT1": 8582100,
+  "COMP1": 6883341
+ },
+ "total_2t": {
+  "A2": 3687126,
+  "B2": 2767786,
+  "BN2": 469691,
+  "APT2": 8582643,
+  "COMP2": 6924603
+ }
+}

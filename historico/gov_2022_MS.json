@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_MS",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "MS",
+ "A": {
+  "n": 45,
+  "nome": "EDUARDO CORREA RIEDEL"
+ },
+ "B": {
+  "n": 28,
+  "nome": "RENAN BARBOSA CONTAR"
+ },
+ "outros": [
+  {
+   "n": 15,
+   "nome": "ANDRÉ PUCCINELLI"
+  },
+  {
+   "n": 44,
+   "nome": "ROSIANE MODESTO DE OLIVEIRA"
+  },
+  {
+   "n": 13,
+   "nome": "GISELLE MARQUES DE ARAÚJO"
+  }
+ ],
+ "final_pA": 0.5690325369651833,
+ "votos_A": 808210,
+ "votos_B": 612113,
+ "secoes": 6912,
+ "total_1t": {
+  "A1": 361981,
+  "B1": 384275,
+  "O1": 247093,
+  "O2": 178599,
+  "O3": 135556,
+  "OR": 130938,
+  "BN1": 114212,
+  "APT1": 1993121,
+  "COMP1": 1552654
+ },
+ "total_2t": {
+  "A2": 808210,
+  "B2": 612113,
+  "BN2": 127287,
+  "APT2": 1993450,
+  "COMP2": 1547610
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_PE",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "PE",
+ "A": {
+  "n": 45,
+  "nome": "RAQUEL TEIXEIRA LYRA LUCENA"
+ },
+ "B": {
+  "n": 77,
+  "nome": "MARÍLIA VALENÇA ROCHA ARRAES DE ALENCAR"
+ },
+ "outros": [
+  {
+   "n": 22,
+   "nome": "ANDERSON FERREIRA RODRIGUES"
+  },
+  {
+   "n": 40,
+   "nome": "DANILO JORGE DE BARROS CABRAL"
+  },
+  {
+   "n": 44,
+   "nome": "MIGUEL DE SOUZA LEÃO COELHO"
+  }
+ ],
+ "final_pA": 0.5870293055066116,
+ "votos_A": 3113415,
+ "votos_B": 2190264,
+ "secoes": 20572,
+ "total_1t": {
+  "A1": 1009556,
+  "B1": 1175651,
+  "O1": 890220,
+  "O2": 885994,
+  "O3": 884941,
+  "OR": 59057,
+  "BN1": 826870,
+  "APT1": 7008795,
+  "COMP1": 5732289
+ },
+ "total_2t": {
+  "A2": 3113415,
+  "B2": 2190264,
+  "BN2": 491680,
+  "APT2": 7009112,
+  "COMP2": 5795359
+ }
+}

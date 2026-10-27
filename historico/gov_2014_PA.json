@@ -1,0 +1,50 @@
+{
+ "id": "gov_2014_PA",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "PA",
+ "A": {
+  "n": 45,
+  "nome": "SIMÃO ROBISON OLIVEIRA JATENE"
+ },
+ "B": {
+  "n": 15,
+  "nome": "HELDER ZAHLUTH BARBALHO"
+ },
+ "outros": [
+  {
+   "n": 50,
+   "nome": "MARCO ANTÔNIO CARRERA FERREIRA"
+  },
+  {
+   "n": 43,
+   "nome": "JOSÉ CARLOS LIMA DA COSTA"
+  },
+  {
+   "n": 28,
+   "nome": "ELTON DE BARROS BRAGA"
+  }
+ ],
+ "final_pA": 0.5191866824118773,
+ "votos_A": 1858869,
+ "votos_B": 1721479,
+ "secoes": 15999,
+ "total_1t": {
+  "A1": 1745442,
+  "B1": 1795992,
+  "O1": 63078,
+  "O2": 44247,
+  "O3": 14712,
+  "OR": 1061,
+  "BN1": 427311,
+  "APT1": 5185950,
+  "COMP1": 4091843
+ },
+ "total_2t": {
+  "A2": 1858869,
+  "B2": 1721479,
+  "BN2": 297641,
+  "APT2": 5186031,
+  "COMP2": 3877989
+ }
+}

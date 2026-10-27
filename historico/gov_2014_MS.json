@@ -1,0 +1,50 @@
+{
+ "id": "gov_2014_MS",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "MS",
+ "A": {
+  "n": 45,
+  "nome": "REINALDO AZAMBUJA SILVA"
+ },
+ "B": {
+  "n": 13,
+  "nome": "DELCÍDIO DO AMARAL GOMEZ"
+ },
+ "outros": [
+  {
+   "n": 15,
+   "nome": "NELSON TRAD FILHO"
+  },
+  {
+   "n": 11,
+   "nome": "EVANDER JOSE VENDRAMINI DURAN"
+  },
+  {
+   "n": 50,
+   "nome": "SIDELVAR APARECIDO DE MELO"
+  }
+ ],
+ "final_pA": 0.5533796475611149,
+ "votos_A": 741516,
+ "votos_B": 598461,
+ "secoes": 5564,
+ "total_1t": {
+  "A1": 516744,
+  "B1": 567331,
+  "O1": 217093,
+  "O2": 10823,
+  "O3": 7823,
+  "OR": 2035,
+  "BN1": 122471,
+  "APT1": 1817511,
+  "COMP1": 1444320
+ },
+ "total_2t": {
+  "A2": 741516,
+  "B2": 598461,
+  "BN2": 57203,
+  "APT2": 1817547,
+  "COMP2": 1397180
+ }
+}

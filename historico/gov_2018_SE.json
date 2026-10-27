@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_SE",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "SE",
+ "A": {
+  "n": 55,
+  "nome": "BELIVALDO CHAGAS SILVA"
+ },
+ "B": {
+  "n": 40,
+  "nome": "ANTONIO CARLOS VALADARES FILHO"
+ },
+ "outros": [
+  {
+   "n": 45,
+   "nome": "EDUARDO ALVES DO AMORIM"
+  },
+  {
+   "n": 18,
+   "nome": "EMERSON FERREIRA DA COSTA"
+  },
+  {
+   "n": 33,
+   "nome": "MILTON ARTHUR VASCONCELOS DE ANDRADE CRUZ"
+  }
+ ],
+ "final_pA": 0.6472009469964125,
+ "votos_A": 679051,
+ "votos_B": 370161,
+ "secoes": 5137,
+ "total_1t": {
+  "A1": 403252,
+  "B1": 212169,
+  "O1": 202349,
+  "O2": 69407,
+  "O3": 35111,
+  "OR": 64997,
+  "BN1": 292297,
+  "APT1": 1576352,
+  "COMP1": 1279582
+ },
+ "total_2t": {
+  "A2": 679051,
+  "B2": 370161,
+  "BN2": 214853,
+  "APT2": 1576420,
+  "COMP2": 1264065
+ }
+}

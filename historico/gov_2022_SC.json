@@ -1,0 +1,50 @@
+{
+ "id": "gov_2022_SC",
+ "ano": 2022,
+ "cargo": "governador",
+ "uf": "SC",
+ "A": {
+  "n": 22,
+  "nome": "JORGINHO DOS SANTOS MELLO"
+ },
+ "B": {
+  "n": 13,
+  "nome": "DÉCIO NERY DE LIMA"
+ },
+ "outros": [
+  {
+   "n": 10,
+   "nome": "CARLOS MOISÉS DA SILVA"
+  },
+  {
+   "n": 44,
+   "nome": "GEAN MARQUES LOUREIRO"
+  },
+  {
+   "n": 11,
+   "nome": "ESPERIDIÃO AMIN HELOU FILHO"
+  }
+ ],
+ "final_pA": 0.7069352624340642,
+ "votos_A": 2983949,
+ "votos_B": 1237016,
+ "secoes": 16242,
+ "total_1t": {
+  "A1": 1575912,
+  "B1": 710859,
+  "O1": 693426,
+  "O2": 555615,
+  "O3": 398092,
+  "OR": 147948,
+  "BN1": 389767,
+  "APT1": 5483962,
+  "COMP1": 4471619
+ },
+ "total_2t": {
+  "A2": 2983949,
+  "B2": 1237016,
+  "BN2": 306816,
+  "APT2": 5484339,
+  "COMP2": 4527781
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "id": "gov_2010_PB",
+ "ano": 2010,
+ "cargo": "governador",
+ "uf": "PB",
+ "A": {
+  "n": 40,
+  "nome": "RICARDO VIEIRA COUTINHO"
+ },
+ "B": {
+  "n": 15,
+  "nome": "JOSE TARGINO MARANHAO"
+ },
+ "outros": [
+  {
+   "n": 50,
+   "nome": "NELSON ALEIXO DA SILVA JUNIOR"
+  },
+  {
+   "n": 29,
+   "nome": "MARIA DE LOURDES SARMENTO"
+  },
+  {
+   "n": 21,
+   "nome": "FRANCISCO DE ASSIS OLIVEIRA DA SILVA"
+  }
+ ],
+ "final_pA": 0.5370324384982297,
+ "votos_A": 1079164,
+ "votos_B": 930331,
+ "secoes": 8737,
+ "total_1t": {
+  "A1": 942121,
+  "B1": 933754,
+  "O1": 12471,
+  "O2": 2442,
+  "O3": 1886,
+  "OR": 1252,
+  "BN1": 338335,
+  "APT1": 2738313,
+  "COMP1": 2232261
+ },
+ "total_2t": {
+  "A2": 1079164,
+  "B2": 930331,
+  "BN2": 207645,
+  "APT2": 2738389,
+  "COMP2": 2217140
+ }
+}

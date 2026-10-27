@@ -1,0 +1,50 @@
+{
+ "id": "pres_2018",
+ "ano": 2018,
+ "cargo": "presidente",
+ "uf": "BR",
+ "A": {
+  "n": 17,
+  "nome": "JAIR MESSIAS BOLSONARO"
+ },
+ "B": {
+  "n": 13,
+  "nome": "FERNANDO HADDAD"
+ },
+ "outros": [
+  {
+   "n": 12,
+   "nome": "CIRO FERREIRA GOMES"
+  },
+  {
+   "n": 45,
+   "nome": "GERALDO JOSÉ RODRIGUES ALCKMIN FILHO"
+  },
+  {
+   "n": 30,
+   "nome": "JOÃO DIONISIO FILGUEIRA BARRETO AMOEDO"
+  }
+ ],
+ "final_pA": 0.5513023128003058,
+ "votos_A": 57797847,
+ "votos_B": 47040906,
+ "secoes": 454448,
+ "total_1t": {
+  "A1": 49276788,
+  "B1": 31341811,
+  "O1": 13344343,
+  "O2": 5096340,
+  "O3": 2679742,
+  "OR": 5311194,
+  "BN1": 10313871,
+  "APT1": 147305156,
+  "COMP1": 117364089
+ },
+ "total_2t": {
+  "A2": 57797847,
+  "B2": 47040906,
+  "BN2": 11094698,
+  "APT2": 147305155,
+  "COMP2": 115933451
+ }
+}

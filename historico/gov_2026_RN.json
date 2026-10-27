@@ -1,0 +1,50 @@
+{
+ "id": "gov_2026_RN",
+ "ano": 2026,
+ "cargo": "governador",
+ "uf": "RN",
+ "A": {
+  "n": 13,
+  "nome": "CARLOS EDUARDO XAVIER"
+ },
+ "B": {
+  "n": 44,
+  "nome": "ALLYSON LEANDRO BEZERRA SILVA"
+ },
+ "outros": [
+  {
+   "n": 22,
+   "nome": "ÁLVARO COSTA DIAS"
+  },
+  {
+   "n": 50,
+   "nome": "ROBERIO PAULINO RODRIGUES"
+  },
+  {
+   "n": 80,
+   "nome": "ARINALDA VASCONCELOS DE MEDEIROS"
+  }
+ ],
+ "final_pA": 0.5077185210911398,
+ "votos_A": 1073024,
+ "votos_B": 1040399,
+ "secoes": 8115,
+ "total_1t": {
+  "A1": 718300,
+  "B1": 733809,
+  "O1": 530580,
+  "O2": 2151,
+  "O3": 1466,
+  "OR": 2513,
+  "BN1": 178895,
+  "APT1": 2656207,
+  "COMP1": 2167714
+ },
+ "total_2t": {
+  "A2": 1073024,
+  "B2": 1040399,
+  "BN2": 116087,
+  "APT2": 2656286,
+  "COMP2": 2229510
+ }
+}

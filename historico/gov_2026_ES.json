@@ -1,0 +1,50 @@
+{
+ "id": "gov_2026_ES",
+ "ano": 2026,
+ "cargo": "governador",
+ "uf": "ES",
+ "A": {
+  "n": 10,
+  "nome": "LORENZO SILVA DE PAZOLINI"
+ },
+ "B": {
+  "n": 15,
+  "nome": "RICARDO DE REZENDE FERRAÇO"
+ },
+ "outros": [
+  {
+   "n": 13,
+   "nome": "HELDER IGNACIO SALOMAO"
+  },
+  {
+   "n": 14,
+   "nome": "BRENO AUGUSTO FAGUNDES BARCELOS"
+  },
+  {
+   "n": 80,
+   "nome": "RAFAEL KETLEY DEMUNER"
+  }
+ ],
+ "final_pA": 0.5216715875498259,
+ "votos_A": 1151818,
+ "votos_B": 1056119,
+ "secoes": 9844,
+ "total_1t": {
+  "A1": 1048633,
+  "B1": 719397,
+  "O1": 323483,
+  "O2": 17988,
+  "O3": 2670,
+  "OR": 0,
+  "BN1": 236441,
+  "APT1": 2987584,
+  "COMP1": 2348612
+ },
+ "total_2t": {
+  "A2": 1151818,
+  "B2": 1056119,
+  "BN2": 197717,
+  "APT2": 2987603,
+  "COMP2": 2405654
+ }
+}

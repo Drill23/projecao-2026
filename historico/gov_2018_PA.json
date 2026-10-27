@@ -1,0 +1,50 @@
+{
+ "id": "gov_2018_PA",
+ "ano": 2018,
+ "cargo": "governador",
+ "uf": "PA",
+ "A": {
+  "n": 15,
+  "nome": "HELDER ZAHLUTH BARBALHO"
+ },
+ "B": {
+  "n": 25,
+  "nome": "MARCIO DESIDÉRIO TEIXEIRA MIRANDA"
+ },
+ "outros": [
+  {
+   "n": 13,
+   "nome": "PAULO ROBERTO GALVÃO DA ROCHA"
+  },
+  {
+   "n": 50,
+   "nome": "FERNANDO ANTONIO MARTINS CARNEIRO"
+  },
+  {
+   "n": 16,
+   "nome": "JOSE CLEBER BARROS RABELO"
+  }
+ ],
+ "final_pA": 0.5543064144907868,
+ "votos_A": 2068319,
+ "votos_B": 1663045,
+ "secoes": 17286,
+ "total_1t": {
+  "A1": 1825708,
+  "B1": 1156680,
+  "O1": 652923,
+  "O2": 170751,
+  "O3": 22414,
+  "OR": 0,
+  "BN1": 572135,
+  "APT1": 5497589,
+  "COMP1": 4400611
+ },
+ "total_2t": {
+  "A2": 2068319,
+  "B2": 1663045,
+  "BN2": 485690,
+  "APT2": 5497638,
+  "COMP2": 4217054
+ }
+}

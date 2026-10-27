@@ -1,0 +1,50 @@
+{
+ "id": "gov_2014_DF",
+ "ano": 2014,
+ "cargo": "governador",
+ "uf": "DF",
+ "A": {
+  "n": 40,
+  "nome": "RODRIGO SOBRAL ROLLEMBERG"
+ },
+ "B": {
+  "n": 22,
+  "nome": "JOFRAN FREJAT"
+ },
+ "outros": [
+  {
+   "n": 13,
+   "nome": "AGNELO SANTOS QUEIROZ FILHO"
+  },
+  {
+   "n": 45,
+   "nome": "LUIZ CARLOS PIETSCHMANN"
+  },
+  {
+   "n": 50,
+   "nome": "ANTÔNIO CARLOS DE ANDRADE"
+  }
+ ],
+ "final_pA": 0.5555714435254508,
+ "votos_A": 812036,
+ "votos_B": 649587,
+ "secoes": 6452,
+ "total_1t": {
+  "A1": 692855,
+  "B1": 428522,
+  "O1": 307500,
+  "O2": 68305,
+  "O3": 34689,
+  "OR": 2432,
+  "BN1": 140205,
+  "APT1": 1895697,
+  "COMP1": 1674508
+ },
+ "total_2t": {
+  "A2": 812036,
+  "B2": 649587,
+  "BN2": 194738,
+  "APT2": 1895994,
+  "COMP2": 1656361
+ }
+}
