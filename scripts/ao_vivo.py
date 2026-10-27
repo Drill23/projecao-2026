@@ -322,7 +322,7 @@ class Estado:
                 linha.update({"proj": round(proj["u_pA"][j], 5), "apur": round(proj["u_apur"][j], 5),
                               "bruto": round(proj["u_bruto"][j], 5), "votos": round(proj["u_V"][j])})
             unidades.append(linha)
-        nomes_q = [o["nome"].title() for o in meta["outros"]] + ["demais candidatos"]
+        nomes_q = [o["nome"].title() for o in meta["outros"]] + ["outros candidatos"]
         out = {
             "atualizado": agora().isoformat(timespec="seconds"),
             "status": status,
