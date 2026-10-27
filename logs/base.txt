@@ -1,4 +1,36 @@
-baixado votacao_secao_2026_BR.zip 242 MB 2s
-baixado dv2026.zip 234 MB 4s
-seções do 2º turno: 517179 com base no 1º turno: 499206
-{"A": {"n": 13, "nome": "LUIZ INÁCIO LULA DA SILVA"}, "B": {"n": 22, "nome": "FLAVIO NANTES BOLSONARO"}, "outros": [{"n": 70, "nome": "AUGUSTO JORGE CURY"}, {"n": 14, "nome": "RENAN ANTONIO FERREIRA DOS SANTOS"}, {"n": 55, "nome": "RONALDO RAMOS CAIADO"}], "l1_nomes": ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul", "Exterior"], "totais_1t": {"A1": 53879538, "B1": 56104503, "O1": 3448569, "O2": 2675887, "O3": 2605148, "OR": 592389, "BN1": 5969801, "QT_APTOS": 158745502, "QT_COMPARECIMENTO": 125275835}}
+horários de chegada do 1º turno: 499,207
+seções 2º turno 2026: 517,179
+baixado vs26.zip: 161.6 MB em 11s
+vs26.zip: 1 csv -> ['votacao_secao_2026_BR.csv']
+2026: 3,800,511 linhas; turnos [np.int64(1)]
+NR_VOTAVEL  NM_VOTAVEL                       
+22          FLAVIO NANTES BOLSONARO              56104503
+13          LUIZ INÁCIO LULA DA SILVA            53879538
+96          VOTO NULO                             3669003
+70          AUGUSTO JORGE CURY                    3448569
+14          RENAN ANTONIO FERREIRA DOS SANTOS     2675887
+55          RONALDO RAMOS CAIADO                  2605148
+95          VOTO BRANCO                           2300798
+30          ROMEU ZEMA NETO                        326488
+80          SAMARA MARTINS DA SILVA FEITOSA        122911
+16          HERTZ DA CONCEICAO DIAS                 43103
+27          CLARIANA ZACARKIM BARAO                 40043
+21          EDMILSON SILVA COSTA                    22693
+35          WILSON GRASSI JUNIOR                    16881
+29          RUI COSTA PIMENTA                       15024
+28          LEONARDO ALVES DE ARAUJO                 5246
+Name: QT_VOTOS, dtype: int64
+baixado dv26.zip: 176.9 MB em 8s
+dv26.zip: 30 csv -> ['detalhe_votacao_secao_2026_DF.csv', 'detalhe_votacao_secao_2026_MG.csv', 'detalhe_votacao_secao_2026_MA.csv', 'detalhe_votacao_secao_2026_PE.csv']
+baixado vs22.zip: 271.3 MB em 3s
+vs22.zip: 1 csv -> ['votacao_secao_2022_BR.csv']
+2022: 5,380,736 linhas; turnos [np.int64(1), np.int64(2)]
+baixado dv22.zip: 243.8 MB em 19s
+dv22.zip: 29 csv -> ['detalhe_votacao_secao_2022_MT.csv', 'detalhe_votacao_secao_2022_AC.csv', 'detalhe_votacao_secao_2022_BRASIL.csv', 'detalhe_votacao_secao_2022_MS.csv']
+baixado vs18.zip: 251.0 MB em 15s
+vs18.zip: 1 csv -> ['votacao_secao_2018_BR.csv']
+2018: 6,616,660 linhas; turnos [np.int64(1), np.int64(2)]
+seções no 2º turno: 517179  com base 2026: 499206  com 2022: 465433  só no 1º turno: 0
+{"L": [{"n": 13, "nm": "LUIZ INÁCIO LULA DA SILVA"}], "F": [{"n": 22, "nm": "FLAVIO NANTES BOLSONARO"}], "O1": [{"n": 70, "nm": "AUGUSTO JORGE CURY"}], "O2": [{"n": 14, "nm": "RENAN ANTONIO FERREIRA DOS SANTOS"}], "O3": [{"n": 55, "nm": "RONALDO RAMOS CAIADO"}], "NE": [{"n": 80, "nm": "SAMARA MARTINS DA SILVA FEITOSA"}, {"n": 16, "nm": "HERTZ DA CONCEICAO DIAS"}, {"n": 21, "nm": "EDMILSON SILVA COSTA"}, {"n": 29, "nm": "RUI COSTA PIMENTA"}], "ND": [{"n": 30, "nm": "ROMEU ZEMA NETO"}, {"n": 27, "nm": "CLARIANA ZACARKIM BARAO"}, {"n": 35, "nm": "WILSON GRASSI JUNIOR"}, {"n": 28, "nm": "LEONARDO ALVES DE ARAUJO"}], "BN": [{"n": 95, "nm": "VOTO BRANCO"}, {"n": 96, "nm": "VOTO NULO"}, {"n": 97, "nm": "97"}]}
+{"L": 53879538, "F": 56104503, "O1": 3448569, "O2": 2675887, "O3": 2605148, "NE": 203731, "ND": 388658, "BN": 5969801}
+ok em 196s; base.npz 15.0 MB
