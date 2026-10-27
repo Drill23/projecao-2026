@@ -1,0 +1,260 @@
+{
+ "vs_2010_BR": {
+  "st": 200,
+  "len": "23737900",
+  "lm": "Fri, 03 Sep 2021 20:13:35 GMT"
+ },
+ "vs_2010_SP": {
+  "st": 200,
+  "len": "160321176",
+  "lm": "Fri, 03 Sep 2021 20:13:57 GMT"
+ },
+ "vs_2010_AC": {
+  "st": 200,
+  "len": "2151806",
+  "lm": "Fri, 03 Sep 2021 20:13:31 GMT"
+ },
+ "dv_2010": {
+  "st": 200,
+  "len": "67345754",
+  "lm": "Fri, 03 Sep 2021 20:11:17 GMT"
+ },
+ "mz_2010": {
+  "st": 200,
+  "len": "132565895",
+  "lm": "Fri, 03 Sep 2021 20:11:47 GMT"
+ },
+ "vs_2014_BR": {
+  "st": 200,
+  "len": "29583546",
+  "lm": "Fri, 03 Sep 2021 20:14:30 GMT"
+ },
+ "vs_2014_SP": {
+  "st": 200,
+  "len": "176319707",
+  "lm": "Fri, 03 Sep 2021 20:14:41 GMT"
+ },
+ "vs_2014_AC": {
+  "st": 200,
+  "len": "3205247",
+  "lm": "Fri, 03 Sep 2021 20:14:26 GMT"
+ },
+ "dv_2014": {
+  "st": 200,
+  "len": "73594893",
+  "lm": "Fri, 03 Sep 2021 20:11:21 GMT"
+ },
+ "mz_2014": {
+  "st": 200,
+  "len": "494100168",
+  "lm": "Fri, 03 Sep 2021 20:11:58 GMT"
+ },
+ "vs_2018_BR": {
+  "st": 200,
+  "len": "250985147",
+  "lm": "Fri, 15 Aug 2025 14:15:53 GMT"
+ },
+ "vs_2018_SP": {
+  "st": 200,
+  "len": "495073028",
+  "lm": "Wed, 24 Apr 2024 18:04:13 GMT"
+ },
+ "vs_2018_AC": {
+  "st": 200,
+  "len": "5867939",
+  "lm": "Wed, 24 Apr 2024 17:19:40 GMT"
+ },
+ "dv_2018": {
+  "st": 200,
+  "len": "256133172",
+  "lm": "Thu, 09 Apr 2026 16:48:22 GMT"
+ },
+ "mz_2018": {
+  "st": 200,
+  "len": "395389280",
+  "lm": "Wed, 13 Nov 2024 16:25:44 GMT"
+ },
+ "vs_2022_BR": {
+  "st": 200,
+  "len": "271292455",
+  "lm": "Thu, 24 Nov 2022 14:26:58 GMT"
+ },
+ "vs_2022_SP": {
+  "st": 200,
+  "len": "900947881",
+  "lm": "Mon, 22 Jun 2026 14:44:46 GMT"
+ },
+ "vs_2022_AC": {
+  "st": 200,
+  "len": "6680201",
+  "lm": "Mon, 22 Jun 2026 14:45:09 GMT"
+ },
+ "dv_2022": {
+  "st": 200,
+  "len": "243822213",
+  "lm": "Fri, 31 Jul 2026 19:47:56 GMT"
+ },
+ "mz_2022": {
+  "st": 200,
+  "len": "642592078",
+  "lm": "Sat, 24 Oct 2026 07:24:58 GMT"
+ },
+ "vs_2026_BR": {
+  "st": 200,
+  "len": "241891087",
+  "lm": "Mon, 26 Oct 2026 17:42:32 GMT"
+ },
+ "vs_2026_SP": {
+  "st": 200,
+  "len": "808337068",
+  "lm": "Mon, 26 Oct 2026 19:21:54 GMT"
+ },
+ "vs_2026_AC": {
+  "st": 200,
+  "len": "7981955",
+  "lm": "Mon, 26 Oct 2026 17:38:05 GMT"
+ },
+ "dv_2026": {
+  "st": 200,
+  "len": "234357769",
+  "lm": "Mon, 26 Oct 2026 15:35:35 GMT"
+ },
+ "mz_2026": {
+  "st": 200,
+  "len": "452159174",
+  "lm": "Sun, 25 Oct 2026 16:16:37 GMT"
+ },
+ "cab_vs_2014_AC": {
+  "arquivos": [
+   "votacao_secao_2014_AC.csv",
+   "leiame.pdf"
+  ],
+  "linhas": [
+   "\"DT_GERACAO\";\"HH_GERACAO\";\"ANO_ELEICAO\";\"CD_TIPO_ELEICAO\";\"NM_TIPO_ELEICAO\";\"NR_TURNO\";\"CD_ELEICAO\";\"DS_ELEICAO\";\"DT_ELEICAO\";\"TP_ABRANGENCIA\";\"SG_UF\";\"SG_UE\";\"NM_UE\";\"CD_MUNICIPIO\";\"NM_MUNICIPIO\";\"NR_ZONA\";\"NR_SECAO\";\"CD_CARGO\";\"DS_CARGO\";\"NR_VOTAVEL\";\"NM_VOTAVEL\";\"QT_VOTOS\";\"NR_LOCAL_VOTACAO\"",
+   "\"28/07/2021\";\"11:54:26\";2014;2;\"Eleição Ordinária\";1;143;\"Eleições Gerais 2014\";\"05/10/2014\";\"F\";\"AC\";\"01120\";\"ACRELÂNDIA\";1120;\"ACRELÂNDIA\";8;8;3;\"Governador\";45;\"MÁRCIO MIGUEL BITTAR\";19;1015",
+   "\"28/07/2021\";\"11:54:26\";2014;2;\"Eleição Ordinária\";1;143;\"Eleições Gerais 2014\";\"05/10/2014\";\"F\";\"AC\";\"01120\";\"ACRELÂNDIA\";1120;\"ACRELÂNDIA\";8;8;3;\"Governador\";13;\"SEBASTIÃO AFONSO VIANA MACEDO NEVES\";80;1015"
+  ],
+  "cargos_turnos": [
+   [
+    "1",
+    "3",
+    "Governador",
+    8777
+   ],
+   [
+    "1",
+    "5",
+    "Senador",
+    8789
+   ],
+   [
+    "1",
+    "6",
+    "Deputado Federal",
+    62221
+   ],
+   [
+    "1",
+    "7",
+    "Deputado Estadual",
+    138812
+   ],
+   [
+    "2",
+    "3",
+    "Governador",
+    6062
+   ]
+  ]
+ },
+ "cab_vs_2018_AC": {
+  "arquivos": [
+   "votacao_secao_2018_AC.csv",
+   "leiame.pdf"
+  ],
+  "linhas": [
+   "\"DT_GERACAO\";\"HH_GERACAO\";\"ANO_ELEICAO\";\"CD_TIPO_ELEICAO\";\"NM_TIPO_ELEICAO\";\"NR_TURNO\";\"CD_ELEICAO\";\"DS_ELEICAO\";\"DT_ELEICAO\";\"TP_ABRANGENCIA\";\"SG_UF\";\"SG_UE\";\"NM_UE\";\"CD_MUNICIPIO\";\"NM_MUNICIPIO\";\"NR_ZONA\";\"NR_SECAO\";\"CD_CARGO\";\"DS_CARGO\";\"NR_VOTAVEL\";\"NM_VOTAVEL\";\"QT_VOTOS\";\"NR_LOCAL_VOTACAO\";\"SQ_CANDIDATO\";\"NM_LOCAL_VOTACAO\";\"DS_LOCAL_VOTACAO_ENDERECO\"",
+   "\"15/07/2021\";\"10:53:12\";2018;2;\"Eleição Ordinária\";1;297;\"Eleições Gerais Estaduais 2018\";\"07/10/2018\";\"E\";\"AC\";\"AC\";\"ACRE\";1457;\"SENA MADUREIRA\";3;94;6;\"Deputado Federal\";1515;\"JESSICA ROJAS SALES\";6;1333;10000602516;\"POLO UAB (UNIVERSIDADE ABERTA DO BRASIL)\";\"RUA JOÃO MARÇAL, 235\"",
+   "\"15/07/2021\";\"10:53:12\";2018;2;\"Eleição Ordinária\";1;297;\"Eleições Gerais Estaduais 2018\";\"07/10/2018\";\"E\";\"AC\";\"AC\";\"ACRE\";1457;\"SENA MADUREIRA\";3;94;7;\"Deputado Estadual\";40400;\"MÁRCIA MARIA DA SILVA SOUZA\";6;1333;10000604794;\"POLO UAB (UNIVERSIDADE ABERTA DO BRASIL)\";\"RUA JOÃO MARÇAL, 235\""
+  ],
+  "cargos_turnos": [
+   [
+    "1",
+    "3",
+    "Governador",
+    11190
+   ],
+   [
+    "1",
+    "5",
+    "Senador",
+    15227
+   ],
+   [
+    "1",
+    "6",
+    "Deputado Federal",
+    82223
+   ],
+   [
+    "1",
+    "7",
+    "Deputado Estadual",
+    151392
+   ]
+  ]
+ },
+ "cab_vs_2022_AC": {
+  "arquivos": [
+   "votacao_secao_2022_AC.csv",
+   "leiame.pdf"
+  ],
+  "linhas": [
+   "\"DT_GERACAO\";\"HH_GERACAO\";\"ANO_ELEICAO\";\"CD_TIPO_ELEICAO\";\"NM_TIPO_ELEICAO\";\"NR_TURNO\";\"CD_ELEICAO\";\"DS_ELEICAO\";\"DT_ELEICAO\";\"TP_ABRANGENCIA\";\"SG_UF\";\"SG_UE\";\"NM_UE\";\"CD_MUNICIPIO\";\"NM_MUNICIPIO\";\"NR_ZONA\";\"NR_SECAO\";\"CD_CARGO\";\"DS_CARGO\";\"NR_VOTAVEL\";\"NM_VOTAVEL\";\"QT_VOTOS\";\"NR_LOCAL_VOTACAO\";\"SQ_CANDIDATO\";\"NM_LOCAL_VOTACAO\";\"DS_LOCAL_VOTACAO_ENDERECO\"",
+   "\"01/11/2022\";\"16:05:25\";2022;2;\"Eleição Ordinária\";1;546;\"Eleições Gerais Estaduais 2022\";\"02/10/2022\";\"E\";\"AC\";\"AC\";\"ACRE\";1392;\"RIO BRANCO\";9;365;6;\"Deputado Federal\";5055;\"MARIA NILDA ROSA SAUL\";1;2216;10001595342;\"ESCOLA ESTADUAL PROFESSORA ELOZIRA DOS SANTOS TOMÉ\";\"RODOVIA AC. 10 (ESTRADA DE PORTO ACRE),  KM 1\"",
+   "\"01/11/2022\";\"16:05:25\";2022;2;\"Eleição Ordinária\";1;546;\"Eleições Gerais Estaduais 2022\";\"02/10/2022\";\"E\";\"AC\";\"AC\";\"ACRE\";1392;\"RIO BRANCO\";9;365;6;\"Deputado Federal\";4444;\"FABIO GONÇALVES DE RUEDA\";7;2216;10001612488;\"ESCOLA ESTADUAL PROFESSORA ELOZIRA DOS SANTOS TOMÉ\";\"RODOVIA AC. 10 (ESTRADA DE PORTO ACRE),  KM 1\""
+  ],
+  "cargos_turnos": [
+   [
+    "1",
+    "3",
+    "Governador",
+    15469
+   ],
+   [
+    "1",
+    "5",
+    "Senador",
+    18286
+   ],
+   [
+    "1",
+    "6",
+    "Deputado Federal",
+    95875
+   ],
+   [
+    "1",
+    "7",
+    "Deputado Estadual",
+    148035
+   ]
+  ]
+ },
+ "cab_dv_2014": {
+  "arquivos": [
+   "detalhe_votacao_secao_2014_AC.csv",
+   "detalhe_votacao_secao_2014_AL.csv",
+   "detalhe_votacao_secao_2014_AM.csv",
+   "detalhe_votacao_secao_2014_AP.csv",
+   "detalhe_votacao_secao_2014_BA.csv"
+  ],
+  "linhas": [
+   "\"DT_GERACAO\";\"HH_GERACAO\";\"ANO_ELEICAO\";\"CD_TIPO_ELEICAO\";\"NM_TIPO_ELEICAO\";\"NR_TURNO\";\"CD_ELEICAO\";\"DS_ELEICAO\";\"DT_ELEICAO\";\"TP_ABRANGENCIA\";\"SG_UF\";\"SG_UE\";\"NM_UE\";\"CD_MUNICIPIO\";\"NM_MUNICIPIO\";\"NR_ZONA\";\"NR_SECAO\";\"CD_CARGO\";\"DS_CARGO\";\"QT_APTOS\";\"QT_COMPARECIMENTO\";\"QT_ABSTENCOES\";\"QT_VOTOS_NOMINAIS\";\"QT_VOTOS_BRANCOS\";\"QT_VOTOS_NULOS\";\"QT_VOTOS_LEGENDA\";\"QT_VOTOS_ANULADOS_APU_SEP\";\"NR_LOCAL_VOTACAO\"",
+   "\"28/07/2021\";\"11:54:29\";\"2014\";2;\"Eleição Ordinária\";1;143;\"Eleições Gerais 2014\";\"05/10/2014\";\"F\";\"AC\";\"AC\";\"ACRE\";\"01120\";\"ACRELÂNDIA\";8;8;3;\"Governador\";305;213;92;195;4;14;0;0;1015"
+  ]
+ },
+ "ibge": {
+  "erro": "URLError(TimeoutError(110, 'Connection timed out'))"
+ }
+}
