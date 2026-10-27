@@ -1,34 +1,51 @@
-# Projeção do 2º turno — Presidente 2026
+# Projeção da apuração · 2º turno
 
-Página: **https://drill23.github.io/projecao-2026/**
+Robô e página que acompanham a apuração de um 2º turno (presidente ou governador) e mostram, a
+cada minuto, a **projeção do resultado final**, a faixa de 90% e a chance de vitória.
 
-Apuração do TSE com projeção do resultado final do 2º turno (Lula × Flávio Bolsonaro),
-atualizada a cada minuto durante a apuração. Projeção não oficial.
+- Página: **https://drill23.github.io/projecao-2026/**
+- Versão do modelo: **v2** (calibrada em 59 segundos turnos de 2010 a 2026)
+- Estado: **desligado**. Nada roda sozinho; o robô só liga quando alguém manda.
 
-## Como funciona
+## Como usar numa próxima eleição
 
-- **Robô** (`scripts/ao_vivo.py`, workflow *Apuração ao vivo*): liga sozinho no dia 25/10 às
-  16h47 (Brasília). A cada minuto lê os arquivos públicos da divulgação do TSE (andamento por
-  município, resultado por município e configuração de seções), roda o modelo e grava o
-  resultado em `projecao.json` no ramo `dados`. Respeita um orçamento de requisições ao TSE
-  e reduz o ritmo se receber HTTP 429.
-- **Base** (`scripts/preparar_base.py`): resultado do 1º turno de 2026 em cada uma das ~517 mil
-  seções do 2º turno (mesmas seções), mais 2022 e 2018 por seção para validação.
-- **Modelo** (`projecao/modelo.py`): em cada município, compara o apurado com o 1º turno das
-  mesmas seções; estima a fração dos votos de Cury, Renan Santos, Caiado e nanicos que foi
-  para cada lado, mais efeitos Brasil → região → UF → município com encolhimento; projeta as
-  seções que faltam. Faixa de 90% por sorteio dos parâmetros (aproximação de Laplace) e dos
-  efeitos não observados, calibrada na reprise.
-- **Reprise** (`scripts/reprise_2022.py`): prevê o 2º turno de 2022 a partir do 1º turno de
-  2022, com as urnas chegando na ordem real de chegada (amostra dos arquivos auxiliares do
-  1º turno de 2026). Erro da projeção abaixo de 0,2 ponto já com 1% apurado.
-- **Página** (`docs/index.html`, publicada no GitHub Pages): lê `projecao.json` do ramo
-  `dados` a cada 75 segundos pela API do GitHub; se o limite de 60 leituras por hora acabar,
-  usa o arquivo raw (pode atrasar até ~5 min).
+1. **Criar a configuração.** Copie `eleicoes/modelo-presidente.json` (ou
+   `modelo-governador.json`, um arquivo por estado), preencha os números dos dois candidatos e
+   os códigos de eleição/pleito do 1º e do 2º turno. Os códigos estão em
+   `https://resultados.tse.jus.br/oficial/comum/config/ele-c.json`.
+2. **Preparar a base** (alguns dias antes do 2º turno, quando o TSE já publicou os dados
+   abertos do 1º turno): aba **Actions** → *Preparar base* → **Run workflow** → informe o
+   arquivo de configuração.
+3. **Ensaiar**: *Ensaio* → **Run workflow** com turno `1`. O robô lê os arquivos do 1º turno
+   (que já estão no TSE), roda o modelo três vezes e salva o que viu em `logs/ensaio.txt`, sem
+   publicar nada.
+4. **No dia**, perto das 16h45: *Apuração ao vivo* → **Run workflow** → configuração e, se
+   quiser, a hora de parar. O robô publica na página a cada minuto, se renova sozinho antes do
+   limite de 6 horas do GitHub e para 20 minutos depois do fim da apuração.
 
-## Ligar à mão
+Opcional na configuração:
+- `outros_prior`: para onde se espera que vá cada candidato eliminado (por número), por
+  exemplo `{"70": 0.30}` = 30% dos eleitores do 70 para o candidato A;
+- `pesquisa`: última pesquisa do 2º turno (`{"pA": 0.52, "sd": 0.025}`), usada só como ponto
+  de partida nos primeiros minutos.
 
-Aba **Actions** → *Apuração ao vivo* → **Run workflow**. Cada execução dura até ~5h50; se a
-apuração continuar, a próxima execução agendada assume.
+## Estrutura
 
-Dados: TSE (divulgação de resultados e dados abertos).
+| Pasta | O que tem |
+|---|---|
+| `projecao/modelo_v2.py` | o modelo v2 |
+| `projecao/base.py` | carrega a base de uma eleição e monta o modelo |
+| `projecao/modelo.py` | o modelo v1 (o da noite de 25/10/2026), mantido para comparação |
+| `scripts/ao_vivo.py` | o robô |
+| `scripts/preparar_base.py` | monta a base por seção a partir dos dados abertos do TSE |
+| `scripts/historico.py`, `geo.py`, `amostra_chegada.py` | dados históricos, posição dos municípios e horários reais de chegada das urnas |
+| `scripts/avaliar.py`, `analisar.py` | reprise dos 2º turnos passados e estatísticas v1 × v2 |
+| `eleicoes/` | configurações |
+| `historico/` | bases por seção dos 2º turnos de 2010 a 2026 |
+| `resultados/` | resultados da avaliação (`analise.txt`, `resumo.json`, `calibracao.json`) |
+| `docs/index.html` | a página |
+
+O ramo `dados` guarda só o `projecao.json` que a página lê. A explicação completa do modelo,
+com ilustrações e estatísticas, está no repositório **projecao-eleitoral**.
+
+Dados: TSE (divulgação de resultados e dados abertos). Projeção não oficial.

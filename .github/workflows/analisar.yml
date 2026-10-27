@@ -1,0 +1,34 @@
+name: Analisar avaliação
+# Junta os resultados de uma execução de "Avaliar modelos" (pelo número dela) e refaz a análise.
+on:
+  push:
+    paths: ["pedidos/analisar.txt"]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  analisar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy scipy matplotlib
+      - name: Baixar os resultados da execução indicada
+        uses: actions/download-artifact@v4
+        with:
+          path: art
+          pattern: reprise-*
+          run-id: 40516129689
+          github-token: ${{ github.token }}
+      - name: Analisar e salvar
+        run: |
+          mkdir -p resultados
+          cp art/*/reprise-*.jsonl resultados/
+          python -u scripts/analisar.py 2>&1 | tee resultados/analise.txt
+          python scripts/graficos.py resultados/resumo.json resultados/graficos
+          git config user.name "projecao-bot"
+          git config user.email "projecao-bot@users.noreply.github.com"
+          git add resultados
+          git commit -m "Resultados da avaliação v1 x v2" || exit 0
+          git pull --rebase -X theirs origin main && git push origin HEAD:main

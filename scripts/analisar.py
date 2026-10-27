@@ -38,19 +38,24 @@ def sd_v2(r, a, b, c):
     return np.sqrt((a * v["sd_raw"]) ** 2 + (b * v["pend"]) ** 2 + (c * p * (1 - p) * v["U"]) ** 2)
 
 
-def nll(theta, L):
+def _arrays(L):
+    p = np.array([r["v2"]["pA"] for r in L])
+    return (p, np.array([r["v2"]["sd_raw"] for r in L]), np.array([r["v2"]["pend"] for r in L]),
+            np.array([r["v2"]["U"] for r in L]) * p * (1 - p), np.array([r["final"] for r in L]))
+
+
+def nll(theta, arr):
     a, b, c = np.exp(theta)
-    tot = 0.0
-    for r in L:
-        s = max(sd_v2(r, a, b, c), 1e-5)
-        tot += -norm.logpdf(r["final"], r["v2"]["pA"], s)
-    return tot / max(len(L), 1)
+    p, s0, pend, u, f = arr
+    s = np.maximum(np.sqrt((a * s0) ** 2 + (b * pend) ** 2 + (c * u) ** 2), 1e-5)
+    return float(np.mean(-norm.logpdf(f, p, s)))
 
 
 def calibrar(L):
+    arr = _arrays(L)
     best = None
     for x0 in ([0.0, np.log(0.003), 0.0], [0.5, np.log(0.01), np.log(0.5)], [0.3, np.log(0.001), np.log(2.0)]):
-        res = minimize(nll, x0, args=(L,), method="Nelder-Mead", options={"maxiter": 600, "xatol": 1e-4})
+        res = minimize(nll, x0, args=(arr,), method="Nelder-Mead", options={"maxiter": 800, "xatol": 1e-4, "fatol": 1e-7})
         if best is None or res.fun < best.fun:
             best = res
     return tuple(float(x) for x in np.exp(best.x))
