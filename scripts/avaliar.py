@@ -139,7 +139,7 @@ def modelo_v2(e, **kw):
         sd_l1 = np.full(6, 0.08)
         sd_l1[5] = 0.35
     return ModeloV2(e["G"], d["COMP1"], e["E"], mun, e["l2_mun"][mun], e["l1_mun"][mun], e["n_mun"],
-                    e["n_l2"], e["n_l1"], sd_l1_unidade=sd_l1, calib=(1.0, 0.0, 0.0), **kw)
+                    e["n_l2"], e["n_l1"], sd_l1_unidade=sd_l1, presidente=e["pres"], **kw)
 
 
 def modelos(e):
@@ -153,7 +153,7 @@ def modelos(e):
         sd_l1 = np.full(6, 0.08)
         sd_l1[5] = 0.35
     m2 = ModeloV2(e["G"], d["COMP1"], e["E"], mun, e["l2_mun"][mun], e["l1_mun"][mun], e["n_mun"],
-                  e["n_l2"], e["n_l1"], sd_l1_unidade=sd_l1, calib=(1.0, 0.0, 0.0))
+                  e["n_l2"], e["n_l1"], sd_l1_unidade=sd_l1, presidente=e["pres"])
     return m1, m2
 
 

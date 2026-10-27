@@ -27,11 +27,21 @@ def carregar_config(caminho):
 
 
 def calibracao_padrao():
+    """Coeficientes da incerteza calibrados no histórico (resultados/calibracao.json)."""
     p = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resultados", "calibracao.json")
     if os.path.exists(p):
         c = json.load(open(p))
-        return (c["a"], c["b"], c["c"])
-    return (1.3, 0.004, 1.0)
+        if "alfa" in c:
+            return {k: c.get(k, 0.0) for k in ("alfa", "beta", "gama", "b", "c", "d")}
+    return {"alfa": 0.1, "beta": -0.8, "gama": 0.3, "b": 0.003, "c": 0.0, "d": 0.0}
+
+
+def variante_padrao(cargo):
+    """Variante do v2 escolhida na avaliação para cada cargo (resultados/calibracao.json)."""
+    p = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resultados", "calibracao.json")
+    if os.path.exists(p):
+        return json.load(open(p)).get("variante", {}).get(cargo, {})
+    return {}
 
 
 class BaseEleicao:
@@ -80,4 +90,5 @@ class BaseEleicao:
             prior_nat = (float(logit(pesq["pA"]) - np.log(A0 / B0)), float(pesq.get("sd", 0.025) * 4.0))
         return ModeloV2(self.G, self.C1, self.E, self.mun, self.l2, self.l1, self.n_mun, self.n_l2, self.n_l1,
                         q_prior=q, q_sd=q_sd, sd_l1_unidade=sd_l1, prior_nat=prior_nat,
-                        calib=calibracao_padrao())
+                        calib=calibracao_padrao(), presidente=self.meta["cargo"] == "presidente",
+                        **variante_padrao(self.meta["cargo"]))

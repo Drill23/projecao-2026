@@ -339,7 +339,7 @@ class Estado:
                 "pA": proj["pA"], "lo": proj["lo"], "hi": proj["hi"], "prob_A": proj["prob_A"],
                 "A": proj["A"], "B": proj["B"],
                 "q": dict(zip(nomes_q, [round(x, 3) for x in proj["q"]])),
-                "q_novos": round(proj["qN"], 3),
+                "q_novos": round(proj["qN"], 3) if self.modelo.mobiliza else None,
                 "comparecimento_rel": proj["turn"], "validos_rel": proj["val"],
                 "cobertura_U": round(proj["U"], 4), "n_mun": proj["n_mun_obs"]},
             "ufs": unidades,

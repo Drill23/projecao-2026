@@ -14,7 +14,8 @@ O que muda em relação ao v1 (projecao/modelo.py):
 4. Prior opcional de pesquisa para o efeito nacional.
 5. Incerteza sensível à cobertura: além dos sorteios dos parâmetros e das unidades não vistas,
    um termo cresce quando unidades grandes ainda estão sem apuração (índice U). A dispersão
-   final é sqrt((a·sd)² + (b·pendente)² + (c·p(1-p)·U)²), com a, b, c calibrados no histórico.
+   final é sqrt((m·sd)² + (b·pendente)² + (c·p(1-p)·U)² + d²), com m = exp(α + β·log10(% apurado) + γ·[presidente])
+   e α, β, γ, b, c, d calibrados no histórico (2010–2022).
 
 Notação igual ao v1: G (n, K) votos do 1º turno por seção, colunas [A, B, outros...].
 """
@@ -36,7 +37,7 @@ class ModeloV2:
     def __init__(self, G, C1, E, mun, l2, l1, n_mun, n_l2, n_l1, q_prior=None, q_sd=None,
                  mobiliza=True, qN_prior=0.5, qN_sd=1.0, prior_nat=(0.0, 0.6), sd_l1=0.08,
                  sd_l1_unidade=None, tau_prior=0.035, k_tau=4.0, rho=0.85,
-                 calib=(1.3, 0.004, 1.0), prior_turn=1.0, prior_valid=0.95):
+                 calib=None, presidente=False, prior_turn=1.0, prior_valid=0.95):
         self.G = np.asarray(G, float)
         self.K = self.G.shape[1]
         self.V1 = self.G.sum(1)
@@ -56,7 +57,9 @@ class ModeloV2:
         self.sd_l1 = np.full(n_l1, sd_l1) if sd_l1_unidade is None else np.asarray(sd_l1_unidade, float)
         self.tau_prior, self.k_tau = tau_prior, k_tau
         self.rho = rho
-        self.calib = calib
+        # calibração: dict com alfa, beta, gama, b, c (ver scripts/analisar.py)
+        self.calib = calib or {"alfa": 0.0, "beta": 0.0, "gama": 0.0, "b": 0.0, "c": 0.0}
+        self.presidente = presidente
         self.prior_turn, self.prior_valid = prior_turn, prior_valid
         self.l2_mun = np.zeros(n_mun, np.int64)
         self.l2_mun[self.mun] = self.l2
@@ -260,8 +263,11 @@ class ModeloV2:
         S = np.array(sims)
         ps = S[:, 0] / S.sum(1)
         sd_raw = float(ps.std())
-        a, b, c = self.calib
-        sd = float(np.sqrt((a * sd_raw) ** 2 + (b * out["pend"]) ** 2 + (c * pA * (1 - pA) * U) ** 2))
+        k = self.calib
+        pct100 = max(100 * out["pct"], 0.1)
+        m = float(np.exp(k["alfa"] + k["beta"] * np.log10(pct100) + k["gama"] * (1.0 if self.presidente else 0.0)))
+        sd = float(np.sqrt((m * sd_raw) ** 2 + (k["b"] * out["pend"]) ** 2 + (k["c"] * pA * (1 - pA) * U) ** 2
+                           + k.get("d", 0.0) ** 2))
         out.update({"sd_raw": sd_raw, "sd": sd, "lo": pA - 1.645 * sd, "hi": pA + 1.645 * sd,
                     "prob_A": float(norm.cdf((pA - 0.5) / max(sd, 1e-9)))})
         return out
