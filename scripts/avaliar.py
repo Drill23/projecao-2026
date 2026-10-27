@@ -124,6 +124,24 @@ def carregar(eid, geo):
             "n_l2": n_l2, "pres": pres}
 
 
+VARIANTES = {
+    "v2": {},
+    "v2_semN": {"mobiliza": False},
+    "v2_semtau": {"k_tau": 0.0},
+    "v2_base": {"mobiliza": False, "k_tau": 0.0},
+}
+
+
+def modelo_v2(e, **kw):
+    d, mun = e["d"], e["mun"]
+    sd_l1 = None
+    if e["pres"]:
+        sd_l1 = np.full(6, 0.08)
+        sd_l1[5] = 0.35
+    return ModeloV2(e["G"], d["COMP1"], e["E"], mun, e["l2_mun"][mun], e["l1_mun"][mun], e["n_mun"],
+                    e["n_l2"], e["n_l1"], sd_l1_unidade=sd_l1, calib=(1.0, 0.0, 0.0), **kw)
+
+
 def modelos(e):
     d, mun = e["d"], e["mun"]
     K2 = e["G"].shape[1] - 2
@@ -139,7 +157,7 @@ def modelos(e):
     return m1, m2
 
 
-def reprise(eid, seeds, geo, chegadas, n_draws):
+def reprise(eid, seeds, geo, chegadas, n_draws, variantes=("v2",), com_v1=True):
     e = carregar(eid, geo)
     d, mun, n_mun = e["d"], e["mun"], e["n_mun"]
     final = float(d["A2"].sum() / (d["A2"].sum() + d["B2"].sum()))
@@ -151,7 +169,8 @@ def reprise(eid, seeds, geo, chegadas, n_draws):
         t = ch.horarios(e["umun"][mun], d["zona"], d["secao"], e["Em"][mun], rng, 0 if seed == 0 else 1.5)
         ordem = np.argsort(t, kind="stable")
         cumE = np.cumsum(e["E"][ordem]) / e["E"].sum()
-        m1, m2 = modelos(e)
+        m1, _ = modelos(e)
+        m2s = {v: modelo_v2(e, **VARIANTES[v]) for v in variantes}
         for cp in CHECK:
             k = int(np.searchsorted(cumE, cp / 100)) + 1
             cont = np.zeros(len(mun), bool)
@@ -162,20 +181,22 @@ def reprise(eid, seeds, geo, chegadas, n_draws):
             lin = {"id": eid, "cargo": e["meta"]["cargo"], "ano": e["meta"]["ano"], "uf": e["meta"]["uf"],
                    "seed": seed, "cp": cp, "final": final, "bruto": bruto}
             t0 = time.time()
-            try:
-                o1 = m1.projetar(cont, obs, n_boot=n_draws, seed=seed)
-            except Exception as ex:  # noqa: BLE001
-                o1 = {"ok": False, "erro": repr(ex)[:100]}
-            if o1.get("ok"):
-                lin["v1"] = {"pA": o1["pA"], "lo": o1["pA_lo"], "hi": o1["pA_hi"], "sd": o1["pA_sd"],
-                             "prob": o1["prob_A"]}
+            if com_v1:
+                try:
+                    o1 = m1.projetar(cont, obs, n_boot=n_draws, seed=seed)
+                except Exception as ex:  # noqa: BLE001
+                    o1 = {"ok": False, "erro": repr(ex)[:100]}
+                if o1.get("ok"):
+                    lin["v1"] = {"pA": o1["pA"], "lo": o1["pA_lo"], "hi": o1["pA_hi"], "sd": o1["pA_sd"],
+                                 "prob": o1["prob_A"]}
             t1 = time.time()
-            try:
-                o2 = m2.projetar(cont, obs, n_draws=n_draws, seed=seed)
-            except Exception as ex:  # noqa: BLE001
-                o2 = {"ok": False, "erro": repr(ex)[:100]}
-            if o2.get("ok"):
-                lin["v2"] = {k: o2[k] for k in ("pA", "sd_raw", "U", "pend", "qN", "tau2")}
+            for v, m2 in m2s.items():
+                try:
+                    o2 = m2.projetar(cont, obs, n_draws=n_draws, seed=seed)
+                except Exception as ex:  # noqa: BLE001
+                    o2 = {"ok": False, "erro": repr(ex)[:100]}
+                if o2.get("ok"):
+                    lin[v] = {k: o2[k] for k in ("pA", "sd_raw", "U", "pend", "qN", "tau2")}
             lin["s"] = [round(t1 - t0, 2), round(time.time() - t1, 2)]
             linhas.append(lin)
             v1 = lin.get("v1", {}).get("pA")
@@ -193,6 +214,8 @@ def main():
     ap.add_argument("--seeds", type=int, default=2)
     ap.add_argument("--draws", type=int, default=80)
     ap.add_argument("--saida", default="resultados/reprise.jsonl")
+    ap.add_argument("--variantes", default="v2")
+    ap.add_argument("--sem-v1", action="store_true")
     a = ap.parse_args()
     ids = a.eleicoes.split(",") if a.eleicoes else sorted(os.path.basename(p)[:-4] for p in glob.glob("historico/*_*.npz")
                                                           if not os.path.basename(p).startswith("chegada"))
@@ -208,7 +231,7 @@ def main():
     with open(a.saida, "w") as f:
         for eid in ids:
             t0 = time.time()
-            for lin in reprise(eid, range(a.seeds), geo, chegadas, a.draws):
+            for lin in reprise(eid, range(a.seeds), geo, chegadas, a.draws, a.variantes.split(","), not a.sem_v1):
                 f.write(json.dumps(lin) + "\n")
             f.flush()
             print(f"== {eid} em {time.time()-t0:.0f}s", flush=True)

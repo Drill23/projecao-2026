@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install numpy scipy
-      - run: python -u scripts/avaliar.py --shard ${{ matrix.shard }}/12 --seeds 3 --draws 60 --saida resultados/reprise-${{ matrix.shard }}.jsonl 2>&1 | tail -400
+      - run: python -u scripts/avaliar.py --shard ${{ matrix.shard }}/12 --seeds 3 --draws 60 $(sed -n 2p pedidos/avaliar.txt) --saida resultados/$(sed -n 3p pedidos/avaliar.txt || echo reprise)-${{ matrix.shard }}.jsonl 2>&1 | tail -400
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -39,7 +39,7 @@ jobs:
       - name: Juntar, calibrar e salvar
         run: |
           mkdir -p resultados
-          cp art/*/reprise-*.jsonl resultados/ || true
+          cp art/*/*.jsonl resultados/ || true
           python -u scripts/analisar.py 2>&1 | tee resultados/analise.txt
           git config user.name "projecao-bot"
           git config user.email "projecao-bot@users.noreply.github.com"
