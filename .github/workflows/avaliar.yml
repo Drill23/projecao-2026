@@ -1,0 +1,48 @@
+name: Avaliar modelos
+# Reprise de todos os 2º turnos do histórico com o modelo v1 e o v2, e as estatísticas.
+on:
+  push:
+    paths: ["pedidos/avaliar.txt"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  reprise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy scipy
+      - run: python -u scripts/avaliar.py --shard ${{ matrix.shard }}/12 --seeds 3 --draws 60 --saida resultados/reprise-${{ matrix.shard }}.jsonl 2>&1 | tail -400
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reprise-${{ matrix.shard }}
+          path: resultados/
+  analisar:
+    needs: reprise
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy scipy
+      - uses: actions/download-artifact@v4
+        with: { path: art }
+      - name: Juntar, calibrar e salvar
+        run: |
+          mkdir -p resultados
+          cp art/*/reprise-*.jsonl resultados/ || true
+          python -u scripts/analisar.py 2>&1 | tee resultados/analise.txt
+          git config user.name "projecao-bot"
+          git config user.email "projecao-bot@users.noreply.github.com"
+          git add resultados
+          git commit -m "Resultados da avaliação v1 x v2" || exit 0
+          git pull --rebase origin main && git push origin HEAD:main

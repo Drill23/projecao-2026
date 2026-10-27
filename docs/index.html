@@ -11,20 +11,20 @@
 <style>
 :root{
   --fundo:#eceef1; --papel:#f8f9fa; --tinta:#1f2328; --tinta2:#59606b; --linha:#c9ced6;
-  --lula:#c8102e; --lula-claro:#f3c9cf; --flavio:#1d4e9e; --flavio-claro:#c9d6ee;
+  --ca:#c8102e; --ca-claro:#f3c9cf; --cb:#1d4e9e; --cb-claro:#c9d6ee;
   --confirma:#1e8f46; --faixa:rgba(31,35,40,.16);
   --sans:"Archivo",system-ui,sans-serif; --serif:"Source Serif 4",Georgia,serif;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --fundo:#15171b; --papel:#1d2026; --tinta:#e8eaee; --tinta2:#9aa1ad; --linha:#363b44;
-    --lula:#ef4a5f; --lula-claro:#4a1f27; --flavio:#5b8ff0; --flavio-claro:#1f2c47;
+    --ca:#ef4a5f; --ca-claro:#4a1f27; --cb:#5b8ff0; --cb-claro:#1f2c47;
     --confirma:#3cc46c; --faixa:rgba(232,234,238,.2);
   }
 }
 :root[data-theme="dark"]{
   --fundo:#15171b; --papel:#1d2026; --tinta:#e8eaee; --tinta2:#9aa1ad; --linha:#363b44;
-  --lula:#ef4a5f; --lula-claro:#4a1f27; --flavio:#5b8ff0; --flavio-claro:#1f2c47;
+  --ca:#ef4a5f; --ca-claro:#4a1f27; --cb:#5b8ff0; --cb-claro:#1f2c47;
   --confirma:#3cc46c; --faixa:rgba(232,234,238,.2);
 }
 *{box-sizing:border-box}
@@ -53,11 +53,11 @@ h1{font-size:clamp(28px,6vw,44px);line-height:1.05;margin:6px 0 0;font-weight:80
 .cand .nome{font-size:17px;font-weight:600}
 .cand.b{text-align:right}
 .num{font-size:clamp(52px,15vw,104px);font-weight:800;font-stretch:62%;line-height:.95;letter-spacing:-.02em;display:block}
-.cand.a .num{color:var(--lula)}
-.cand.b .num{color:var(--flavio)}
+.cand.a .num{color:var(--ca)}
+.cand.b .num{color:var(--cb)}
 .num small{font-size:.42em;font-weight:700;margin-left:2px}
-.barra{position:relative;height:30px;margin:16px 0 8px;border-radius:6px;overflow:hidden;background:var(--flavio)}
-.barra .a{position:absolute;inset:0 auto 0 0;background:var(--lula);transition:width .8s ease}
+.barra{position:relative;height:30px;margin:16px 0 8px;border-radius:6px;overflow:hidden;background:var(--cb)}
+.barra .a{position:absolute;inset:0 auto 0 0;background:var(--ca);transition:width .8s ease}
 .barra .banda{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.55) 0 4px,transparent 4px 8px);transition:left .8s ease,width .8s ease}
 .barra .meio{position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;background:var(--papel);transform:translateX(-1px)}
 @media (prefers-reduced-motion:reduce){.barra .a,.barra .banda{transition:none}}
@@ -88,8 +88,8 @@ h2{font-size:22px;font-weight:700;font-stretch:80%;margin:0 0 10px}
 
 .transf{list-style:none;padding:0;margin:0}
 .transf li{display:grid;grid-template-columns:minmax(120px,1.1fr) 3fr;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--linha);font-size:15px}
-.mini{position:relative;height:14px;border-radius:3px;background:var(--flavio);overflow:hidden}
-.mini i{position:absolute;inset:0 auto 0 0;background:var(--lula)}
+.mini{position:relative;height:14px;border-radius:3px;background:var(--cb);overflow:hidden}
+.mini i{position:absolute;inset:0 auto 0 0;background:var(--ca)}
 .mini em{position:absolute;right:6px;top:-1px;font-size:11px;font-style:normal;color:#fff}
 .mini span{position:absolute;left:6px;top:-1px;font-size:11px;color:#fff}
 
@@ -106,13 +106,13 @@ td.proj b{font-weight:700}
 .metodo strong{font-family:var(--sans);font-weight:700}
 footer{margin-top:40px;font-size:13px;color:var(--tinta2)}
 .tema{all:unset;cursor:pointer;font-size:14px;color:var(--tinta2);text-decoration:underline;text-underline-offset:3px}
-.erro{color:var(--lula)}
+.erro{color:var(--ca)}
 </style>
 </head>
 <body>
 <main>
   <div class="topo">
-    <p class="pleito">Eleições 2026, Presidente, 2º turno</p>
+    <p class="pleito" id="titulo">Eleição · 2º turno</p>
     <button class="tema" id="tema" type="button">Modo escuro</button>
   </div>
   <h1>Projeção do resultado final</h1>
@@ -120,19 +120,19 @@ footer{margin-top:40px;font-size:13px;color:var(--tinta2)}
 
   <div class="placar" aria-live="polite">
     <div class="nomes">
-      <div class="cand a"><span class="nome">Lula</span><span class="num" id="numA">–</span></div>
-      <div class="cand b"><span class="nome">Flávio Bolsonaro</span><span class="num" id="numB">–</span></div>
+      <div class="cand a"><span class="nome nA">Candidato A</span><span class="num" id="numA">–</span></div>
+      <div class="cand b"><span class="nome nB">Candidato B</span><span class="num" id="numB">–</span></div>
     </div>
     <div class="barra" id="barra" role="img" aria-label="Divisão projetada dos votos válidos">
       <div class="a" id="barraA" style="width:50%"></div>
       <div class="banda" id="banda" style="left:50%;width:0"></div>
       <div class="meio"></div>
     </div>
-    <div class="legenda-barra"><span>Lula</span><span>50%</span><span>Flávio</span></div>
+    <div class="legenda-barra"><span class="sA">A</span><span>50%</span><span class="sB">B</span></div>
     <p class="veredito" id="veredito"></p>
     <div class="chance" id="chance" hidden>
-      <div class="a"><b id="chA">–</b><p>chance de Lula vencer</p></div>
-      <div class="b"><b id="chB">–</b><p>chance de Flávio vencer</p></div>
+      <div class="a"><b id="chA">–</b><p>chance de <span class="sA">A</span> vencer</p></div>
+      <div class="b"><b id="chB">–</b><p>chance de <span class="sB">B</span> vencer</p></div>
     </div>
   </div>
   <p class="aviso"><strong>Projeção não oficial.</strong> Ela estima para onde tende o resultado final com base nas seções já apuradas e no voto dessas mesmas seções no 1º turno. O resultado que vale é o divulgado pelo TSE.</p>
@@ -141,8 +141,8 @@ footer{margin-top:40px;font-size:13px;color:var(--tinta2)}
     <h2>Apurado pelo TSE até agora</h2>
     <div class="apurado">
       <div><b id="apPct">–</b><span>do eleitorado nas seções apuradas</span></div>
-      <div><b id="apA">–</b><span>Lula, votos válidos apurados</span></div>
-      <div><b id="apB">–</b><span>Flávio, votos válidos apurados</span></div>
+      <div><b id="apA">–</b><span><span class="sA">A</span>, votos válidos apurados</span></div>
+      <div><b id="apB">–</b><span><span class="sB">B</span>, votos válidos apurados</span></div>
       <div><b id="apDif">–</b><span>diferença em votos</span></div>
     </div>
   </section>
@@ -152,10 +152,10 @@ footer{margin-top:40px;font-size:13px;color:var(--tinta2)}
     <div class="grafico"><svg id="graf" viewBox="0 0 800 380" role="img" aria-label="Gráfico: apurado e projeção ao longo da apuração"></svg></div>
     <div class="chaves">
       <span><i style="background:var(--tinta2)"></i>apurado</span>
-      <span><i style="background:var(--lula)"></i>projeção do final</span>
+      <span><i style="background:var(--ca)"></i>projeção do final</span>
       <span><i style="background:var(--faixa);height:10px"></i>faixa de 90%</span>
     </div>
-    <p class="nota">Eixo horizontal: % do eleitorado nas seções já apuradas. Eixo vertical: Lula em % dos votos válidos (Flávio é o restante).</p>
+    <p class="nota">Eixo horizontal: % do eleitorado nas seções já apuradas. Eixo vertical: <span class="sA">A</span> em % dos votos válidos (<span class="sB">B</span> é o restante).</p>
   </section>
 
   <section id="sec-transf" hidden>
@@ -165,14 +165,14 @@ footer{margin-top:40px;font-size:13px;color:var(--tinta2)}
   </section>
 
   <section>
-    <h2>Por estado</h2>
+    <h2 id="rotulo-unidades">Por estado</h2>
     <div class="tab-wrap">
       <table id="tab">
         <thead><tr>
-          <th><button data-k="uf">UF</button></th>
+          <th><button data-k="nome" id="th-unidade">Estado</button></th>
           <th><button data-k="apur">Apurado</button></th>
-          <th><button data-k="bruto">Lula apurado</button></th>
-          <th><button data-k="proj">Lula projetado</button></th>
+          <th><button data-k="bruto"><span class="sA">A</span> apurado</button></th>
+          <th><button data-k="proj"><span class="sA">A</span> projetado</button></th>
           <th><button data-k="votos">Votos projetados</button></th>
         </tr></thead>
         <tbody id="tab-corpo"><tr><td colspan="5">A tabela aparece com a projeção.</td></tr></tbody>
@@ -183,8 +183,8 @@ footer{margin-top:40px;font-size:13px;color:var(--tinta2)}
   <section class="metodo">
     <h2>Como funciona</h2>
     <p><strong>Os dados.</strong> A cada minuto, um robô lê os arquivos públicos da divulgação do TSE: o andamento de cada município, o resultado de cada município e a lista de seções, que marca quais urnas já foram totalizadas.</p>
-    <p><strong>A base.</strong> Cada seção do 2º turno é exatamente a mesma do 1º turno, três semanas antes. Por isso sabemos, urna por urna, quantos votos Lula, Flávio, Cury, Renan Santos, Caiado e os demais tiveram ali.</p>
-    <p><strong>O modelo.</strong> Em cada município, compara o apurado no 2º turno com o 1º turno das mesmas seções. Daí estima que fração dos eleitores de cada candidato eliminado foi para Lula ou para Flávio, e quanto o Brasil, cada região, cada estado e cada município se moveram além disso. As seções que faltam recebem o seu voto do 1º turno mais essa mudança, com comparecimento e votos válidos ajustados pelo estado.</p>
+    <p><strong>A base.</strong> Cada seção do 2º turno é exatamente a mesma do 1º turno, três semanas antes. Por isso sabemos, urna por urna, quantos votos cada candidato teve ali.</p>
+    <p><strong>O modelo.</strong> Em cada município, compara o apurado no 2º turno com o 1º turno das mesmas seções. Daí estima que fração dos eleitores de cada candidato eliminado foi para cada finalista, como votaram os eleitores que não tinham escolhido ninguém no 1º turno (abstenção, branco ou nulo) e quanto cada região e cada município se moveram além disso. As seções que faltam recebem o seu voto do 1º turno mais essa mudança, com comparecimento e votos válidos ajustados pelo estado.</p>
     <p><strong>A incerteza.</strong> A faixa de 90% e as chances de vitória vêm de sortear, centenas de vezes, valores plausíveis para essas estimativas e para os estados e municípios que ainda não apareceram.</p>
     <p><strong>O teste.</strong> Refizemos a apuração do 2º turno de 2022 usando o 1º turno de 2022 como base, com as urnas chegando numa ordem realista (horários reais de chegada do 1º turno de 2026). Com 1% apurado, o apurado bruto ainda errava o resultado final por mais de 4 pontos; a projeção errava por menos de 0,2 ponto. A faixa de 90% foi alargada em relação ao teste para dar folga às diferenças desta eleição.</p>
     <p>A projeção aparece a partir de 1% do eleitorado apurado. No comecinho ela ainda oscila.</p>
@@ -244,8 +244,31 @@ async function carregar(){
 
 function hora(iso){ try { return new Date(iso).toLocaleTimeString("pt-BR",{timeZone:"America/Sao_Paulo"}); } catch(e){ return iso; } }
 
+let NA = "A", NB = "B";
+function curto(c){ return c.curto || (c.nome || "").split(" ")[0]; }
+function primeiroTurno(d){
+  const p = d.primeiro_turno; if (!p || !p.validos) return "A apuração ainda não começou.";
+  const a = p.A / p.validos, b = p.B / p.validos;
+  return `No 1º turno: ${NA} ${pct(a)}% e ${NB} ${pct(b)}% dos votos válidos. <span>Somados, os outros candidatos tiveram ${pct(1 - a - b)}%.</span>`;
+}
+function aplicarCandidatos(d){
+  const c = d.candidatos || {};
+  if (c.A && c.B){
+    NA = curto(c.A); NB = curto(c.B);
+    document.querySelectorAll(".nA").forEach(e => e.textContent = c.A.nome);
+    document.querySelectorAll(".nB").forEach(e => e.textContent = c.B.nome);
+    document.querySelectorAll(".sA").forEach(e => e.textContent = NA);
+    document.querySelectorAll(".sB").forEach(e => e.textContent = NB);
+    if (c.A.cor) document.documentElement.style.setProperty("--ca", c.A.cor);
+    if (c.B.cor) document.documentElement.style.setProperty("--cb", c.B.cor);
+  }
+  if (d.titulo){ $("titulo").textContent = d.titulo; document.title = `Projeção · ${d.titulo}`; }
+  if (d.rotulo_unidades){ $("rotulo-unidades").textContent = d.rotulo_unidades;
+    $("th-unidade").textContent = d.cargo === "governador" ? "Região" : "Estado"; }
+}
 function render(d){
   dados = d;
+  aplicarCandidatos(d);
   const ap = d.apurado || {}, pj = d.projecao, of = d.oficial || {};
   const pctAp = (of.pest != null && of.pest > 0) ? of.pest/100 : (ap.pct_eleitorado || 0);
   const luz = $("luz");
@@ -272,20 +295,20 @@ function render(d){
     $("barraA").style.width = (100*pj.pA)+"%";
     $("banda").style.left = (100*pj.lo)+"%";
     $("banda").style.width = (100*(pj.hi-pj.lo))+"%";
-    const frase = pj.prob_A >= .9 ? "Pela projeção, Lula termina à frente."
-      : pj.prob_A <= .1 ? "Pela projeção, Flávio termina à frente."
-      : `Disputa ainda indefinida, com ${pj.pA >= .5 ? "Lula" : "Flávio"} ligeiramente à frente na projeção.`;
-    $("veredito").innerHTML = `${frase} <span>Faixa de 90%: Lula entre ${pct(pj.lo)}% e ${pct(pj.hi)}%.</span>`;
+    const frase = pj.prob_A >= .9 ? `Pela projeção, ${NA} termina à frente.`
+      : pj.prob_A <= .1 ? `Pela projeção, ${NB} termina à frente.`
+      : `Disputa ainda indefinida, com ${pj.pA >= .5 ? NA : NB} ligeiramente à frente na projeção.`;
+    $("veredito").innerHTML = `${frase} <span>Faixa de 90%: ${NA} entre ${pct(pj.lo)}% e ${pct(pj.hi)}%.</span>`;
     $("chance").hidden = false;
     const c = pj.prob_A;
     const fmt = p => p > .995 ? "> 99%" : p < .005 ? "< 1%" : Math.round(100*p)+"%";
     $("chA").textContent = fmt(c); $("chB").textContent = fmt(1-c);
-    $("chA").style.color = "var(--lula)"; $("chB").style.color = "var(--flavio)";
-    transferencias(pj.q);
+    $("chA").style.color = "var(--ca)"; $("chB").style.color = "var(--cb)";
+    transferencias(pj.q, pj.q_novos);
   } else {
     $("numA").textContent = "–"; $("numB").textContent = "–";
     $("veredito").innerHTML = d.status === "aguardando"
-      ? `No 1º turno: Flávio 47,0% e Lula 45,2% dos votos válidos. <span>Somados, os outros candidatos tiveram 7,8%.</span>`
+      ? primeiroTurno(d)
       : `Ainda pouco apurado para projetar. <span>A projeção aparece com 1% do eleitorado.</span>`;
     $("chance").hidden = true;
   }
@@ -295,17 +318,19 @@ function render(d){
   $("apPct").textContent = pct(pctAp,2)+"%";
   $("apA").textContent = A+B ? pct(A/(A+B),2)+"%" : "–";
   $("apB").textContent = A+B ? pct(B/(A+B),2)+"%" : "–";
-  $("apDif").textContent = A+B ? `${A>=B?"Lula":"Flávio"} +${int(Math.abs(A-B))}` : "–";
+  $("apDif").textContent = A+B ? `${A>=B?NA:NB} +${int(Math.abs(A-B))}` : "–";
   grafico(d); tabela(d);
   $("rodape-atual").textContent = `Última leitura do TSE: ${hora(d.atualizado)}.`;
 }
 
-function transferencias(q){
+function transferencias(q, novos){
   if (!q) return;
+  q = Object.fromEntries(Object.entries(q).map(([k, v]) => [`Eleitores de ${k}`, v]));
+  if (novos != null) q["Quem não escolheu ninguém no 1º turno"] = novos;
   $("sec-transf").hidden = false;
   $("transf").innerHTML = Object.entries(q).map(([nome,v]) =>
-    `<li><span>Eleitores de ${nome}</span><div class="mini" role="img" aria-label="${pct(v,0)}% para Lula">
-      <i style="width:${100*v}%"></i><span>Lula ${pct(v,0)}%</span><em>Flávio ${pct(1-v,0)}%</em></div></li>`).join("");
+    `<li><span>${nome}</span><div class="mini" role="img" aria-label="${pct(v,0)}% para ${NA}">
+      <i style="width:${100*v}%"></i><span>${NA} ${pct(v,0)}%</span><em>${NB} ${pct(1-v,0)}%</em></div></li>`).join("");
 }
 
 function tabela(d){
@@ -318,14 +343,14 @@ function tabela(d){
     return ordem.desc ? -r : r;
   });
   corpo.innerHTML = linhas.map(u => {
-    const cor = u.proj >= .5 ? "var(--lula)" : "var(--flavio)";
-    return `<tr><td>${u.uf === "ZZ" ? "Exterior" : u.uf}</td><td>${pct(u.apur,0)}%</td>
+    const cor = u.proj >= .5 ? "var(--ca)" : "var(--cb)";
+    return `<tr><td>${u.nome || u.uf}</td><td>${pct(u.apur,0)}%</td>
       <td>${u.apur > 0 ? pct(u.bruto)+"%" : "–"}</td>
       <td class="proj"><b style="color:${cor}">${pct(u.proj)}%</b></td><td>${int(u.votos)}</td></tr>`;
   }).join("");
 }
 document.querySelectorAll("th button").forEach(b => b.onclick = () => {
-  const k = b.dataset.k; ordem = {k, desc: ordem.k === k ? !ordem.desc : k !== "uf"};
+  const k = b.dataset.k; ordem = {k, desc: ordem.k === k ? !ordem.desc : k !== "nome"};
   if (dados) tabela(dados);
 });
 
@@ -345,7 +370,7 @@ function grafico(d){
   if (y1 - y0 < 0.06){ const c = (y0+y1)/2; y0 = c-0.03; y1 = c+0.03; }
   const X = x => m.l + iw*Math.min(1,Math.max(0,x));
   const Y = y => m.t + ih*(1-(y-y0)/(y1-y0));
-  const tinta2 = cor("--tinta2"), linha = cor("--linha"), lula = cor("--lula"), faixa = cor("--faixa");
+  const tinta2 = cor("--tinta2"), linha = cor("--linha"), lula = cor("--ca"), faixa = cor("--faixa");
   let g = "";
   // grade
   const passo = (y1-y0) > 0.2 ? 0.05 : (y1-y0) > 0.08 ? 0.02 : 0.01;
