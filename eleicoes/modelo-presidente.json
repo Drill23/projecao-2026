@@ -1,0 +1,18 @@
+{
+  "_como_usar": "Copie este arquivo, preencha e rode 'Preparar base' e depois 'Apuração ao vivo' na aba Actions. Códigos de eleição e pleito: resultados.tse.jus.br/oficial/comum/config/ele-c.json",
+  "id": "presidente-AAAA",
+  "titulo": "Presidente AAAA · 2º turno",
+  "ano": 2030,
+  "cargo": 1,
+  "uf": "BR",
+  "ciclo": "ele2030",
+  "eleicao_1t": "0000",
+  "pleito_1t": "0000",
+  "eleicao_2t": "0000",
+  "pleito_2t": "0000",
+  "A": {"numero": 0, "nome": "Candidato A", "cor": "#c8102e"},
+  "B": {"numero": 0, "nome": "Candidato B", "cor": "#1d4e9e"},
+  "outros_prior": {},
+  "pesquisa": {"pA": 0.50, "sd": 0.025},
+  "fim": "2030-10-28T04:30"
+}

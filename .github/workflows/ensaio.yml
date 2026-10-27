@@ -1,13 +1,22 @@
 name: Ensaio
-# Testa o robô com os arquivos reais do 1º turno (apuração completa) e lê o estado atual do
-# 2º turno. Não publica nada no ramo de dados (para não atrapalhar o robô ao vivo).
+# Testa o robô sem publicar nada: lê os arquivos do 1º turno (que já estão no TSE)
+# por alguns ciclos e mostra o que o robô vê.
 on:
+  # também roda quando o arquivo pedidos/ensaio.txt muda (uma linha: caminho da configuração)
+  push:
+    paths: ["pedidos/ensaio.txt"]
   workflow_dispatch:
+    inputs:
+      config:
+        description: "Arquivo de configuração (pasta eleicoes/)"
+        default: "eleicoes/presidente-2026.json"
+        required: true
+      turno:
+        description: "Turno dos arquivos a ler (1 = ensaio antes da eleição; 2 = depois)"
+        default: "1"
+        required: true
 permissions:
   contents: write
-concurrency:
-  group: ensaio
-  cancel-in-progress: false
 jobs:
   ensaio:
     runs-on: ubuntu-latest
@@ -17,22 +26,18 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install numpy scipy requests
-      - name: Ensaio com o 1º turno
-        env: { ELEICAO: "6257", PLEITO: "3220" }
+      - name: Ensaio
         run: |
+          CFG="${{ inputs.config }}"; [ -z "$CFG" ] && CFG=$(head -1 pedidos/ensaio.txt)
+          TURNO="${{ inputs.turno }}"; [ -z "$TURNO" ] && TURNO=$(sed -n 2p pedidos/ensaio.txt); [ -z "$TURNO" ] && TURNO=1
           mkdir -p logs
-          python -u scripts/ao_vivo.py --ciclos 8 --intervalo 30 --diag --boot 50 2>&1 | tee logs/ensaio.txt
-          cp saida/projecao.json logs/ensaio-1turno.json
-      - name: Estado atual do 2º turno (sem publicar)
-        run: |
-          git config user.name "projecao-bot"
-          git config user.email "projecao-bot@users.noreply.github.com"
-          rm -rf saida
-          python -u scripts/ao_vivo.py --uma-vez --diag 2>&1 | tee -a logs/ensaio.txt
+          python -u scripts/ao_vivo.py --config "$CFG" --turno $TURNO --ciclos 3 --intervalo 20 --diag --boot 60 2>&1 | tee logs/ensaio.txt
+          cp saida/projecao.json logs/ensaio.json || true
       - name: Salvar log
         if: always()
         run: |
-          git fetch origin main && git reset -q origin/main
+          git config user.name "projecao-bot"
+          git config user.email "projecao-bot@users.noreply.github.com"
           git add logs
           git commit -m "Log do ensaio" || exit 0
-          git push origin HEAD:main
+          git pull --rebase origin main && git push origin HEAD:main

@@ -1,0 +1,18 @@
+{
+  "_como_usar": "Um arquivo por estado com 2º turno. 'uf' é a sigla do estado e 'cargo' 3. Códigos em resultados.tse.jus.br/oficial/comum/config/ele-c.json (eleição estadual).",
+  "id": "governador-UF-AAAA",
+  "titulo": "Governador UF AAAA · 2º turno",
+  "ano": 2030,
+  "cargo": 3,
+  "uf": "SP",
+  "ciclo": "ele2030",
+  "eleicao_1t": "0000",
+  "pleito_1t": "0000",
+  "eleicao_2t": "0000",
+  "pleito_2t": "0000",
+  "A": {"numero": 0, "nome": "Candidato A", "cor": "#b5541a"},
+  "B": {"numero": 0, "nome": "Candidato B", "cor": "#1f6f78"},
+  "outros_prior": {},
+  "pesquisa": null,
+  "fim": "2030-10-28T02:00"
+}

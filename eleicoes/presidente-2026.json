@@ -1,0 +1,17 @@
+{
+  "id": "presidente-2026",
+  "titulo": "Presidente 2026 · 2º turno",
+  "ano": 2026,
+  "cargo": 1,
+  "uf": "BR",
+  "ciclo": "ele2026",
+  "eleicao_1t": "6257",
+  "pleito_1t": "3220",
+  "eleicao_2t": "6258",
+  "pleito_2t": "3221",
+  "A": {"numero": 13, "nome": "Lula", "cor": "#c8102e"},
+  "B": {"numero": 22, "nome": "Flávio Bolsonaro", "cor": "#1d4e9e"},
+  "outros_prior": {"70": 0.30, "14": 0.25, "55": 0.30},
+  "pesquisa": null,
+  "fim": "2026-10-26T04:30"
+}

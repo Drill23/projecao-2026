@@ -1,8 +1,10 @@
-"""Loop da noite da eleição: lê o TSE a cada ciclo, projeta e publica.
+"""Robô da noite da eleição (v2): lê o TSE a cada ciclo, projeta e publica.
 
-Uso:  python scripts/ao_vivo.py --ate 2026-10-26T01:00 [--intervalo 60] [--publicar]
-Saída: saida/projecao.json (o que a página mostra). Com --publicar, cada ciclo vira um
-commit único (forçado) no ramo `dados` do repositório.
+Uso:  python scripts/ao_vivo.py --config eleicoes/presidente-2026.json --ate 2026-10-26T04:30 --publicar
+      python scripts/ao_vivo.py --config ... --turno 1 --uma-vez --diag   (ensaio com o 1º turno)
+Saída: saida/projecao.json (o que a página mostra) e saida/snapshots/*.npz (uma foto por ciclo).
+Com --publicar, cada ciclo vira um commit único (forçado) no ramo `dados` do repositório.
+Serve para presidente (cargo 1, abrangência BR) e governador (cargo 3, uma UF).
 """
 from __future__ import annotations
 
@@ -19,17 +21,27 @@ import traceback
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from projecao.dados import Base2026  # noqa: E402
+from projecao.base import BaseEleicao, carregar_config  # noqa: E402
 
-DIV = "https://resultados.tse.jus.br/oficial/ele2026"
-ELE = os.environ.get("ELEICAO", "6258")      # 6257 = 1º turno (ensaio)
-PLEITO = os.environ.get("PLEITO", "3221")    # 3220 = 1º turno (ensaio)
-E6, P6 = f"{int(ELE):06d}", f"{int(PLEITO):06d}"
 BRT = dt.timezone(dt.timedelta(hours=-3))
 OUT = "saida"
 MIN_PCT = 0.01          # só mostra projeção a partir de 1% do eleitorado apurado
-NOMES = {"A": {"nome": "Lula", "numero": 13, "partido": "PT"},
-         "B": {"nome": "Flávio Bolsonaro", "numero": 22, "partido": "PL"}}
+REPO = os.environ.get("GITHUB_REPOSITORY", "Drill23/projecao-2026")
+# preenchidos por configurar()
+CFG = {}
+DIV = ELE = PLEITO = E6 = P6 = CARGO = ""
+NA = NB = ""
+
+
+def configurar(cfg, turno=2):
+    global CFG, DIV, ELE, PLEITO, E6, P6, CARGO, NA, NB
+    CFG = cfg
+    DIV = f"https://resultados.tse.jus.br/oficial/{cfg['ciclo']}"
+    ELE = str(cfg["eleicao_2t"] if turno == 2 else cfg["eleicao_1t"])
+    PLEITO = str(cfg["pleito_2t"] if turno == 2 else cfg["pleito_1t"])
+    E6, P6 = f"{int(ELE):06d}", f"{int(PLEITO):06d}"
+    CARGO = f"c{int(cfg['cargo']):04d}"
+    NA, NB = str(cfg["A"]["numero"]), str(cfg["B"]["numero"])
 
 
 def agora():
@@ -49,7 +61,7 @@ def _sessao():
     s = getattr(_local, "s", None)
     if s is None:
         s = requests.Session()
-        s.headers.update({"User-Agent": "Mozilla/5.0 (projecao-2026; github.com/Drill23/projecao-2026)",
+        s.headers.update({"User-Agent": "Mozilla/5.0 (projecao-eleitoral)",
                           "Accept-Encoding": "gzip, deflate"})
         s.mount("https://", HTTPAdapter(pool_connections=4, pool_maxsize=8, max_retries=0))
         _local.s = s
@@ -76,6 +88,19 @@ def get_json(url, tentativas=4):
     return None
 
 
+def votos_AB(d):
+    A = B = 0.0
+    for cg in d.get("carg", []):
+        for ag in cg.get("agr", []):
+            for p in ag.get("par", []):
+                for c in p.get("cand", []):
+                    if str(c.get("n")) == NA:
+                        A = num(c.get("vap"))
+                    elif str(c.get("n")) == NB:
+                        B = num(c.get("vap"))
+    return A, B
+
+
 def num(x):
     try:
         return float(str(x).replace(",", "."))
@@ -84,7 +109,7 @@ def num(x):
 
 
 class Estado:
-    def __init__(self, base: Base2026):
+    def __init__(self, base: BaseEleicao):
         self.base = base
         n = base.n_mun
         self.A = np.zeros(n)
@@ -104,7 +129,6 @@ class Estado:
         self.cd_de_mun = np.array([k[2:] for k in base.mun_keys])
         self.n_lidos = 0
         self.cont = np.zeros(base.n, bool)
-        self.uf_hg = {}
         self.serie = []
         self.modelo = base.modelo()
         self.oficial = {}
@@ -117,7 +141,7 @@ class Estado:
         ufs_mud, muns_mud = set(), []
 
         def f(uf):
-            return uf, get_json(f"{DIV}/{ELE}/dados/{uf}/{uf}-e{E6}-ab.json")
+            return uf, get_json(f"{DIV}/{ELE}/dados/{uf.lower()}/{uf.lower()}-e{E6}-ab.json")
         with cf.ThreadPoolExecutor(6) as ex:
             res = list(ex.map(f, self.base.ufs))
         for uf, d in res:
@@ -126,7 +150,7 @@ class Estado:
             for a in d.get("abr", []):
                 if a.get("tpabr") != "mun":
                     continue
-                k = uf + a["cdabr"]
+                k = uf.upper() + a["cdabr"]
                 i = self.base.mun_idx.get(k)
                 if i is None:
                     continue
@@ -149,20 +173,12 @@ class Estado:
 
         def f(item):
             uf, cd, i = item
-            return i, get_json(f"{DIV}/{ELE}/dados/{uf}/{uf}{cd}-c0001-e{E6}-u.json")
+            return i, get_json(f"{DIV}/{ELE}/dados/{uf.lower()}/{uf.lower()}{cd}-{CARGO}-e{E6}-u.json")
         with cf.ThreadPoolExecutor(12) as ex:
             for i, d in ex.map(f, muns):
                 if not d:
                     continue
-                A = B = 0.0
-                for cg in d.get("carg", []):
-                    for ag in cg.get("agr", []):
-                        for p in ag.get("par", []):
-                            for c in p.get("cand", []):
-                                if str(c.get("n")) == "13":
-                                    A = num(c.get("vap"))
-                                elif str(c.get("n")) == "22":
-                                    B = num(c.get("vap"))
+                A, B = votos_AB(d)
                 novo_est = num(d["e"].get("est"))
                 if novo_est != self.est[i] or A != self.A[i]:
                     mudou.add(self.uf_de_mun[i])
@@ -176,22 +192,22 @@ class Estado:
     def ler_ufs(self):
         """Resultado agregado de cada UF: mostra em que UFs há votos que ainda não lemos."""
         def f(uf):
-            return uf, get_json(f"{DIV}/{ELE}/dados/{uf}/{uf}-c0001-e{E6}-u.json")
+            return uf, get_json(f"{DIV}/{ELE}/dados/{uf.lower()}/{uf.lower()}-{CARGO}-e{E6}-u.json")
         with cf.ThreadPoolExecutor(6) as ex:
             for uf, d in ex.map(f, self.base.ufs):
                 if d:
                     self.est_uf_res[uf] = max(self.est_uf_res.get(uf, 0), num(d["e"].get("est")))
         # andamento nacional por UF (outro arquivo, às vezes à frente dos demais)
-        d = get_json(f"{DIV}/{ELE}/dados/br/br-e{E6}-ab.json")
+        d = get_json(f"{DIV}/{ELE}/dados/br/br-e{E6}-ab.json") if CFG["uf"].upper() == "BR" else None
         if d:
             for a in d.get("abr", []):
-                if a.get("tpabr") == "uf" and a.get("cdabr") in self.base.ufs:
-                    uf = a["cdabr"]
+                if a.get("tpabr") == "uf" and a.get("cdabr", "").upper() in self.base.ufs:
+                    uf = a["cdabr"].upper()
                     self.est_uf_res[uf] = max(self.est_uf_res.get(uf, 0), num(a["e"].get("est")))
 
     def ler_secoes(self, ufs):
         def f(uf):
-            return uf, get_json(f"{DIV}/arquivo-urna/{PLEITO}/config/{uf}/{uf}-p{P6}-cs.json")
+            return uf, get_json(f"{DIV}/arquivo-urna/{PLEITO}/config/{uf.lower()}/{uf.lower()}-p{P6}-cs.json")
         with cf.ThreadPoolExecutor(4) as ex:
             for uf, d in ex.map(f, sorted(ufs)):
                 if not d:
@@ -200,7 +216,7 @@ class Estado:
                 self.ufs_pend.discard(uf)
                 for ab in d.get("abr", []):
                     for mu in ab.get("mu", []):
-                        mk = uf + mu["cd"]
+                        mk = uf.upper() + mu["cd"]
                         for zo in mu.get("zon", []):
                             z = int(zo["cd"])
                             for se in zo.get("sec", []):
@@ -210,18 +226,11 @@ class Estado:
                                         self.cont[i] = True
 
     def ler_brasil(self):
-        d = get_json(f"{DIV}/{ELE}/dados/br/br-c0001-e{E6}-u.json")
+        ab = CFG["uf"].lower()
+        d = get_json(f"{DIV}/{ELE}/dados/{ab}/{ab}-{CARGO}-e{E6}-u.json")
         if not d:
             return
-        A = B = 0.0
-        for cg in d.get("carg", []):
-            for ag in cg.get("agr", []):
-                for p in ag.get("par", []):
-                    for c in p.get("cand", []):
-                        if str(c.get("n")) == "13":
-                            A = num(c.get("vap"))
-                        elif str(c.get("n")) == "22":
-                            B = num(c.get("vap"))
+        A, B = votos_AB(d)
         self.oficial = {
             "A": A, "B": B, "pA": A / (A + B) if A + B > 0 else None,
             "pst": num(d["s"].get("pst")), "pest": num(d["e"].get("pest")),
@@ -275,7 +284,7 @@ class Estado:
         proj = None
         if pct >= MIN_PCT:
             try:
-                o = self.modelo.projetar(self.cont, obs, n_boot=n_boot, seed=len(self.serie))
+                o = self.modelo.projetar(self.cont, obs, n_draws=n_boot, seed=len(self.serie))
                 if o.get("ok"):
                     proj = o
             except Exception:  # noqa: BLE001
@@ -298,41 +307,59 @@ class Estado:
         ponto = {"t": agora().strftime("%H:%M:%S"), "pct": round(pct, 6),
                  "bruto": None if bruto is None else round(bruto, 6)}
         if proj:
-            ponto.update({"proj": round(proj["pA"], 6), "lo": round(proj["pA_lo"], 6),
-                          "hi": round(proj["pA_hi"], 6), "prob": round(proj["prob_A"], 4)})
+            ponto.update({"proj": round(proj["pA"], 6), "lo": round(proj["lo"], 6),
+                          "hi": round(proj["hi"], 6), "prob": round(proj["prob_A"], 4)})
         if status != "aguardando" and (not self.serie or self.serie[-1]["pct"] != ponto["pct"]
                                       or self.serie[-1].get("proj") != ponto.get("proj")):
             self.serie.append(ponto)
-        ufs = []
-        for j, u in enumerate(self.base.ufs):
-            linha = {"uf": u.upper()}
-            m = self.base.uf == j
+        meta = self.base.meta
+        unidades = []
+        for j, nome in enumerate(meta["l2_nomes"]):
+            if not (self.base.l2 == j).any():
+                continue
+            linha = {"nome": "Exterior" if nome == "ZZ" else nome}
             if proj:
-                linha.update({"proj": round(proj["uf_pA"][j], 5), "apur": round(proj["uf_apur"][j], 5),
-                              "bruto": round(proj["uf_obs_pA"][j], 5), "votos": round(proj["uf_V"][j])})
-            ufs.append(linha)
+                linha.update({"proj": round(proj["u_pA"][j], 5), "apur": round(proj["u_apur"][j], 5),
+                              "bruto": round(proj["u_bruto"][j], 5), "votos": round(proj["u_V"][j])})
+            unidades.append(linha)
+        nomes_q = [o["nome"].title() for o in meta["outros"]] + ["demais candidatos"]
         out = {
             "atualizado": agora().isoformat(timespec="seconds"),
             "status": status,
-            "candidatos": NOMES,
+            "titulo": CFG.get("titulo", ""),
+            "cargo": meta["cargo"],
+            "rotulo_unidades": "Por estado" if meta["cargo"] == "presidente" else "Por região do estado",
+            "candidatos": {"A": CFG["A"], "B": CFG["B"]},
+            "primeiro_turno": {"A": meta["totais_1t"]["A1"], "B": meta["totais_1t"]["B1"],
+                               "validos": sum(meta["totais_1t"][g] for g in ("A1", "B1", "O1", "O2", "O3", "OR"))},
             "apurado": {"A": Aap, "B": Bap, "pA": bruto, "pct_eleitorado": pct,
                         "comparecimento": float(self.comp.sum())},
             "oficial": ofic,
             "projecao": None if not proj else {
-                "pA": proj["pA"], "lo": proj["pA_lo"], "hi": proj["pA_hi"], "prob_A": proj["prob_A"],
-                "A": proj["A"], "B": proj["B"], "q": dict(zip(["Cury", "Renan Santos", "Caiado"],
-                                                             [round(x, 3) for x in proj["q"][:3]])),
-                "comparecimento_rel": proj["turn_nat"], "validos_rel": proj["val_nat"],
-                "n_mun": proj["n_mun_obs"]},
-            "ufs": ufs,
+                "pA": proj["pA"], "lo": proj["lo"], "hi": proj["hi"], "prob_A": proj["prob_A"],
+                "A": proj["A"], "B": proj["B"],
+                "q": dict(zip(nomes_q, [round(x, 3) for x in proj["q"]])),
+                "q_novos": round(proj["qN"], 3),
+                "comparecimento_rel": proj["turn"], "validos_rel": proj["val"],
+                "cobertura_U": round(proj["U"], 4), "n_mun": proj["n_mun_obs"]},
+            "ufs": unidades,
             "serie": self.serie,
             "tempos": {"leitura_s": round(t_leitura, 1), "modelo_s": round(t_modelo, 1)},
+            "modelo": "v2",
         }
         os.makedirs(OUT, exist_ok=True)
         tmp = os.path.join(OUT, "projecao.json.tmp")
         with open(tmp, "w", encoding="utf-8") as f:
             json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
         os.replace(tmp, os.path.join(OUT, "projecao.json"))
+        # foto do estado (para análise depois da eleição)
+        try:
+            os.makedirs(os.path.join(OUT, "snapshots"), exist_ok=True)
+            np.savez_compressed(os.path.join(OUT, "snapshots", agora().strftime("%H%M%S") + ".npz"),
+                                A=self.A, B=self.B, est=self.est, comp=self.comp, te=self.te,
+                                cont=np.packbits(self.cont), pct_oficial=(ofic or {}).get("pest") or 0)
+        except Exception:  # noqa: BLE001
+            pass
         return out
 
 
@@ -357,6 +384,8 @@ def publicar(repo_dir):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--config", required=True, help="arquivo em eleicoes/*.json")
+    ap.add_argument("--turno", type=int, default=2, help="2 = noite do 2º turno; 1 = ensaio com o 1º turno")
     ap.add_argument("--ate", default=None, help="hora de parar (Brasília), ex. 2026-10-26T01:00")
     ap.add_argument("--max-min", type=float, default=345, help="duração máxima em minutos")
     ap.add_argument("--intervalo", type=float, default=60)
@@ -369,13 +398,19 @@ def main():
     fim = agora() + dt.timedelta(minutes=a.max_min)
     if a.ate:
         fim = min(fim, dt.datetime.fromisoformat(a.ate).replace(tzinfo=BRT))
-    base = Base2026()
+    cfg = carregar_config(a.config)
+    configurar(cfg, a.turno)
+    if not a.ate and cfg.get("fim"):
+        fim = min(fim, dt.datetime.fromisoformat(cfg["fim"]).replace(tzinfo=BRT))
+        a.ate = cfg["fim"]
+    base = BaseEleicao(cfg)
     est = Estado(base)
     # retoma a série publicada (se o robô for reiniciado no meio da apuração)
     try:
-        url = "https://raw.githubusercontent.com/Drill23/projecao-2026/dados/projecao.json"
-        ant = get_json(url)
-        if ant and ant.get("serie") and ant.get("atualizado", "")[:10] == agora().strftime("%Y-%m-%d"):
+        url = f"https://raw.githubusercontent.com/{REPO}/dados/projecao.json"
+        ant = get_json(url) if a.publicar else None
+        if (ant and ant.get("serie") and ant.get("titulo") == cfg.get("titulo")
+                and ant.get("atualizado", "")[:10] == agora().strftime("%Y-%m-%d")):
             est.serie = ant["serie"]
             est.retomando = True     # reinício no meio da apuração: só publica depois de pôr tudo em dia
     except Exception:  # noqa: BLE001

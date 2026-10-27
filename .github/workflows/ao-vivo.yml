@@ -1,31 +1,23 @@
 name: Apuração ao vivo
-# Liga sozinho no dia 25/10 pouco antes das 17h (Brasília) e roda até a apuração terminar.
-# O agendamento do GitHub costuma atrasar alguns minutos, por isso o primeiro disparo é às
-# 16:47 e há reservas. Cada execução dura até ~5h50; a execução seguinte (já na fila)
-# continua de onde parou se a apuração ainda não tiver acabado.
-# Também pode ser ligado à mão: aba Actions -> "Apuração ao vivo" -> Run workflow.
+# Desligado por padrão: só roda quando alguém clica em "Run workflow" (aba Actions).
+# Cada execução dura até ~5h45; se a apuração continuar, o próprio robô liga a próxima.
 on:
-  schedule:
-    - cron: "47 19 25 10 *"   # 16:47 Brasília
-    - cron: "3 20 25 10 *"    # 17:03 (reserva)
-    - cron: "19 20 25 10 *"   # 17:19 (reserva)
-    - cron: "41 1 26 10 *"    # 22:41 (continuação, se ainda houver apuração)
-  # uma correção no robô reinicia a execução em andamento (ela retoma de onde parou)
-  push:
-    branches: [main]
-    paths: ["scripts/ao_vivo.py", "projecao/**", ".github/workflows/ao-vivo.yml"]
   workflow_dispatch:
     inputs:
-      ensaio:
-        description: "Ensaio com os arquivos do 1º turno (uma rodada só)"
-        type: boolean
-        default: false
+      config:
+        description: "Arquivo de configuração (pasta eleicoes/)"
+        default: "eleicoes/presidente-2026.json"
+        required: true
+      ate:
+        description: "Hora de parar, horário de Brasília (vazio = campo 'fim' da configuração)"
+        default: ""
+        required: false
 permissions:
   contents: write
   actions: write
 concurrency:
   group: ao-vivo
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   apuracao:
     runs-on: ubuntu-latest
@@ -36,24 +28,25 @@ jobs:
         with: { python-version: "3.12" }
       - run: pip install numpy scipy requests
       - name: Loop da apuração
-        env:
-          ELEICAO: ${{ inputs.ensaio && '6257' || '6258' }}
-          PLEITO: ${{ inputs.ensaio && '3220' || '3221' }}
         run: |
           git config user.name "projecao-bot"
           git config user.email "projecao-bot@users.noreply.github.com"
-          if [ "${{ inputs.ensaio }}" = "true" ]; then
-            python -u scripts/ao_vivo.py --uma-vez --boot 60
-            mkdir -p logs && cp saida/projecao.json logs/ensaio.json
-            git add logs/ensaio.json && git commit -qm "Ensaio" && git push -q origin HEAD:main || true
-          else
-            python -u scripts/ao_vivo.py --publicar --ate 2026-10-26T04:30 --max-min 345
-          fi
+          ARGS="--config ${{ inputs.config }} --publicar --max-min 345"
+          if [ -n "${{ inputs.ate }}" ]; then ARGS="$ARGS --ate ${{ inputs.ate }}"; fi
+          python -u scripts/ao_vivo.py $ARGS
+      - name: Guardar as fotos de cada ciclo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshots-${{ github.run_id }}
+          path: saida/
+          retention-days: 90
       - name: Renovar (liga uma execução nova se a apuração continua)
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ -f saida/renovar ]; then
-            gh workflow run ao-vivo.yml --ref main -R "${{ github.repository }}"
+            gh workflow run ao-vivo.yml --ref main -R "${{ github.repository }}" \
+              -f config="${{ inputs.config }}" -f ate="${{ inputs.ate }}"
           fi
